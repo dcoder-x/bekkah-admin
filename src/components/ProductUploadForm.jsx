@@ -1,30 +1,34 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/solid";
-import { ToggleSwitch ,Checkbox} from "./FormComponents.jsx";
+import { ToggleSwitch, Checkbox } from "./FormComponents.jsx";
 import { TagInput } from "./Tags.jsx";
 import { CategoryInput } from "./CategoryInput.jsx";
 import CategorySelect from "./CategorySelect.jsx";
-
+import axios from 'axios'
 
 function ProductUploadForm() {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productPrice, setProductPrice] = useState("");
+  const formRef = useRef()
   const [productVariants, setProductVariants] = useState([
-    { name: "", value: "" },
+    { name: "", value: "", quantity: "" },
   ]);
+  const [selectedCategories, setSelectedCategories] = useState();
   const [productImages, setProductImages] = useState([]);
 
   const handleVariantChange = (index, field, value) => {
     const newVariants = [...productVariants];
     newVariants[index][field] = value;
+    console.log(newVariants);
     setProductVariants(newVariants);
+    console.log(productVariants);
   };
 
   const handleVariantAdd = () => {
     const newVariants = [...productVariants];
-    newVariants.push({ name: "", value: "" });
+    newVariants.push({ name: "", value: "", quantity: "" });
     setProductVariants(newVariants);
   };
 
@@ -49,18 +53,51 @@ function ProductUploadForm() {
     );
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Send form data to server
+  const handleCategorySelect = (category) => {
+    console.log(category);
+    setSelectedCategories(category.name);
+    console.log(selectedCategories);
+  };
+
+
+
+
+  //handle form
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(e.target)
+    const data = new FormData(e.target||formRef.current);
+    productImages.forEach((image) => data.append("images", image));
+    data.append('category', selectedCategories)
+    data.append('variants',productVariants)
+    const formObject = {};
+    for (const [key, value] of data.entries()) {
+      formObject[key] = value;
+    }
+
+
+    try {
+        console.log(data)
+      const response = await axios.post("http://localhost:4000/api/product/create", data,{
+        headers:{
+            'x-auth-token':`${localStorage.getItem('sellerAuthToken')}`
+        }
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+    ref={formRef}
+      onSubmit={e=>handleSubmit(e)}
+      encType="multipart/form-data"
       className=" w-full flex flex-col lg:flex-row items-start justify-center"
     >
       <div className="">
-
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
             Product Name
@@ -70,8 +107,9 @@ function ProductUploadForm() {
             id="name"
             type="text"
             placeholder="Enter product name"
-            value={productName}
-            onChange={(event) => setProductName(event.target.value)}
+            // value={productName}
+            // onChange={(event) => setProductName(event.target.value)}
+            name="name"
             required
           />
         </div>
@@ -86,8 +124,22 @@ function ProductUploadForm() {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="description"
             placeholder="Enter product description"
-            value={productDescription}
-            onChange={(event) => setProductDescription(event.target.value)}
+            // value={productDescription}
+            // onChange={(event) => setProductDescription(event.target.value)}
+            name='description'
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2" htmlFor="price">
+            Product quantity
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="price"
+            type="number"
+            placeholder="Enter quantity in stock"
+            name="numberInStock"
             required
           />
         </div>
@@ -100,12 +152,39 @@ function ProductUploadForm() {
             id="price"
             type="number"
             placeholder="Enter product price"
-            value={productPrice}
-            onChange={(event) => setProductPrice(event.target.value)}
+            // value={productPrice}
+            // onChange={(event) => setProductPrice(event.target.value)}
+            name="price"
             required
           />
         </div>
-        <CategorySelect/>
+        <div>
+          <label className="block font-medium mb-2">Select Currency:</label>
+          <div className="relative inline-block w-40">
+            <select
+              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              //   value={currency}
+              //   onChange={handleCurrencyChange}
+              name="currency"
+            >
+              <option value="NGN">NGN</option>
+              <option value="USD">USD</option>
+              <option value="GBP">GBP</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9 11l5-5-5-5V11z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <CategorySelect
+          OnSelectCategories={(category) => handleCategorySelect(category)}
+        />
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2">
             Product Variants
@@ -129,6 +208,16 @@ function ProductUploadForm() {
                 value={variant.value}
                 onChange={(event) =>
                   handleVariantChange(index, "value", event.target.value)
+                }
+                required
+              />
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
+                type="number"
+                placeholder="Variant quantity"
+                value={variant.quantity}
+                onChange={(event) =>
+                  handleVariantChange(index, "quantity", event.target.value)
                 }
                 required
               />
@@ -218,14 +307,14 @@ function ProductUploadForm() {
         </div>
         <div className="flex justify-end">
           <button
-            type="button"
+            type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
           >
             Save
           </button>
           <button
-            type="button"
+            type="reset"
             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
             //   onClick={handleCancel}
           >
@@ -234,10 +323,8 @@ function ProductUploadForm() {
         </div>
       </div>
       <div className="flex px-4 flex-col md:flex-row gap-4 add-stock-column column-actions">
-
-      <FormComponent />
+        <FormComponent />
       </div>
-
     </form>
   );
 }
@@ -290,7 +377,7 @@ const FormComponent = () => {
             This will be used by Buyer to search the product. Type the tag and
             click on enter to add another tag
           </p>
-        <TagInput/>
+          <TagInput />
         </div>
       </div>
     </div>

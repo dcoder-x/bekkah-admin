@@ -36,6 +36,13 @@ export default function Sidebar() {
                   <div className=" subMenu overflow-hidden min-h-0 h-0 transition bg-white rounded-md shadow-sm">
                     {menu.sublinks.map((subMenu) => {
                       return (
+                        subMenu.link?
+                        <Link to={subMenu.link}>
+                           <li className="sidebarListItem flex">
+                          <Icon icon={subMenu?.icon} />
+                          <p className=" mx-4 text-sm">{subMenu.name}</p>
+                        </li>
+                        </Link>:
                         <li className="sidebarListItem flex">
                           <Icon icon={subMenu?.icon} />
                           <p className=" mx-4 text-sm">{subMenu.name}</p>

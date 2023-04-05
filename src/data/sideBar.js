@@ -11,10 +11,13 @@ export const sideBarMenu = [
       {
         name: "Shop Inventory",
         icon: "",
+        link: "products",
       },
       {
         name: "Product tags",
         icon: "",
+        // link: "manage-shop",
+
       },
       {
         name: "Product Options",

@@ -92,13 +92,13 @@ console.log(formObject);
               <div class="mb-6">
                 <button
                   type="submit"
-                  onClick={e=>{navigate('/dashboard')}}
+                  onClick={e=>{signIn(e)}}
                   class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none"
                 >
                   Sign in
                 </button>
               </div>
-              <p class="text-sm text-center text-gray-400">
+              {/* <p class="text-sm text-center text-gray-400">
                 Don&#x27;t have an account yet?{" "}
                 <a
                   href="#!"
@@ -107,7 +107,7 @@ console.log(formObject);
                   Sign up
                 </a>
                 .
-              </p>
+              </p> */}
             </form>
           </div>
         </div>

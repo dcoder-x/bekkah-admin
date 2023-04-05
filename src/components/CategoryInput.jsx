@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function CategoryInput() {
+export function CategoryInput({OnSelectCategories}) {
   const [categories, setCategories] = useState([]);
 
   const handleAddCategory = (e) => {
@@ -9,6 +9,7 @@ export function CategoryInput() {
     const newCategory = input.value.trim();
     if (newCategory && !categories.includes(newCategory)) {
       setCategories([...categories, newCategory]);
+      OnSelectCategories(categories)
       input.value = '';
     }
   };

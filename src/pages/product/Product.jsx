@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ReactImageGallery from "react-image-gallery";
+import ProductUploadForm from "../../components/ProductUploadForm";
 
 const ProductDetail = () => {
   // Sample product data
@@ -180,7 +181,7 @@ const ProductDetail = () => {
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-      {isEditMode ? renderEditMode() : renderViewMode()}
+      {isEditMode ? (<ProductUploadForm/>) : renderViewMode()}
     </div>
   );
 };
