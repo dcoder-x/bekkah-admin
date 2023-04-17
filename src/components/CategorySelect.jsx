@@ -22,7 +22,7 @@ const CategorySelect = ({ OnSelectCategories }) => {
 
   const handleCategoryRemove = (category) => {
     const newSelectedCategories = selectedCategories.filter(
-      (c) => c.id !== category.id
+      (c) => c !== category
     );
     setSelectedCategories(newSelectedCategories);
   };
@@ -30,30 +30,27 @@ const CategorySelect = ({ OnSelectCategories }) => {
   return (
     <div className="my-4">
       <label className="block text-gray-700 font-bold mb-2">Categories</label>
-      <div className="flex flex-wrap">
-        {categories.map((category) => (
-          <div
-            key={category.id}
-            className="px-4 py-2 rounded-full bg-gray-200 text-gray-700 mr-2 mb-2 flex items-center"
-          >
-            <input
-              type="checkbox"
-              className="form-checkbox h-5 w-5 text-gray-600"
-              value={category.name}
-              onChange={() => handleCategorySelect(category)}
-            />
-            <span className="ml-2">{category.name}</span>
-          </div>
-        ))}
-      </div>
+      <select name="" id="" onChange={e=>{handleCategorySelect(e.currentTarget.value)}}>
+    <optgroup>
+      {
+        categories.map((category)=>{
+          return(
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          )
+        })
+      }
+    </optgroup>
+      </select>
       {selectedCategories.length > 0 && (
         <div className="flex flex-wrap my-2">
-          {selectedCategories.map((category) => (
+          {selectedCategories.map((category,i) => (
             <div
-              key={category.id}
+              key={i}
               className="px-2 py-1 rounded-full bg-blue-500 text-white mr-2 mb-2 flex items-center"
             >
-              <span>{category.name}</span>
+              <span>{category}</span>
               <button 
                 type="button"
                 className="ml-2"

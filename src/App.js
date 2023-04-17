@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "react-hot-toast";
+import CreateShopProfileForm from "./pages/CreateShopProfile";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" index element={<SignIn />} />
         <Route path="/signin" index element={<SignIn />} />
+        <Route path="/shopSetup" index element={<CreateShopProfileForm />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
       </Routes>
       <Toaster

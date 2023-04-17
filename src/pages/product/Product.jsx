@@ -1,34 +1,68 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ReactImageGallery from "react-image-gallery";
 import ProductUploadForm from "../../components/ProductUploadForm";
+import { useLocation } from "react-router";
+import { toast } from "react-hot-toast";
 
 const ProductDetail = () => {
+
+  const location = useLocation()
+  const [imagesrc, setImageSrc] = useState([]),
+  product = location.state
+
+  // let formatProductImages = [];
+useEffect(()=>{
+    product.productImage.forEach((image)=>{
+    setImageSrc([...imagesrc,{
+      original: image,
+      thumbnail: image
+    }])
+  })
+},[])
+
+
+  const defaultImages = [
+        {
+          original: "https://via.placeholder.com/400x400",
+          thumbnail: "https://via.placeholder.com/100x100",
+        },
+        {
+          original: "https://via.placeholder.com/400x400",
+          thumbnail: "https://via.placeholder.com/100x100",
+        },
+        {
+          original: "https://via.placeholder.com/400x400",
+          thumbnail: "https://via.placeholder.com/100x100",
+        },
+      ]
+  
+
   // Sample product data
-  const product = {
-    id: "123",
-    name: "Sample Product",
-    description: "This is a sample product description",
-    price: 9.99,
-    currency: "USD",
-    salePrice: 7.99,
-    images: [
-      {
-        original: "https://via.placeholder.com/400x400",
-        thumbnail: "https://via.placeholder.com/100x100",
-      },
-      {
-        original: "https://via.placeholder.com/400x400",
-        thumbnail: "https://via.placeholder.com/100x100",
-      },
-      {
-        original: "https://via.placeholder.com/400x400",
-        thumbnail: "https://via.placeholder.com/100x100",
-      },
-    ],
-  };
+  // const product = {
+  //   id: "123",
+  //   name: "Sample Product",
+  //   description: "This is a sample product description",
+  //   price: 9.99,
+  //   currency: "USD",
+  //   salePrice: 7.99,
+  //   images: [
+  //     {
+  //       original: "https://via.placeholder.com/400x400",
+  //       thumbnail: "https://via.placeholder.com/100x100",
+  //     },
+  //     {
+  //       original: "https://via.placeholder.com/400x400",
+  //       thumbnail: "https://via.placeholder.com/100x100",
+  //     },
+  //     {
+  //       original: "https://via.placeholder.com/400x400",
+  //       thumbnail: "https://via.placeholder.com/100x100",
+  //     },
+  //   ],
+  // };
 
   const [isEditMode, setIsEditing] = useState(false);
   const [productName, setProductName] = useState(product.name);
@@ -139,7 +173,7 @@ const ProductDetail = () => {
     return (
       <div className="px-4 py-5 sm:px-6">
         <div className="mb-6">
-          <ReactImageGallery items={product.images} />
+          <ReactImageGallery items={imagesrc} onImageError={e=>{setImageSrc(defaultImages);toast('product images did not load properly')}} />
         </div>
         <div className="border-t border-gray-200 py-4">
           <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function TagInput() {
+export function TagInput({onTagSelect,required}) {
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
 
@@ -11,6 +11,7 @@ export function TagInput() {
   const handleInputKeyDown = (event) => {
     if (event.key === "Enter" && tagInput) {
       setTags([...tags, tagInput]);
+      onTagSelect(tags)
       setTagInput("");
     }
   };
@@ -18,6 +19,7 @@ export function TagInput() {
   const handleTagDelete = (tagToDelete) => {
     const filteredTags = tags.filter((tag) => tag !== tagToDelete);
     setTags(filteredTags);
+    onTagSelect(filteredTags)
   };
 
   return (
@@ -56,6 +58,7 @@ export function TagInput() {
         <input
           type="text"
           value={tagInput}
+          required={required}
           onChange={handleInputChange}
           onKeyDown={handleInputKeyDown}
           className="border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 flex-grow rounded-md pl-2 py-1 text-sm"

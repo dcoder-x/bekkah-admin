@@ -14,6 +14,10 @@ import ShopForm from "../components/ShopProfileForm";
 import ManageShop from "./ManageShop";
 import ProductUploadForm from "../components/ProductUploadForm";
 import ProductDetail from "./product/Product";
+import SubscriptionPlans from "./SubscriptionPlans";
+import Orders from "./Orders";
+import OrderDetails from "../components/OrderDetails";
+import SellerProfile from "./SellerProfile";
 
 const Dashboard = () => {
   return (
@@ -38,12 +42,22 @@ const Dashboard = () => {
           <Route path="/newUser" element={<NewUser />}>
             
           </Route>
+          <Route path="/orders" element={<Orders/>}>
+            
+            </Route>
+            <Route path="/orders-details" element={<OrderDetails/>}>
+            
+            </Route>
+          <Route path="/subscription" element={<SubscriptionPlans />}>
+            
+            </Route>
           <Route path="/products" element={ <ProductList />}>
            
           </Route>
           <Route path="/product" element={ <ProductDetail />}>
            
           </Route>
+          <Route path="/profile" element={<SellerProfile/>}/>
           <Route path="/newproduct" element={<ProductUploadForm />}>
             
           </Route>

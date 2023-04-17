@@ -1,149 +1,265 @@
-import { useState } from 'react';
+import { useState } from "react";
+import Select from "react-select";
+import { PhoneIcon } from "@heroicons/react/outline";
+import { countries } from "countries-list";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+
+const options = [
+  { value: "pickup", label: "Pickup" },
+  { value: "delivery", label: "Delivery" },
+  { value: "both", label: "Both" },
+];
 
 function ShopProfileForm() {
-  const [fullName, setFullName] = useState('');
-  const [shopName, setShopName] = useState('');
-  const [shopSEO, setShopSEO] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [shopAddress, setShopAddress] = useState('');
-  const [state, setState] = useState('');
-  const [postCode, setPostCode] = useState('');
-  const [pickUpTime, setPickUpTime] = useState('');
-  const [sellerInfo, setSellerInfo] = useState('');
+  const [identifier, setIdentifier] = useState("");
+  const [seoFriendlyUrl, setSeoFriendlyUrl] = useState("");
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [displayStatus, setDisplayStatus] = useState(true);
+  const [orderReturnAge, setOrderReturnAge] = useState("");
+  const [orderCancellationAge, setOrderCancellationAge] = useState("");
+  const [pickupSlotGap, setPickupSlotGap] = useState("");
+  const [fulfillmentMethod, setFulfillmentMethod] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // handle form submission here
-  }
+  const handleCountryChange = (selectedOption) => {
+    setCountry(selectedOption.label);
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full self-start max-w-[80%] pb-[3rem]">
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="full-name">
-          Full Name
+    <form className="block mb-2 text-sm text-gray-600 dark:text-gray-400 w-2/3 max-w-screen-lg">
+    <div className="p-4 space-y-4">
+      <div className="space-y-1">
+        <label
+          htmlFor="identifier"
+          className="font-medium text-gray-700"
+        >
+          Identifier
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="full-name"
           type="text"
-          placeholder="Enter your full name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
+          name="identifier"
+          id="identifier"
+          value={identifier}
+          onChange={(e) => setIdentifier(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="shop-name">
-          Shop Name
+
+      <div className="space-y-1">
+        <label
+          htmlFor="seoFriendlyUrl"
+          className="font-medium text-gray-700"
+        >
+          Shop SEO-friendly URL
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="shop-name"
           type="text"
-          placeholder="Enter your shop name"
-          value={shopName}
-          onChange={(e) => setShopName(e.target.value)}
+          name="seoFriendlyUrl"
+          id="seoFriendlyUrl"
+          value={seoFriendlyUrl}
+          onChange={(e) => setSeoFriendlyUrl(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
         />
+        {`https://mazamaza.com/shop/${seoFriendlyUrl}`}
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="shop-seo">
-          Shop SEO URL
+
+      <div className="space-y-1">
+        <label htmlFor="phone" className="font-medium text-gray-700">
+          Phone
         </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="shop-seo"
-          type="text"
-          placeholder="Enter your shop SEO URL"
-          value={shopSEO}
-          onChange={(e) => setShopSEO(e.target.value)}
-        />
+        <div className="relative rounded-md shadow-sm">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <PhoneIcon
+              className="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </div>
+          <PhoneInput
+            international
+            defaultCountry="US"
+            value={phone}
+            onChange={setPhone}
+            className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 sm:text-sm border rounded-md"
+          />
+        </div>
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="phone-number">
-          Phone Number
+
+      <div className="space-y-1">
+        <label
+          htmlFor="country"
+          className="font-medium text-gray-700"
+        >
+          Country
         </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="phone-number"
-          type="text"
-          placeholder="Enter your phone number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+        <Select
+          className="w-full"
+          onChange={handleCountryChange}
+          defaultValue={country}
+          options={Object.entries(countries).map(
+            ([code, { name }]) => ({
+              label: name,
+              value: code,
+            })
+          )}
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="shop-address">
-          Shop Address
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="shop-address"
-          type="text"
-          placeholder="Enter your shop address"
-          value={shopAddress}
-          onChange={(e) => setShopAddress(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="state">
+
+      <div className="space-y-1">
+        <label htmlFor="state" className="font-medium text-gray-700">
           State
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="state"
           type="text"
-          placeholder="Enter your state"
+          name="state"
+          id="state"
           value={state}
           onChange={(e) => setState(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="post-code">
-          Post Code
+
+      <div className="space-y-1">
+        <label htmlFor="city" className="font-medium text-gray-700">
+          City
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="post-code"
           type="text"
-          placeholder="Enter your post code"
-          value={postCode}
-          onChange={(e) => setPostCode(e.target.value)}
+          name="city"
+          id="city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="pick-up-time">
-          Order Placement Pick Up Time
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="pick-up-time"
-          type="text"
-          placeholder="Enter your order placement pick up time"
-          value={pickUpTime}
-          onChange={(e) => setPickUpTime(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="seller-info">
-          Seller Information
-        </label>
-        <textarea
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="seller-info"
-          placeholder="Enter your seller information"
-          value={sellerInfo}
-          onChange={(e) => setSellerInfo(e.target.value)}
-        />
-      </div>
-      <div className="flex items-center justify-between">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
+
+      <div className="space-y-1">
+        <label
+          htmlFor="displayStatus"
+          className="font-medium text-gray-700"
         >
-          Submit
+          Display status
+        </label>
+        <div className="flex items-center space-x-2">
+          <label
+            htmlFor="displayStatusOn"
+            className="inline-flex items-center"
+          >
+            <input
+              type="radio"
+              name="displayStatus"
+              id="displayStatusOn"
+              value="on"
+              checked={displayStatus}
+              onChange={() => setDisplayStatus(true)}
+              className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+            />
+            <span className="ml-2 text-gray-700">On</span>
+          </label>
+          <label
+            htmlFor="displayStatusOff"
+            className="inline-flex items-center"
+          >
+            <input
+              type="radio"
+              name="displayStatus"
+              id="displayStatusOff"
+              value="off"
+              checked={!displayStatus}
+              onChange={() => setDisplayStatus(false)}
+              className="form-radio h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+            />
+            <span className="ml-2 text-gray-700">Off</span>
+          </label>
+        </div>
+      </div>
+
+      <div className="space-y-1">
+        <label
+          htmlFor="orderReturnAge"
+          className="font-medium text-gray-700"
+        >
+          Order return age
+        </label>
+        <input
+          type="text"
+          name="orderReturnAge"
+          id="orderReturnAge"
+          value={orderReturnAge}
+          onChange={(e) => setOrderReturnAge(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <label
+          htmlFor="orderCancellationAge"
+          className="font-medium text-gray-700"
+        >
+          Order cancellation age
+        </label>
+        <input
+          type="text"
+          name="orderCancellationAge"
+          id="orderCancellationAge"
+          value={orderCancellationAge}
+          onChange={(e) => setOrderCancellationAge(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <label
+          htmlFor="pickupSlotGap"
+          className="font-medium text-gray-700"
+        >
+          Gap Between Order Placement & First Pickup Slot [Hours]
+        </label>
+        <input
+          type="text"
+          name="pickupSlotGap"
+          id="pickupSlotGap"
+          value={pickupSlotGap}
+          onChange={(e) => setPickupSlotGap(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <label
+          htmlFor="fulfillmentMethod"
+          className="font-medium text-gray-700"
+        >
+          Fulfillment method
+        </label>
+        <select
+          name="fulfillmentMethod"
+          id="fulfillmentMethod"
+          value={fulfillmentMethod}
+          onChange={(e) => setFulfillmentMethod(e.target.value)}
+          className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+        >
+          <option value="">Select a method</option>
+          <option value="shipping">Shipping</option>
+          <option value="pickup">Pickup</option>
+          <option value="delivery">Delivery</option>
+        </select>
+      </div>
+
+      <div className="pt-4">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+        >
+          Update Shop Profile
         </button>
       </div>
-    </form>
-    );
-  }
-  
-  export default ShopProfileForm;
+    </div>
+  </form>
+  );
+}
+
+export default ShopProfileForm;

@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { Icon } from '@iconify/react';
-import twitterIcon from '@iconify-icons/mdi/twitter';
-import facebookIcon from '@iconify-icons/mdi/facebook';
-import instagramIcon from '@iconify-icons/mdi/instagram';
-import youtubeIcon from '@iconify-icons/mdi/youtube';
+import { useState } from "react";
+import { Icon } from "@iconify/react";
+import twitterIcon from "@iconify-icons/mdi/twitter";
+import facebookIcon from "@iconify-icons/mdi/facebook";
+import instagramIcon from "@iconify-icons/mdi/instagram";
+import youtubeIcon from "@iconify-icons/mdi/youtube";
 
 function SocialPlatform() {
   const [socialLinks, setSocialLinks] = useState([
-    { platform: 'Twitter', url: 'https://twitter.com' },
-    { platform: 'Facebook', url: 'https://facebook.com' },
-    { platform: 'Instagram', url: 'https://instagram.com' },
-    { platform: 'YouTube', url: 'https://youtube.com' },
+    { platform: "Twitter", url: "https://twitter.com" },
+    { platform: "Facebook", url: "https://facebook.com" },
+    { platform: "Instagram", url: "https://instagram.com" },
+    { platform: "YouTube", url: "https://youtube.com" },
   ]);
 
   const [newSocialLink, setNewSocialLink] = useState({
-    platform: '',
-    url: '',
+    platform: "",
+    url: "",
   });
 
   const handleSocialLinkChange = (event) => {
@@ -29,7 +29,7 @@ function SocialPlatform() {
   const handleAddSocialLink = (event) => {
     event.preventDefault();
     setSocialLinks((prev) => [...prev, newSocialLink]);
-    setNewSocialLink({ platform: '', url: '' });
+    setNewSocialLink({ platform: "", url: "" });
   };
 
   return (
@@ -37,15 +37,26 @@ function SocialPlatform() {
       <h1 className="text-3xl font-bold mb-4">Social Links</h1>
       <form onSubmit={handleAddSocialLink} className="mb-8">
         <div className="flex mb-4">
-          <input
-            type="text"
+          <select
             name="platform"
             placeholder="Platform"
-            value={newSocialLink.platform}
+            // value={newSocialLink.platform}
             onChange={handleSocialLinkChange}
             className="border border-gray-400 rounded-l py-2 px-4 w-1/2"
             required
-          />
+          >
+            <optgroup>
+              <option value="Facebook">
+                Facebook
+              </option>
+              <option value="Facebook">
+                Instagram
+              </option>
+              <option value="Facebook">
+                Twitter
+              </option>
+            </optgroup>
+          </select>
           <input
             type="url"
             name="url"
@@ -68,16 +79,16 @@ function SocialPlatform() {
           let icon = null;
 
           switch (platform) {
-            case 'Twitter':
+            case "Twitter":
               icon = twitterIcon;
               break;
-            case 'Facebook':
+            case "Facebook":
               icon = facebookIcon;
               break;
-            case 'Instagram':
+            case "Instagram":
               icon = instagramIcon;
               break;
-            case 'YouTube':
+            case "YouTube":
               icon = youtubeIcon;
               break;
             default:
@@ -106,4 +117,4 @@ function SocialPlatform() {
   );
 }
 
-export default SocialPlatform
+export default SocialPlatform;

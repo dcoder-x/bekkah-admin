@@ -20,7 +20,7 @@ console.log(formObject);
     
     // send login request using axios
     axios
-      .post("https://mazamaza-backend.onrender.com/api/seller/login",formObject)
+      .post("http://localhost:4000/api/seller/login",formObject)
       .then((response) => {
         // handle successful login
         localStorage.setItem('sellerAuthToken',response.data.token)
@@ -30,25 +30,25 @@ console.log(formObject);
       .catch((error) => {
         // handle login error
         console.log(error);
-        toast(error?.response?.data?.message)
+        toast(error?.response?.data?.message||'something went wrong, please try again')
       });
   }
   return (
     <div class="flex items-center min-h-screen w-full bg-white dark:bg-gray-900">
-      <div class="container mx-auto">
-        <div class=" mx-auto my-10">
+      <div class="container mx-auto w-full">
+        <div class=" mx-auto my-10 w-5/6 lg:w-1/3 max-w-[500px]">
             <img src="" alt="MazaMaza logo" />
           <div class="text-center">
             <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
-              Sign in to your seller Dashboard
+              Seller Dashboard
             </h1>
             <p class="text-gray-500 dark:text-gray-400">
               Sign in to access your account
             </p>
           </div>
-          <div class="m-7 shadow-sm rounded-sm">
+          <div class="my-7 shadow-sm rounded-sm p-4 w-full bg-white">
           {/* onSubmit={(e)=>{signIn(e)}} */}
-            <form >
+            <form onSubmit={(e)=>{signIn(e)}} >
               <div class="mb-6">
                 <label
                   for="email"
@@ -92,7 +92,7 @@ console.log(formObject);
               <div class="mb-6">
                 <button
                   type="submit"
-                  onClick={e=>{signIn(e)}}
+                  // onClick={e=>{}}
                   class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none"
                 >
                   Sign in
