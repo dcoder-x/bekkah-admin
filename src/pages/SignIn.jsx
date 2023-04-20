@@ -20,7 +20,7 @@ console.log(formObject);
     
     // send login request using axios
     axios
-      .post("http://localhost:4000/api/seller/login",formObject)
+      .post("https://mazamaza-backend.onrender.com/api/seller/login",formObject)
       .then((response) => {
         // handle successful login
         localStorage.setItem('sellerAuthToken',response.data.token)

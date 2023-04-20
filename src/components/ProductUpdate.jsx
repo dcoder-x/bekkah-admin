@@ -8,8 +8,10 @@ import CategorySelect from "./CategorySelect.jsx";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BrandSelect from "./BrandSelector.jsx";
+import { useNavigate } from "react-router";
 
 function ProductUpdateForm({product}) {
+  const navigate = useNavigate()
   const formRef = useRef();
   const [productVariants, setProductVariants] = useState([
     ...product.variants,
@@ -163,7 +165,7 @@ function ProductUpdateForm({product}) {
 
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/product/${product._id}/update`,
+        `https://mazamaza-backend.onrender.com/api/product/${product._id}/update`,
         data,
         {
           headers: {
@@ -174,6 +176,7 @@ function ProductUpdateForm({product}) {
       if (response) {
         toast(response.data.message);
         setIsLoading(false);
+        navigate(-1)
       }
     } catch (error) {
       console.error(error);

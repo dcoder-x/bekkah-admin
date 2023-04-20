@@ -45,7 +45,7 @@ const CreateShopProfileForm = () => {
     console.log(Object.fromEntries(formData.entries()))
     try {
       
-    const response = await axios.post(`http://localhost:4000/api/seller/createShop/?id=${id}`,Object.fromEntries(formData.entries()))
+    const response = await axios.post(`https://mazamaza-backend.onrender.com/api/seller/createShop/?id=${id}`,Object.fromEntries(formData.entries()))
       if (response) {
         toast(response.data.message)
       }
