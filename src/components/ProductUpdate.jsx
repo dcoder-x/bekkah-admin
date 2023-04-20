@@ -3,33 +3,33 @@ import { v4 as uuidv4 } from "uuid";
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/solid";
 import { ToggleSwitch, Checkbox } from "./FormComponents.jsx";
 import { TagInput } from "./Tags.jsx";
-import { CategoryInput } from "./CategoryInput.jsx";
+// import { CategoryInput } from "./CategoryInput.jsx";
 import CategorySelect from "./CategorySelect.jsx";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BrandSelect from "./BrandSelector.jsx";
 
-function ProductUploadForm() {
+function ProductUpdateForm({product}) {
   const formRef = useRef();
   const [productVariants, setProductVariants] = useState([
-    { name: "", value: "", quantity: "" },
+    ...product.variants,
   ]);
   const [productSpecifications, setProductSpecifications] = useState([
-    { name: "", value: "" },
+    ...product.specifications,
   ]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [productImages, setProductImages] = useState([]);
+  const [productImages, setProductImages] = useState([...product.productImage]);
 
-  const [isActive, setIsActive] = useState(false);
-  const [isFeatured, setIsFeatured] = useState(false);
+  const [isActive, setIsActive] = useState(product?.isActive||false);
+  const [isFeatured, setIsFeatured] = useState(product?.isFeatured||false);
   const [tags, setTags] = useState([]);
-  const [weight, setWeight] = useState("");
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState(product?.weight||"");
+  const [length, setLength] = useState(product?.dimensions?.width||"");
+  const [width, setWidth] = useState(product?.dimensions?.height||"");
+  const [height, setHeight] = useState(product?.dimensions?.length||"");
 
-  const [freeShipping, setFreeShipping] = useState(false);
-  const [shippingAgent, setShippingAgent] = useState("");
+  const [freeShipping, setFreeShipping] = useState(product?.isFreeShipping);
+  const [shippingAgent, setShippingAgent] = useState(product?.shippingAgent);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -113,7 +113,7 @@ function ProductUploadForm() {
   //images
   const handleImageRemove = (id) => {
     setProductImages((prevImages) =>
-      prevImages.filter((image) => image.id !== id)
+      prevImages.filter((image) => image.id||image !== id)
     );
   };
 
@@ -134,8 +134,12 @@ function ProductUploadForm() {
     setIsLoading(true);
     const data = new FormData(e.target || formRef.current);
     productImages.forEach((image) => data.append("images", image.file));
+    console.log(selectedCategories)
     data.append("category", selectedCategories);
     data.append("tags", tags);
+    data.append('isActive',isActive)
+    data.append('isFeatured',isFeatured)
+
     data.append(
       "dimensions",
       JSON.stringify({ height: height, length: length, width: width })
@@ -159,7 +163,7 @@ function ProductUploadForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/product/create",
+        `http://localhost:4000/api/product/${product._id}/update`,
         data,
         {
           headers: {
@@ -198,14 +202,14 @@ function ProductUploadForm() {
               Product Name
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
-              placeholder="Enter product name"
+              placeholder={`${product.name||'Enter product name'} `}
               // value={productName}
               // onChange={(event) => setProductName(event.target.value)}
               name="name"
-              required
+            
             />
           </div>
           <div className="mb-4">
@@ -216,13 +220,13 @@ function ProductUploadForm() {
               Product Description
             </label>
             <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="description"
-              placeholder="Enter product description"
+              placeholder={`${product.description||'Enter product description'} `}
               // value={productDescription}
               // onChange={(event) => setProductDescription(event.target.value)}
               name="description"
-              required
+              
             />
           </div>
           <div className="mb-4">
@@ -233,12 +237,12 @@ function ProductUploadForm() {
               Product quantity
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="price"
               type="number"
-              placeholder="Enter quantity in stock"
+              placeholder={`${product.numberInStock||'Enter product quantity'} `}
               name="numberInStock"
-              required
+              
             />
           </div>
           <div className="mb-4">
@@ -249,22 +253,23 @@ function ProductUploadForm() {
               Product Price
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="price"
               type="number"
-              placeholder="Enter product price"
+              placeholder={`${product.price||'Enter product price'} `}
               // value={productPrice}
               // onChange={(event) => setProductPrice(event.target.value)}
               name="price"
-              required
+              
             />
           </div>
           <div>
             <label className="block font-medium mb-2">Select Currency:</label>
             <div className="relative inline-block w-40">
               <select
-                className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                className="block placeholder-gray-700 appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 //   value={currency}
+                placeholder={`${product.currency||'Select currency'} `}
                 //   onChange={handleCurrencyChange}
                 name="currency"
               >
@@ -283,10 +288,10 @@ function ProductUploadForm() {
               </div>
             </div>
           </div>
-          <CategorySelect
+          <CategorySelect product={product}
             OnSelectCategories={(category) => handleCategorySelect(category)}
           />
-          <BrandSelect />
+          <BrandSelect product={product} />
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
               Product Variants
@@ -423,19 +428,20 @@ function ProductUploadForm() {
               onChange={handleImageChange}
               className="hidden"
               id="imageInput"
+              max={5}
             />
             <div className="grid grid-cols-3 gap-4">
-              {productImages.map((image) => (
-                <div key={image.id} className="relative">
+              {productImages.map((image,i) => (
+                <div key={i} className="relative">
                   <img
-                    src={image.url}
+                    src={image?.url||image}
                     alt="Product"
                     className="w-full h-40 object-cover rounded-lg"
                   />
                   <button
                     type="button"
                     className="absolute top-0 right-0 m-1 p-1 bg-red-500 rounded-full text-white hover:bg-red-700"
-                    onClick={() => handleImageRemove(image.id)}
+                    onClick={() => handleImageRemove(image.id||image)}
                   >
                     <svg
                       className="h-5 w-5"
@@ -451,7 +457,7 @@ function ProductUploadForm() {
                   </button>
                 </div>
               ))}
-              {productImages.length < 3 && (
+              {productImages.length <= 5 && (
                 <button
                   type="button"
                   className="flex flex-col items-center justify-center bg-gray-200 border-dashed border-2 border-gray-400 rounded-lg h-40 hover:bg-gray-300"
@@ -474,9 +480,9 @@ function ProductUploadForm() {
                 <h2 className="text-lg font-medium mb-2">Product Status</h2>
                 <div className="flex items-center justify-between">
                   <span>Active</span>
-                  <ToggleSwitch
-                    name={"isActive"}
-                    checked={isActive}
+                  <ToggleSwitch product={product}
+                  checked={isActive}
+                    // name={"isActive"}
                     // required={true}
                     onChange={handleToggle}
                   />
@@ -490,7 +496,7 @@ function ProductUploadForm() {
                   <span>Mark as featured</span>
                   <Checkbox
                     required={true}
-                    name={"isFeatured"}
+                    // name={"isFeatured"}
                     checked={isFeatured}
                     value={isFeatured}
                     onChange={handleCheckbox}
@@ -509,7 +515,7 @@ function ProductUploadForm() {
                   This will be used by Buyer to search the product. Type the tag
                   and click on enter to add another tag
                 </p>
-                <TagInput onTagSelect={(e) => handleTagChange(e)} />
+                <TagInput product={product} onTagSelect={(e) => handleTagChange(e)} />
               </div>
             </div>
             
@@ -642,7 +648,7 @@ function ProductUploadForm() {
           className="bg-blue-500 flex  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
           // onClick={handleSubmit}
         >
-          {isLoading ? "Creating product" : "Create product"}
+          {isLoading ? "Updating product" : "Update product"}
         </button>
         <button
           type="reset"
@@ -663,4 +669,4 @@ function ProductUploadForm() {
 //   );
 // };
 
-export default ProductUploadForm;
+export default ProductUpdateForm;

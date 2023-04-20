@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-export function TagInput({onTagSelect,required}) {
-  const [tags, setTags] = useState([]);
+export function TagInput({onTagSelect,required,product}) {
+  // console.log(product?.tags)
+  const [tags, setTags] = useState(product?.tags?product?.tags[0].split(','):[]);
   const [tagInput, setTagInput] = useState("");
 
   const handleInputChange = (event) => {

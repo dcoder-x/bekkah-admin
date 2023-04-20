@@ -122,28 +122,28 @@ export default function ProductList() {
                         <td className="py-3 px-6 text-left whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="mr-2">
-                              <img src={product.productImage[0]} alt="" />
+                              <img className={` w-[30px]`} src={product?.productImage[0]} alt="" />
                             </div>
-                            <span className="font-medium">{product.name}</span>
+                            <span className="font-medium">{product?.name}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <span className="font-medium">{`${product.currency} ${product.price}`}</span>
+                            <span className="font-medium">{`${product?.currency} ${product?.price}`}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {product.category[0]}
+                            {product.category?product?.category[0].split(',')[0]:'no category' }
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {product.numberInStock}
+                            {product?.numberInStock}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
-                          {product.isActive ? (
+                          {product?.isActive ? (
                             <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
                               Active
                             </span>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSave, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ReactImageGallery from "react-image-gallery";
-import ProductUploadForm from "../../components/ProductUploadForm";
+import ProductUpdateForm from "../../components/ProductUpdate"; 
 import { useLocation } from "react-router";
 import { toast } from "react-hot-toast";
 
@@ -215,7 +215,7 @@ useEffect(()=>{
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-      {isEditMode ? (<ProductUploadForm/>) : renderViewMode()}
+      {isEditMode ? (<ProductUpdateForm product={product}/>) : renderViewMode()}
     </div>
   );
 };
