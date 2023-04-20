@@ -37,8 +37,8 @@ console.log(formObject);
   return (
     <div class="flex items-center min-h-screen w-full bg-white dark:bg-gray-900">
       <div class="container mx-auto w-full">
-        <div class=" mx-auto my-10 w-5/6 lg:w-1/3 max-w-[500px]">
-            <img src={logo} alt="MazaMaza logo" />
+        <div class=" mx-auto my-10 w-5/6 lg:w-1/3 max-w-[500px] flex flex-col ">
+            <img src={logo} className=" max-w-[200px] self-center justify-self-center " alt="MazaMaza logo" />
           <div class="text-center">
             <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
               Seller Dashboard
