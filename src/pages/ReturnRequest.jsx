@@ -79,7 +79,7 @@ const Orders = () => {
 
   return (
     <div className="orderList">
-      <h2>orders</h2>
+      <h2>Returned Products</h2>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);

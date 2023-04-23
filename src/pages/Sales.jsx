@@ -8,14 +8,14 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 
-const Orders = () => {
+const Sales = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
-  const getSellerOrders = async () => {
+  const getSellerSales = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
@@ -28,14 +28,14 @@ const Orders = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.orders);
+        setData(response.data.sales);
       }
     } catch (error) {
       setLoading(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
-          "something went wrong : could not fetch orders"
+          "something went wrong : could not fetch Sales"
       );
     }
   };
@@ -64,7 +64,7 @@ const Orders = () => {
       );
       if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerOrders();
+        getSellerSales();
       }
     } catch (error) {
       setLoading(false);
@@ -74,12 +74,12 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    getSellerOrders();
+    getSellerSales();
   }, []);
 
   return (
     <div className="orderList">
-      <h2>orders</h2>
+      <h1>Canceled Sales</h1>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -96,16 +96,19 @@ const Orders = () => {
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <th className="py-3 px-6 text-left">ID</th>
                   <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-left">Order details</th>
-                  <th className="py-3 px-6 text-left">Amount</th>
+                  <th className="py-3 px-6 text-left">Date</th>
+                  <th className="py-3 px-6 text-center">Buyer</th>
+                  <th className="py-3 px-6 text-left">Products name</th>
                   <th className="py-3 px-6 text-center">Quantity</th>
+                  <th className="py-3 px-6 text-left">Amount</th>
                   <th className="py-3 px-6 text-center">Status</th>
                 </tr>
               </thead>
               {data?.length > 0 &&
                 <tbody className="text-gray-600 text-sm font-light">
-                  {data.map((order, i) => {
+                  {data.map((sale, i) => {
                     return (
                       <tr
                         key={i}
@@ -113,34 +116,46 @@ const Orders = () => {
                       >
                         <td className="py-3 px-6 text-left whitespace-nowrap">
                           <div className="flex items-center">
-                            <span className="font-medium">{}</span>
+                            <span className="font-medium">{
+                                sale._id
+                            }</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <span className="font-medium">{`${order?._id}`}</span>
+                            <span className="font-medium">{`${sale?.order?._id}`}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {order.category
-                              ? order?.category[0].split(",")[0]
-                              : "no category"}
+                           {
+                            sale.createdAt
+                           }
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.Amount}
+                              {sale.buyer.username}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                          {order?.totalQuantity}
+                          {sale?.product.name}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.status}
+                              {sale.quantity}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                              {sale.amount}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                              {sale.status}
                           </span>
                         </td>
                       </tr>
@@ -176,4 +191,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Sales;

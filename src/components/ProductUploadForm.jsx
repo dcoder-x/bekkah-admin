@@ -159,7 +159,7 @@ function ProductUploadForm() {
 
     try {
       const response = await axios.post(
-        "https://mazamaza-backend.onrender.com/api/product/create",
+        "http://localhost:4000/api/product/create",
         data,
         {
           headers: {

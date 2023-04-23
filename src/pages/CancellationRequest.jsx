@@ -79,7 +79,7 @@ const Orders = () => {
 
   return (
     <div className="orderList">
-      <h2>orders</h2>
+      <h1>Canceled orders</h1>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -97,6 +97,7 @@ const Orders = () => {
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">Order ID</th>
+                  <th className="py-3 px-6 text-left">Date</th>
                   <th className="py-3 px-6 text-left">Order details</th>
                   <th className="py-3 px-6 text-left">Amount</th>
                   <th className="py-3 px-6 text-center">Quantity</th>
