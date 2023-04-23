@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container{
+    display: flex;
+    margin-top: 10px;
+    position: relative;
+    right: 0;
+    float: right;
+    width: 80%;
+    /* margin-top: 5rem; */
+}
+
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
