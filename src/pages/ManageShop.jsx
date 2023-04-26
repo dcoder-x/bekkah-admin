@@ -46,7 +46,7 @@ function TabContent({ activeTab }) {
 
   const getShopProfile = async () =>{
     try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/shop',{
+      const response = await axios.get('http://localhost:4000/api/seller/shop',{
         headers:{
           'x-auth-token':localStorage.getItem('sellerAuthToken')
         }

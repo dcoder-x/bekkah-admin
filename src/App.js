@@ -19,7 +19,7 @@ function App() {
   const [seller,setSeller] = useState()
   const getSeller = async () =>{
     try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/account',{
+      const response = await axios.get('http://localhost:4000/api/seller/account',{
         headers:{
           'x-auth-token':localStorage.getItem('sellerAuthToken')
         }

@@ -20,7 +20,7 @@ export default function ProductList() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products/",
+        "http://localhost:4000/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -54,7 +54,7 @@ export default function ProductList() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/product/delete/${id}`,
+        `http://localhost:4000/api/product/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),

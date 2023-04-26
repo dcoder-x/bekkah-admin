@@ -20,6 +20,11 @@ import OrderDetails from "../components/OrderDetails";
 import SellerProfile from "./SellerProfile";
 import { useContext,Context } from "react";
 import { SellerContext } from "../App";
+import ReturnRequests from "./ReturnRequest";
+import CancellationRequests from "./CancellationRequest";
+import ProductPerfomance from "./ProductPerfomanceList";
+import Sales from "./Sales";
+import TransactionReport from "./TransactionReport";
 
 const Dashboard = () => {
   const {getSeller} = useContext(SellerContext)
@@ -65,6 +70,14 @@ const Dashboard = () => {
            
           </Route>
           <Route path="/profile" element={<SellerProfile/>}/>
+          <Route path="/returnRequest" element={<ReturnRequests/>}/>
+          <Route path="/cancellationRequest" element={<CancellationRequests/>}/>
+          <Route path="/productPerfomance" element={<ProductPerfomance/>}/>
+          <Route path="/sales" element={<Sales/>}/>
+          <Route path="/transactionReport" element={<TransactionReport/>}/>
+
+
+
           <Route path="/newproduct" element={<ProductUploadForm />}>
             
           </Route>

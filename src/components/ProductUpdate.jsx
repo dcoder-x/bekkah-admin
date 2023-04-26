@@ -165,7 +165,7 @@ function ProductUpdateForm({product}) {
 
     try {
       const response = await axios.post(
-        `https://mazamaza.onrender.com/api/product/${product._id}/update`,
+        `http://localhost:4000/api/product/${product._id}/update`,
         data,
         {
           headers: {
