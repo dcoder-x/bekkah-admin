@@ -1,4 +1,4 @@
-export const category = [
+export const categories = [
   {
     title: "Handcraft",
     icon: "fluent:building-shop-16-regular",

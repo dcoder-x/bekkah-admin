@@ -18,6 +18,7 @@ function ProductUploadForm() {
     { name: "", value: "" },
   ]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState();
   const [productImages, setProductImages] = useState([]);
 
   const [isActive, setIsActive] = useState(false);
@@ -117,8 +118,8 @@ function ProductUploadForm() {
     );
   };
 
-  //category
-  const handleCategorySelect = (category) => {
+  //categories
+  const handleCategoriesSelect = (category) => {
     console.log(category);
     category.forEach((category) => {
       console.log(category);
@@ -127,6 +128,11 @@ function ProductUploadForm() {
     console.log(selectedCategories);
   };
 
+    //category
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+    };
+
   //handle form
 
   const handleSubmit = async (e) => {
@@ -134,7 +140,8 @@ function ProductUploadForm() {
     setIsLoading(true);
     const data = new FormData(e.target || formRef.current);
     productImages.forEach((image) => data.append("images", image.file));
-    data.append("category", selectedCategories);
+    data.append("SubCategories", selectedCategories);
+    data.append("category", selectedCategory);
     data.append("tags", tags);
     data.append(
       "dimensions",
@@ -284,7 +291,9 @@ function ProductUploadForm() {
             </div>
           </div>
           <CategorySelect
-            OnSelectCategories={(category) => handleCategorySelect(category)}
+            OnSelectCategories={(category) => handleCategoriesSelect(category)}
+            OnSelectCategory={(category) => handleCategorySelect(category)}
+
           />
           <BrandSelect />
           <div className="mb-4">

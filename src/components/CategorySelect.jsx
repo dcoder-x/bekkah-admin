@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import { category } from "../data/category";
+import { categories } from "../data/category";
 
-const categories = [
-  { id: 1, name: "Electronics" },
-  { id: 2, name: "Clothing" },
-  { id: 3, name: "Home & Garden" },
-  { id: 4, name: "Health & Beauty" },
-  { id: 5, name: "Toys & Games" },
-];
 
-const CategorySelect = ({ OnSelectCategories, product }) => {
+const CategorySelect = ({ OnSelectCategories,OnSelectCategory, product }) => {
   console.log(product?.category);
   const [selectedCategories, setSelectedCategories] = useState(
     product?.category ? product.category[0].split(",") : []
   );
+  const [selectedCategory,setSelectedCategory] = useState()
 
-  const handleCategorySelect = (category) => {
+  const handleCategoriesSelect = (category) => {
     if (
       category &&
       !selectedCategories?.includes(category) &&
@@ -27,6 +21,14 @@ const CategorySelect = ({ OnSelectCategories, product }) => {
     }
   };
 
+  const handleCategorySelect = (category) => {
+
+      setSelectedCategory(category);
+
+      OnSelectCategory && OnSelectCategory(selectedCategory);
+
+  };
+
   const handleCategoryRemove = (category) => {
     const newSelectedCategories = selectedCategories.filter(
       (c) => c !== category
@@ -35,24 +37,47 @@ const CategorySelect = ({ OnSelectCategories, product }) => {
   };
 
   return (
-    <div className="my-4">
-      <label className="block text-gray-700 font-bold mb-2">Categories</label>
+    <>
+
+<div className="my-4">
+      <label className="block text-gray-700 font-bold mb-2">Category</label>
       <select
         name=""
+        className="border-1 border-solid border-gray-500 p-1"
         id=""
         onChange={(e) => {
           handleCategorySelect(e.currentTarget.value);
         }}
       >
         <optgroup>
-          {category.map((category, i) => {
+          {categories.map((category, i) => {
+            return (
+              <option key={i} value={category.title}>
+              {category.title}
+            </option>
+            );
+          })}
+        </optgroup>
+      </select>
+    </div>
+        <div className="my-4">
+      <label className="block text-gray-700 font-bold mb-2">Subcategories</label>
+      <select
+        name=""
+        id=""
+        onChange={(e) => {
+          handleCategoriesSelect(e.currentTarget.value);
+        }}
+      >
+        <optgroup>
+          {selectedCategory&&categories?.filter((category)=>category.title == selectedCategory).map((category, i) => {
             return (
               <>
                 {category.subCategory.map((subCategory, i) => {
                   console.log(category.title)
                   return (
                     <option key={i} value={subCategory.name}>
-                     {subCategory.name} - {category.title}
+                     {subCategory.name}
                     </option>
                   );
                 })}
@@ -120,6 +145,8 @@ const CategorySelect = ({ OnSelectCategories, product }) => {
         </div>
       )} */}
     </div>
+    </>
+
   );
 };
 
