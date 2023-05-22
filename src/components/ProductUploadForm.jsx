@@ -140,7 +140,7 @@ function ProductUploadForm() {
     setIsLoading(true);
     const data = new FormData(e.target || formRef.current);
     productImages.forEach((image) => data.append("images", image.file));
-    data.append("SubCategories", selectedCategories);
+    data.append("subcategories", selectedCategories);
     data.append("category", selectedCategory);
     data.append("tags", tags);
     data.append(
@@ -166,7 +166,7 @@ function ProductUploadForm() {
 
     try {
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/product/create",
+        "http://localhost:4000/api/product/create",
         data,
         {
           headers: {

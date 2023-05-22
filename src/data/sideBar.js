@@ -63,12 +63,12 @@ export const sideBarMenu = [
     sublinks: [
       {
         name: "Special Price",
-        // link: "./",
+        link: "specialPrice",
         icon: "",
       },
       {
         name: "Volume Discount",
-        icon: "",
+        icon: "volumeDiscount",
       },
       {
         name: "Buy Together Products",
@@ -99,15 +99,10 @@ export const sideBarMenu = [
       {
         name: "My Subscriptions",
         icon: "",
-        link:'subscription'
+        link:'mySubscriptions'
       },
       {
         name: "Subscription Packages",
-        icon: "",
-        link:'subscription'
-      },
-      {
-        name: "Subscription Offers",
         icon: "",
         link:'subscription'
       },
@@ -176,10 +171,12 @@ export const sideBarMenu = [
       {
         name: "My Account",
         icon: "",
+        link:'profile'
       },
       {
         name: "Bank Account",
         icon: "",
+        link:'bank'
       },
       // {
       //   name: "Cookie preferences",

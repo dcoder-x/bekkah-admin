@@ -25,6 +25,10 @@ import CancellationRequests from "./CancellationRequest";
 import ProductPerfomance from "./ProductPerfomanceList";
 import Sales from "./Sales";
 import TransactionReport from "./TransactionReport";
+import Subscriptions from "./MySubscriptions";
+import BankAccountForm from "./BankAccount";
+import VolumeDiscount from "./promotions/VolumeDiscount";
+import PriceDiscount from "./promotions/PriceDiscount";
 
 const Dashboard = () => {
   const {getSeller} = useContext(SellerContext)
@@ -67,9 +71,15 @@ const Dashboard = () => {
            
           </Route>
           <Route path="/product" element={ <ProductDetail />}>
+            
            
           </Route>
           <Route path="/profile" element={<SellerProfile/>}/>
+          <Route path="/specialPrice" element={<PriceDiscount/>}/>
+          <Route path="/volumeDiscount" element={<VolumeDiscount/>}/>
+          <Route path="/mySubscriptions" element={<Subscriptions/>}/>
+          <Route path="/bank" element={<BankAccountForm/>}/>
+
           <Route path="/returnRequest" element={<ReturnRequests/>}/>
           <Route path="/cancellationRequest" element={<CancellationRequests/>}/>
           <Route path="/productPerfomance" element={<ProductPerfomance/>}/>

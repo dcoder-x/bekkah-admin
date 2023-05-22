@@ -13,14 +13,17 @@ const ProductDetail = () => {
   const [imagesrc, setImageSrc] = useState([]),
   product = location.state
 
-  // let formatProductImages = [];
-useEffect(()=>{
-    product.productImage.forEach((image)=>{
-    setImageSrc([...imagesrc,{
+  let formatProductImages = [];
+
+  product.productImage.map((image)=>{
+    formatProductImages.push({
       original: image,
       thumbnail: image
-    }])
+    })
   })
+useEffect(()=>{
+  setImageSrc(formatProductImages)
+  console.log(imagesrc,formatProductImages)
 },[])
 
 

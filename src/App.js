@@ -9,6 +9,7 @@ import { Toaster, toast } from "react-hot-toast";
 import CreateShopProfileForm from "./pages/CreateShopProfile";
 import { createContext, useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
 
 export const SellerContext = createContext()
@@ -19,14 +20,14 @@ function App() {
   const [seller,setSeller] = useState()
   const getSeller = async () =>{
     try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/account',{
+      const response = await axios.get('http://localhost:4000/api/seller/account',{
         headers:{
           'x-auth-token':localStorage.getItem('sellerAuthToken')
         }
       })
       if (response) {
-        setSeller(response.data.seller)
-        // console.log(response.data.shop)
+       setSeller(response.data.seller)
+        console.log(response.data)
         
       }
     } catch (error) {
@@ -35,6 +36,9 @@ function App() {
     }
     
   }
+  useEffect(()=>{
+    getSeller()
+  },[])
 
   return (
     <SellerContext.Provider value={{seller,getSeller}}>

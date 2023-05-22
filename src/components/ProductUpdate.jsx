@@ -10,25 +10,25 @@ import { toast } from "react-hot-toast";
 import BrandSelect from "./BrandSelector.jsx";
 import { useNavigate } from "react-router";
 
-function ProductUpdateForm({product}) {
-  const navigate = useNavigate()
+function ProductUpdateForm({ product }) {
+  console.log(product);
+  const navigate = useNavigate();
   const formRef = useRef();
-  const [productVariants, setProductVariants] = useState([
-    ...product.variants,
-  ]);
+  const [productVariants, setProductVariants] = useState([...product.variants]);
   const [productSpecifications, setProductSpecifications] = useState([
     ...product.specifications,
   ]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(product.category);
   const [productImages, setProductImages] = useState([...product.productImage]);
 
-  const [isActive, setIsActive] = useState(product?.isActive||false);
-  const [isFeatured, setIsFeatured] = useState(product?.isFeatured||false);
+  const [isActive, setIsActive] = useState(product?.isActive || false);
+  const [isFeatured, setIsFeatured] = useState(product?.isFeatured || false);
   const [tags, setTags] = useState([]);
-  const [weight, setWeight] = useState(product?.weight||"");
-  const [length, setLength] = useState(product?.dimensions?.width||"");
-  const [width, setWidth] = useState(product?.dimensions?.height||"");
-  const [height, setHeight] = useState(product?.dimensions?.length||"");
+  const [weight, setWeight] = useState(product?.weight || "");
+  const [length, setLength] = useState(product?.dimensions?.width || "");
+  const [width, setWidth] = useState(product?.dimensions?.height || "");
+  const [height, setHeight] = useState(product?.dimensions?.length || "");
 
   const [freeShipping, setFreeShipping] = useState(product?.isFreeShipping);
   const [shippingAgent, setShippingAgent] = useState(product?.shippingAgent);
@@ -115,18 +115,23 @@ function ProductUpdateForm({product}) {
   //images
   const handleImageRemove = (id) => {
     setProductImages((prevImages) =>
-      prevImages.filter((image) => image.id||image !== id)
+      prevImages.filter((image) => image.id || image !== id)
     );
   };
 
-  //category
-  const handleCategorySelect = (category) => {
+  //categories
+  const handleCategoriesSelect = (category) => {
     console.log(category);
     category.forEach((category) => {
       console.log(category);
       setSelectedCategories([...selectedCategories, category]);
     });
     console.log(selectedCategories);
+  };
+  //category
+  const handleCategorySelect = (category) => {
+    console.log(category, selectedCategory);
+    setSelectedCategory(category);
   };
 
   //handle form
@@ -136,11 +141,13 @@ function ProductUpdateForm({product}) {
     setIsLoading(true);
     const data = new FormData(e.target || formRef.current);
     productImages.forEach((image) => data.append("images", image.file));
-    console.log(selectedCategories)
-    data.append("category", selectedCategories);
+    console.log(selectedCategories, selectedCategory);
+    selectedCategories.length > 0 &&
+      data.append("subcategories", JSON.stringify(selectedCategories));
+    selectedCategory && data.append("category", selectedCategory);
     data.append("tags", tags);
-    data.append('isActive',isActive)
-    data.append('isFeatured',isFeatured)
+    data.append("isActive", isActive);
+    data.append("isFeatured", isFeatured);
 
     data.append(
       "dimensions",
@@ -165,7 +172,7 @@ function ProductUpdateForm({product}) {
 
     try {
       const response = await axios.post(
-        `https://mazamaza.onrender.com/api/product/${product._id}/update`,
+        `http://localhost:4000/api/product/${product._id}/update`,
         data,
         {
           headers: {
@@ -176,7 +183,7 @@ function ProductUpdateForm({product}) {
       if (response) {
         toast(response.data.message);
         setIsLoading(false);
-        navigate(-1)
+        // navigate(-1)
       }
     } catch (error) {
       console.error(error);
@@ -208,11 +215,10 @@ function ProductUpdateForm({product}) {
               className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
-              placeholder={`${product.name||'Enter product name'} `}
+              placeholder={`${product.name || "Enter product name"} `}
               // value={productName}
               // onChange={(event) => setProductName(event.target.value)}
               name="name"
-            
             />
           </div>
           <div className="mb-4">
@@ -225,11 +231,12 @@ function ProductUpdateForm({product}) {
             <textarea
               className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="description"
-              placeholder={`${product.description||'Enter product description'} `}
+              placeholder={`${
+                product.description || "Enter product description"
+              } `}
               // value={productDescription}
               // onChange={(event) => setProductDescription(event.target.value)}
               name="description"
-              
             />
           </div>
           <div className="mb-4">
@@ -243,9 +250,10 @@ function ProductUpdateForm({product}) {
               className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="price"
               type="number"
-              placeholder={`${product.numberInStock||'Enter product quantity'} `}
+              placeholder={`${
+                product.numberInStock || "Enter product quantity"
+              } `}
               name="numberInStock"
-              
             />
           </div>
           <div className="mb-4">
@@ -259,11 +267,10 @@ function ProductUpdateForm({product}) {
               className="shadow placeholder-gray-700 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="price"
               type="number"
-              placeholder={`${product.price||'Enter product price'} `}
+              placeholder={`${product.price || "Enter product price"} `}
               // value={productPrice}
               // onChange={(event) => setProductPrice(event.target.value)}
               name="price"
-              
             />
           </div>
           <div>
@@ -272,7 +279,7 @@ function ProductUpdateForm({product}) {
               <select
                 className="block placeholder-gray-700 appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 //   value={currency}
-                placeholder={`${product.currency||'Select currency'} `}
+                placeholder={`${product.currency || "Select currency"} `}
                 //   onChange={handleCurrencyChange}
                 name="currency"
               >
@@ -291,8 +298,10 @@ function ProductUpdateForm({product}) {
               </div>
             </div>
           </div>
-          <CategorySelect product={product}
-            OnSelectCategories={(category) => handleCategorySelect(category)}
+          <CategorySelect
+            product={product}
+            OnSelectCategories={(category) => handleCategoriesSelect(category)}
+            OnSelectCategory={(category) => handleCategorySelect(category)}
           />
           <BrandSelect product={product} />
           <div className="mb-4">
@@ -373,7 +382,6 @@ function ProductUpdateForm({product}) {
                   onChange={(event) =>
                     handleSpecificationChange(index, "name", event.target.value)
                   }
-                 
                 />
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
@@ -387,7 +395,6 @@ function ProductUpdateForm({product}) {
                       event.target.value
                     )
                   }
-                  
                 />
                 {index === productSpecifications.length - 1 && (
                   <button
@@ -434,17 +441,17 @@ function ProductUpdateForm({product}) {
               max={5}
             />
             <div className="grid grid-cols-3 gap-4">
-              {productImages.map((image,i) => (
+              {productImages.map((image, i) => (
                 <div key={i} className="relative">
                   <img
-                    src={image?.url||image}
+                    src={image?.url || image}
                     alt="Product"
                     className="w-full h-40 object-cover rounded-lg"
                   />
                   <button
                     type="button"
                     className="absolute top-0 right-0 m-1 p-1 bg-red-500 rounded-full text-white hover:bg-red-700"
-                    onClick={() => handleImageRemove(image.id||image)}
+                    onClick={() => handleImageRemove(image.id || image)}
                   >
                     <svg
                       className="h-5 w-5"
@@ -483,8 +490,9 @@ function ProductUpdateForm({product}) {
                 <h2 className="text-lg font-medium mb-2">Product Status</h2>
                 <div className="flex items-center justify-between">
                   <span>Active</span>
-                  <ToggleSwitch product={product}
-                  checked={isActive}
+                  <ToggleSwitch
+                    product={product}
+                    checked={isActive}
                     // name={"isActive"}
                     // required={true}
                     onChange={handleToggle}
@@ -518,10 +526,13 @@ function ProductUpdateForm({product}) {
                   This will be used by Buyer to search the product. Type the tag
                   and click on enter to add another tag
                 </p>
-                <TagInput product={product} onTagSelect={(e) => handleTagChange(e)} />
+                <TagInput
+                  product={product}
+                  onTagSelect={(e) => handleTagChange(e)}
+                />
               </div>
             </div>
-            
+
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="mb-4">
                 <label

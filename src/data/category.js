@@ -1,284 +1,192 @@
 export const categories = [
   {
-    title: "Handcraft",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Textiles",
-      },
-      {
-        name: "Creative crafts ",
-      },
-      {
-        name: "Papercrafts",
-      },
-      {
-        name: "Fashion Crafts",
-      },
+    sublistTag: "allCategories",
+    heading: "All Categories",
+    sublist: [
+      "Textiles",
+      "Creative",
+      "crafts",
+      "Papercrafts",
+      "Fashion",
+      "Crafts",
     ],
   },
+
   {
-    title: "ART",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Painting (Sub)- Oli painting, water colour, Acrylic",
-      },
-      {
-        name: "Sculpture. (Sub)-  Stone carving, Wood carving, Bronze casting Clay firing ",
-      },
-      {
-        name: "Major arts. (sub)  Interior Decoration",
-      },
-      {
-        name: "Commercial, Gift & toys",
-      },
+    sublistTag: "handCrafts",
+    heading: "HandCrafts",
+    sublist: [
+      "Textiles",
+      "Creative",
+      "Papercrafts",
+      "Fashion Crafts",
+      "Handmade",
+      "Jewelries",
+      "Entertainment",
+      "Crafts",
     ],
   },
+
   {
-    title: "FOOTWEAR",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Women Footwear",
-      },
-      {
-        name: "Men Footwear ",
-      },
-      {
-        name: "Children footwear",
-      },
+    sublistTag: "art",
+    heading: "Art",
+    sublist: [
+      "Painting",
+      "Sculpture",
+      "Major arts",
+      "Fin Art",
+      "Contemporary Art",
+      "Pop Art",
+      "Visual Art",
+      "Photography",
+      "Modern Art",
+      "Abstract Art",
+      "Decorative Art",
+      "Digital Art",
     ],
   },
+
   {
-    title: "FASHION",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Women Fashion",
-      },
-      {
-        name: "Men Fashion ",
-      },
-      {
-        name: "Children Fashion",
-      },
+    sublistTag: "footwear",
+    heading: "Footwear",
+    sublist: [
+      "Women Footwear",
+      "Men Footwear",
+      "Children footwear",
+      "Unisex Footwear",
     ],
   },
+
   {
-    title: "ACCESSORIES",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Women handbag",
-      },
-      {
-        name: "Men Hand bag",
-      },
-      {
-        name: "Unisex Hand bag",
-      },
-      {
-        name: "Travelling bag",
-      },
-      {
-        name: "School bag",
-      },
-      {
-        name: "Women Jewelry",
-      },
-      {
-        name: "Men Jewelry",
-      },
-      {
-        name: "wallet/purse",
-      },
-      {
-        name: "Leather Products",
-      },
-      {
-        name: "Perfume",
-      },
-      {
-        name: "Make ups",
-      },
-      {
-        name: "Skin care",
-      },
-      {
-        name: "Hats & caps",
-      },
+    sublistTag: "accessories",
+    heading: "Accessories",
+    sublist: [
+      "Women Accessories",
+      "Men Accessories",
+      "Children Accessories",
+      "Women handbag",
+      "Men Hand bag",
+      "Unisex Hand bag",
+      "Travelling bag",
+      "School bag",
+      "Women Jewelry",
+      "Men Jewelry",
+      "Wallet/purse",
+      "Leather Products",
+      "Perfume",
+      "Make ups",
+      "Skin care",
+      "Hats & caps",
     ],
   },
+
   {
-    title: "HAIR ZONE",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Wigs",
-      },
-      {
-        name: "Brazilian hair ",
-      },
-      {
-        name: "Braids",
-      },
-      {
-        name: "Dreadlocks",
-      },
-      {
-        name: "Ghana weave ",
-      },
-      {
-        name: "Natural hair",
-      },
-      {
-        name: "Headtie",
-      },
-      {
-        name: "Facinator ",
-      },
-      {
-        name: "Head band ",
-      },
-      {
-        name: "Hair accessories",
-      },
+    sublistTag: "hairZones",
+    heading: "Hair Salon",
+    sublist: [
+      "Wigs",
+      "Brazilian hair",
+      "Braids",
+      "Dreadlocks",
+      "Ghana weave",
+      "Natural hair",
+      "Head tie",
+      "Facinator",
+      "Head band",
+      "Malaysia Hair",
+      "Peruvian Hair",
+      "Indian Hair",
+      "Hair accessories",
+      "Head gear",
     ],
   },
+
   {
-    title: "PRINT FABRICS",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Ankara",
-      },
-      {
-        name: "Adire",
-      },
-      {
-        name: "Isi Agu",
-      },
-      {
-        name: "Lace",
-      },
-      {
-        name: "Aso-Oke",
-      },
-      {
-        name: "(f)Kente",
-      },
+    sublistTag: "fashion",
+    heading: "Fashion",
+    sublist: [
+      "Women Fashion",
+      "Men Fashion",
+      "Children Fashion",
+      "Unisex Fashion",
     ],
   },
+
   {
-    title: "FOOD STUFF & ALLIED AGRO PRODUCTS",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Fast food & Restaurant",
-      },
-      {
-        name: "Unprocessed food / Products",
-      },
-      {
-        name: "Dairy Food",
-      },
-      {
-        name: "Dry Fish",
-      },
-      {
-        name: "Grain & Flour",
-      },
-      {
-        name: "Nuts & Seed",
-      },
-      {
-        name: "Processed Food & products",
-      },
+    sublistTag: "printFabrics",
+    heading: "Print Fabrics",
+    sublist: [
+      "Ankara",
+      "Adire",
+      "Isi Agu",
+      "Lace",
+      "Aso-Oke",
+      "Kente",
+      "Brocades",
+      "Silk",
+      "Dashiki",
+      "Boubou",
     ],
   },
+
   {
-    title: "HERBS / SPICES & SPIRITUAL",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Roots & Plants",
-      },
-      {
-        name: "Seed & Leaves",
-      },
-      {
-        name: "Honey",
-      },
-      {
-        name: "Garlic",
-      },
-      {
-        name: "Ginger",
-      },
-      {
-        name: "Paprinka",
-      },
-      {
-        name: "Peppercorns",
-      },
-      {
-        name: "Incense",
-      },
-      {
-        name: "Candles",
-      },
-      {
-        name: "Beads",
-      },
-      {
-        name: "Oil",
-      },
-      {
-        name: "Frangnance",
-      },
+    sublistTag: "foodStuff",
+    heading: "Food Stuff & Allied Agro Products",
+    sublist: [
+      "Fast food & Restaurant",
+      "Unprocessed food / Products",
+      "Dairy Food",
+      "Dry Fish",
+      "Grain & Flour",
+      "Nuts & Seed",
+      "Processed Food & products",
     ],
   },
+
   {
-    title: "Education",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Novels",
-      },
-      {
-        name: "Books",
-      },
-      {
-        name: "Magazines",
-      },
-      {
-        name: "Children Books",
-      },
-      {
-        name: "Making Money online",
-      },
-      {
-        name: "Bestsellers",
-      },
-      {
-        name: "How to make something",
-      },
+    sublistTag: "herbs",
+    heading: "Herbs/Spices & Spiritual",
+    sublist: [
+      "Roots & Plants",
+      "Seed & Leaves",
+      "Honey",
+      "Garlic",
+      "Ginger",
+      "Paprinka",
+      "Peppercorns",
+      "Incense",
+      "Candles",
+      "Beads",
+      "Oil",
+      "Fragrance",
+      "Pepper soup Spices",
+      "Jollof rice Spices",
+      "Stew Spices",
+      "Fried rice Spices",
+      "Meat",
+      "Chicken Spices",
+      "Soup Spices",
+      "Genaral Spices",
     ],
   },
+
   {
-    title: "GENERAL SERVICES",
-    icon: "fluent:building-shop-16-regular",
-    subCategory: [
-      {
-        name: "Buy & Sell Properties",
-      },
-      {
-        name: "Rent Properties",
-      },
-      {
-        name: "Advertise",
-      },
+    sublistTag: "education",
+    heading: "Education",
+    sublist: [
+      "Novels",
+      "Books",
+      "Magazines",
+      "Children Books",
+      "Making Money online",
+      "Bestsellers",
+      "How to make something",
     ],
+  },
+
+  {
+    sublistTag: "generalServices",
+    heading: "General Services",
+    sublist: ["Buy & Sell Properties", "Rent Properties", "Advertise"],
   },
 ];

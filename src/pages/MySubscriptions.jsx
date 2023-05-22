@@ -8,14 +8,14 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 
-const Sales = () => {
+const Subscriptions = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
-  const getSellerSales = async () => {
+  const getSellerSubscriptions = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
@@ -28,14 +28,14 @@ const Sales = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.sales);
+        setData(response.data.Subscriptions);
       }
     } catch (error) {
       setLoading(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
-          "something went wrong : could not fetch Sales"
+          "something went wrong : could not fetch Subscriptions"
       );
     }
   };
@@ -64,7 +64,7 @@ const Sales = () => {
       );
       if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerSales();
+        getSellerSubscriptions();
       }
     } catch (error) {
       setLoading(false);
@@ -74,12 +74,12 @@ const Sales = () => {
   };
 
   useEffect(() => {
-    getSellerSales();
+    getSellerSubscriptions();
   }, []);
 
   return (
     <div className="orderList">
-      <h1>Canceled Sales</h1>
+      <h2>Subscriptions</h2>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -96,19 +96,19 @@ const Sales = () => {
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left">ID</th>
-                  <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-left">Date</th>
-                  <th className="py-3 px-6 text-center">Buyer</th>
-                  <th className="py-3 px-6 text-left">Products name</th>
-                  <th className="py-3 px-6 text-center">Quantity</th>
+                  <th className="py-3 px-6 text-left">Subscription ID</th>
+                  <th className="py-3 px-6 text-left">Package Name</th>
                   <th className="py-3 px-6 text-left">Amount</th>
+                  <th className="py-3 px-6 text-center">Frequency</th>
                   <th className="py-3 px-6 text-center">Status</th>
+                  <th className="py-3 px-6 text-center">Subscription Valid till</th>
+                  <th className="py-3 px-6 text-center">Action</th>
+
                 </tr>
               </thead>
               {data?.length > 0 &&
                 <tbody className="text-gray-600 text-sm font-light">
-                  {data.map((sale, i) => {
+                  {data.map((order, i) => {
                     return (
                       <tr
                         key={i}
@@ -116,47 +116,63 @@ const Sales = () => {
                       >
                         <td className="py-3 px-6 text-left whitespace-nowrap">
                           <div className="flex items-center">
-                            <span className="font-medium">{
-                                sale._id
-                            }</span>
+                            <span className="font-medium">{}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <span className="font-medium">{`${sale?.order?._id}`}</span>
+                            <span className="font-medium">{`${order?._id}`}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                           {
-                            sale.createdAt
-                           }
+                            {order.category
+                              ? order?.category[0].split(",")[0]
+                              : "no category"}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {sale.buyer.username}
+                              {order.Amount}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                          {sale?.product.name}
+                          {order?.totalQuantity}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {sale.quantity}
+                              {order.status}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                              {sale.amount}
-                          </span>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                              {sale.status}
-                          </span>
+                          <div className="flex item-center justify-center">
+                            <div
+                              onClick={(e) =>{}}
+                              className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -173,14 +189,14 @@ const Sales = () => {
                 options={{
                   loop: true,
                   autoplay: true,
-                  animationData: empty,
+                  animationData: empty, 
                   rendererSettings: {
                     preserveAspectRatio: "xMidYMid slice",
                   },
                 }}
                 style={{ alignSelf: "center", maxWidth: "300px" }}
               />
-              <p className=" text-red-400">No order yet</p>
+              <p className=" text-red-400">No Subscription yet</p>
             </div>
             }
 
@@ -191,4 +207,4 @@ const Sales = () => {
   );
 };
 
-export default Sales;
+export default Subscriptions;
