@@ -23,7 +23,7 @@ const SignIn = () => {
 
     // send login request using axios
     axios
-      .post("http://localhost:4000/api/seller/login", formObject)
+      .post("https://mazamaza.onrender.com/api/seller/login", formObject)
       .then((response) => {
         // handle successful login
         setIsLoading(false)

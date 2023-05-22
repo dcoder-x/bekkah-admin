@@ -53,7 +53,7 @@ function ShopProfileForm({shop}) {
     try {
       setProcessing(true);
       const response = await axios.post(
-        "http://localhost:4000/api/seller/shop/update",
+        "https://mazamaza.onrender.com/api/seller/shop/update",
         {
           gapBetweenOrder,
           fulfillmentMethod,
