@@ -65,7 +65,7 @@ function SellerProfile() {
                       Phone number
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      {seller.shop.phone}
+                      {seller.shop?.phone}
                     </dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
@@ -81,14 +81,14 @@ function SellerProfile() {
                       Shop ID
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      {seller.shop._id}
+                      {seller.shop?._id}
                     </dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">
                       Shop address
                     </dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{` ${seller.shop.address.city}, ${seller.shop.address.state}, ${seller.shop.address.country} `}</dd>
+                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{` ${seller.shop?.address.city}, ${seller.shop?.address.state}, ${seller.shop?.address.country} `}</dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">
@@ -211,7 +211,7 @@ function SellerProfile() {
       )}
       {
         seller &&
-      <UpdateProfileModal onClose={()=>setModal(false)} show={modal} laststName={seller.lastName} firstName={seller.firstName} email={seller.email} phone = {seller.shop.phone} description = {seller.description} />
+      <UpdateProfileModal onClose={()=>setModal(false)} show={modal} laststName={seller.lastName} firstName={seller.firstName} email={seller.email} phone = {seller.shop?.phone} description = {seller.description} />
       }
     </div>
   );
