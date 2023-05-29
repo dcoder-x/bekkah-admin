@@ -29,6 +29,7 @@ import Subscriptions from "./MySubscriptions";
 import BankAccountForm from "./BankAccount";
 import VolumeDiscount from "./promotions/VolumeDiscount";
 import PriceDiscount from "./promotions/PriceDiscount";
+import UpdateCredentialsPage from "./UpdateCredentials";
 
 const Dashboard = () => {
   const {getSeller} = useContext(SellerContext)
@@ -85,9 +86,7 @@ const Dashboard = () => {
           <Route path="/productPerfomance" element={<ProductPerfomance/>}/>
           <Route path="/sales" element={<Sales/>}/>
           <Route path="/transactionReport" element={<TransactionReport/>}/>
-
-
-
+          <Route path="/updateCredentials" element={<UpdateCredentialsPage/>}/>
           <Route path="/newproduct" element={<ProductUploadForm />}>
             
           </Route>

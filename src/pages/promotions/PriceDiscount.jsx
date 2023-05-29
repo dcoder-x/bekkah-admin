@@ -160,7 +160,7 @@ export default function PriceDiscount() {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             {data?.length > 0 ? (
               <table className="min-w-max w-full table-auto">
                 <thead>

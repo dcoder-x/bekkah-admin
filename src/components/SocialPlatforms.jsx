@@ -104,7 +104,7 @@ function Socialname() {
               <option value="Facebook">Facebook</option>
               <option value="Instagram">Instagram</option>
               <option value="Twitter">Twitter</option>
-              <option value="Linked">Linked</option>
+              <option value="LinkedIn">LinkedIn</option>
             </optgroup>
           </select>
           <input

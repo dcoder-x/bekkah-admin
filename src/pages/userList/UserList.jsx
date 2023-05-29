@@ -62,7 +62,7 @@ export default function UserList() {
 
 <div className="overflow-x-auto w-full px-4">
             <div className="w-full">
-                <div className="bg-white shadow-md rounded my-6">
+                <div className="bg-white shadow-md rounded my-6 w-full">
                     <table className="min-w-max w-full table-auto">
                         <thead>
                             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

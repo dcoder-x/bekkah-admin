@@ -6,11 +6,16 @@ import { useContext } from "react";
 import { SellerContext } from "../App";
 import { toast } from "react-hot-toast";
 import UpdateProfileModal from "../components/UpdateCredentialModal";
+import twitterIcon from "@iconify-icons/mdi/twitter";
+import facebookIcon from "@iconify-icons/mdi/facebook";
+import instagramIcon from "@iconify-icons/mdi/instagram";
+import youtubeIcon from "@iconify-icons/mdi/youtube";
+import { Icon } from "@iconify/react";
 
 function SellerProfile() {
   const { seller } = useContext(SellerContext);
   const navigate = useNavigate();
-  const [modal, setModal] = useState()
+  const [modal, setModal] = useState();
   !seller && toast("Seller profile is not complete");
   !seller && navigate("/shopSetup");
   return (
@@ -116,92 +121,91 @@ function SellerProfile() {
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                     <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                      <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div className="w-0 flex-1 flex items-center">
-                          <a href="#" className="flex-shrink-0 group block">
-                            <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 hover:bg-blue-600">
-                              <svg
-                                className="h-5 w-5 text-white group-hover:text-blue-200"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10 1a9 9 0 110 18 9 9 0 010-18zm0 2a7 7 0 100 14 7 7 0 000-14zm2.32 5.67a2 2 0 00-2.83 0l-.7.7a1 1 0 01-1.42 0l-.7-.7a2 2 0 00-2.83 0l-.7.7a1 1 0 01-1.42 0L2.34 9.93a2 2 0 000 2.83l.7.7a1 1 0 010 1.42l-.7.7a2 2 0 000 2.83l.7.7a1 1 0 010 1.42l-.7.7a2 2 0 000 2.83l.7.7a1 1 0 010 1.42l1.41 1.41a2 2 0 002.83 0l.7-.7a1 1 0 011.42 0l.7.7a2 2 0 002.83                         0l.7-.7a1 1 0 011.42 0l1.41-1.41a2 2 0 000-2.83l-.7-.7a1 1 0 010-1.42l.7-.7a2 2 0 000-2.83l-.7-.7a1 1 0 010-1.42l.7-.7a2 2 0 000-2.83l-.7-.7a1 1 0 010-1.42l-.71-.7z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </a>
-                          <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">
-                              LinkedIn
-                            </div>
-                            <a
-                              href="#"
-                              className="text-sm text-gray-500 hover:text-gray-600"
-                            >
-                              linkedin.com/in/janedoe
-                            </a>
-                          </div>
-                        </div>
-                        <div className="flex-shrink-0 sm:ml-4">
-                          <button
-                            type="button"
-                            className="font-medium text-blue-600 hover:text-blue-500"
+                      {seller?.shop?.socialPlatforms?.length > 0 ? (
+                        seller?.shop?.socialPlatforms?.map(
+                          ({ name, link }, index) => {
+                            let icon = null;
+
+                            switch (name) {
+                              case "Twitter":
+                                icon = twitterIcon;
+                                break;
+                              case "Facebook":
+                                icon = facebookIcon;
+                                break;
+                              case "Instagram":
+                                icon = instagramIcon;
+                                break;
+                              case "YouTube":
+                                icon = youtubeIcon;
+                                break;
+                              default:
+                                break;
+                            }
+
+                            return (
+                              name && (
+                                <li
+                                  key={index}
+                                  className="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                                >
+                                  <div className="w-0 flex-1 flex items-center">
+                                    <a
+                                      href={link}
+                                      className="flex-shrink-0 group block"
+                                    >
+                                      <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 hover:bg-blue-600">
+                                        <Icon
+                                          icon={icon}
+                                          className="text-white w-6 h-6 mr-2"
+                                        />
+                                      </span>
+                                    </a>
+                                    <div className="ml-4">
+                                      <div className="text-sm font-medium text-gray-900">
+                                        {name}
+                                      </div>
+                                      <a
+                                        href={link}
+                                        className="text-sm text-gray-500 hover:text-gray-600"
+                                      >
+                                        {link}
+                                      </a>
+                                    </div>
+                                  </div>
+                                  <div className="flex-shrink-0 sm:ml-4">
+                                    <button
+                                      type="button"
+                                      className="font-medium text-blue-600 hover:text-blue-500"
+                                    >
+                                      Edit
+                                    </button>
+                                  </div>
+                                </li>
+                              )
+                            );
+                          }
+                        )
+                      ) : (
+                        <div className="flex items-center">
+                          <p>You have not added any socaial Platform </p>
+                          <a
+                            href=""
+                            className=" text-white bg-blue-500 rounded-sm p-2 mx-4"
                           >
-                            Edit
-                          </button>
-                        </div>
-                      </li>
-                      <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div className="w-0 flex-1 flex items-center">
-                          <a href="#" className="flex-shrink-0 group block">
-                            <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-indigo-500 hover:bg-indigo-600">
-                              <svg
-                                className="h-5 w-5 text-white group-hover:text-indigo-200"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M13.29 2.7a1 1 0 011.41 0l2.58 2.59a1 1 0 010 1.42L9.14 16.31a1 1 0 01-1.41 0L2.7 9.43a1 1 0 010-1.42l2.58-2.59a1 1 0 011.41 0L10 7.1l3.29-3.4z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </span>
+                            Add now
                           </a>
-                          <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">
-                              Twitter
-                            </div>
-                            <a
-                              href="#"
-                              className="text-sm text-gray-500 hover:text-gray-600"
-                            >
-                              twitter.com/janedoe
-                            </a>
-                          </div>
                         </div>
-                        <div className="flex-shrink-0 sm:ml-4">
-                          <button
-                            type="button"
-                            className="font-medium text-blue-600 hover:text-blue-500"
-                          >
-                            Edit
-                          </button>
-                        </div>
-                      </li>
+                      )}
                     </ul>
                   </dd>
                 </div>
               </div>
-              <button onClick={e=>setModal(!modal)} className=" px-4 py-2 rounded-sm text-white bg-blue-400 ">
-                    Update credentianls
+              <button
+                onClick={(e) => setModal(!modal)}
+                className=" px-4 py-2 rounded-sm text-white bg-blue-400 "
+              >
+                Update credentianls
               </button>
             </div>
           </div>
@@ -209,10 +213,17 @@ function SellerProfile() {
       ) : (
         <p>Seller Profile not available</p>
       )}
-      {
-        seller &&
-      <UpdateProfileModal onClose={()=>setModal(false)} show={modal} laststName={seller.lastName} firstName={seller.firstName} email={seller.email} phone = {seller.shop?.phone} description = {seller.description} />
-      }
+      {seller && (
+        <UpdateProfileModal
+          onClose={() => setModal(false)}
+          show={modal}
+          laststName={seller.lastName}
+          firstName={seller.firstName}
+          email={seller.email}
+          phone={seller.shop?.phone}
+          description={seller.description}
+        />
+      )}
     </div>
   );
 }

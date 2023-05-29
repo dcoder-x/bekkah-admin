@@ -13,6 +13,11 @@ export const sideBarMenu = [
         icon: "",
         link: "products",
       },
+      {
+        name: "Add product",
+        icon: "",
+        link: "newProduct",
+      },
       // {
       //   name: "Product tags",
       //   icon: "",
@@ -34,7 +39,7 @@ export const sideBarMenu = [
     ],
   },
   {
-    title: "Sales",
+    title: "Orders",
     icon:'icon-park-outline:sales-report',
 
     sublinks: [
@@ -44,7 +49,7 @@ export const sideBarMenu = [
         icon: "",
       },
       {
-        name: "Cancellation Requests",
+        name: "Order Cancellation Requests",
         icon: "",
         link: "cancellationRequest",
 
@@ -74,10 +79,10 @@ export const sideBarMenu = [
         name: "Buy Together Products",
         icon: "",
       },
-      // {
-      //   name: "Similar Products",
-      //   icon: "",
-      // },
+      {
+        name: "Similar Products",
+        icon: "",
+      },
       // {
       //   name: "Google Shopping feed",
       //   icon: "",
@@ -186,13 +191,14 @@ export const sideBarMenu = [
       //   name: "Messages",
       //   icon: "",
       // },
-      {
-        name: "My Credits",
-        icon: "",
-      },
+      // {
+      //   name: "My Credits",
+      //   icon: "",
+      // },
       {
         name: "Update Credentials",
         icon: "",
+        link:'updateCredentials'
       },
     ],
   },

@@ -19,7 +19,7 @@ const ProductPerfomance = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/seller",
+        "https://mazamaza.onrender.com/api/product/my_products_performance",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -28,7 +28,8 @@ const ProductPerfomance = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.ProductPerfomance);
+        setData(response.data.data);
+        console.log(data)
       }
     } catch (error) {
       setLoading(false);
@@ -78,7 +79,7 @@ const ProductPerfomance = () => {
   }, []);
 
   return (
-    <div className="orderList">
+    <div className="orderList w-full px-2">
       <h1>Canceled ProductPerfomance</h1>
       <SearchFilter
         onFilter={(filter) => {
@@ -92,7 +93,7 @@ const ProductPerfomance = () => {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -106,72 +107,76 @@ const ProductPerfomance = () => {
                   <th className="py-3 px-6 text-center">Status</th>
                 </tr>
               </thead>
-              {data?.length > 0 &&
+              {data?.length > 0 && (
                 <tbody className="text-gray-600 text-sm font-light">
-                  {data.map((order, i) => {
+                  {data.map((product, i) => {
                     return (
                       <tr
                         key={i}
                         className="border-b border-gray-200 hover:bg-gray-100"
                       >
-                        <td className="py-3 px-6 text-left whitespace-nowrap">
-                          <div className="flex items-center">
-                            <span className="font-medium">{}</span>
-                          </div>
-                        </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <span className="font-medium">{`${order?._id}`}</span>
+                            <span className="font-medium">{`${product?.productId}`}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {order.category
-                              ? order?.category[0].split(",")[0]
-                              : "no category"}
+                            {product?.productName}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.Amount}
+                            {product?.leftInStock||0}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                          {order?.totalQuantity}
+                            {product?.productInCart}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.status}
+                            {product?.productInWishlist}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                            {product?.productInOrder}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                            {product?.sold}
+                          </span>
+                        </td>
+                           <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                            {product?.status}
                           </span>
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
-              
-
-              }
+              )}
             </table>
-            {
-              !data?.length > 0 &&
+            {!data?.length > 0 && (
               <div className="flex flex-col items-center w-full py-4">
-              <Lottie
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: empty,
-                  rendererSettings: {
-                    preserveAspectRatio: "xMidYMid slice",
-                  },
-                }}
-                style={{ alignSelf: "center", maxWidth: "300px" }}
-              />
-              <p className=" text-red-400">No order yet</p>
-            </div>
-            }
-
+                <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: empty,
+                    rendererSettings: {
+                      preserveAspectRatio: "xMidYMid slice",
+                    },
+                  }}
+                  style={{ alignSelf: "center", maxWidth: "300px" }}
+                />
+                <p className=" text-red-400">No order yet</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ const Sales = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/seller",
+        "https://mazamaza.onrender.com/api/sale/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -78,7 +78,7 @@ const Sales = () => {
   }, []);
 
   return (
-    <div className="orderList">
+    <div className="orderList w-full px-2">
       <h1>Canceled Sales</h1>
       <SearchFilter
         onFilter={(filter) => {
@@ -92,7 +92,7 @@ const Sales = () => {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -100,7 +100,7 @@ const Sales = () => {
                   <th className="py-3 px-6 text-left">Order ID</th>
                   <th className="py-3 px-6 text-left">Date</th>
                   <th className="py-3 px-6 text-center">Buyer</th>
-                  <th className="py-3 px-6 text-left">Products name</th>
+                  <th className="py-3 px-6 text-left">Product</th>
                   <th className="py-3 px-6 text-center">Quantity</th>
                   <th className="py-3 px-6 text-left">Amount</th>
                   <th className="py-3 px-6 text-center">Status</th>

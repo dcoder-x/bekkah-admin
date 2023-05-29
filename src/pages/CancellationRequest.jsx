@@ -19,7 +19,7 @@ const CancellationRequests = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/seller",
+        "https://mazamaza.onrender.com/api/order/cancellationRequest/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -78,8 +78,8 @@ const CancellationRequests = () => {
   }, []);
 
   return (
-    <div className="orderList">
-      <h1>Canceled Orders</h1>
+    <div className="orderList w-full px-2">
+      <h1>Order cancellation requests</h1>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -92,7 +92,7 @@ const CancellationRequests = () => {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

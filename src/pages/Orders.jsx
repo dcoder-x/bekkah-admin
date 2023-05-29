@@ -78,7 +78,7 @@ const Orders = () => {
   }, []);
 
   return (
-    <div className="orderList">
+    <div className="orderList w-full px-2">
       <h2>orders</h2>
       <SearchFilter
         onFilter={(filter) => {
@@ -92,7 +92,7 @@ const Orders = () => {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -111,11 +111,6 @@ const Orders = () => {
                         key={i}
                         className="border-b border-gray-200 hover:bg-gray-100"
                       >
-                        <td className="py-3 px-6 text-left whitespace-nowrap">
-                          <div className="flex items-center">
-                            <span className="font-medium">{}</span>
-                          </div>
-                        </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
                             <span className="font-medium">{`${order?._id}`}</span>

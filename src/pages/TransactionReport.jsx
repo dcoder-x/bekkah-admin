@@ -19,7 +19,7 @@ const TransactionReport = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/seller",
+        "https://mazamaza.onrender.com/api/seller/transactions",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -28,7 +28,7 @@ const TransactionReport = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.TransactionReport);
+        setData(response.data.transactions);
       }
     } catch (error) {
       setLoading(false);
@@ -78,7 +78,7 @@ const TransactionReport = () => {
   }, []);
 
   return (
-    <div className="orderList">
+    <div className="orderList w-full px-2">
       <h1>Canceled TransactionReport</h1>
       <SearchFilter
         onFilter={(filter) => {
@@ -92,7 +92,7 @@ const TransactionReport = () => {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -102,47 +102,57 @@ const TransactionReport = () => {
                   <th className="py-3 px-6 text-left">Amount</th>
                   <th className="py-3 px-6 text-center">Initiator</th>
                   <th className="py-3 px-6 text-center">Reciever</th>
+                  <th className="py-3 px-6 text-left">Transaction Type</th>
                   <th className="py-3 px-6 text-center">Status</th>
                 </tr>
               </thead>
               {data?.length > 0 &&
                 <tbody className="text-gray-600 text-sm font-light">
-                  {data.map((order, i) => {
+                  {data.map((transaction, i) => {
                     return (
                       <tr
                         key={i}
                         className="border-b border-gray-200 hover:bg-gray-100"
                       >
-                        <td className="py-3 px-6 text-left whitespace-nowrap">
-                          <div className="flex items-center">
-                            <span className="font-medium">{}</span>
-                          </div>
-                        </td>
+                        
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <span className="font-medium">{`${order?._id}`}</span>
+                            <span className="font-medium">{`${transaction?.transactionId}`}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {order.category
-                              ? order?.category[0].split(",")[0]
-                              : "no category"}
+                            {new Date(transaction.date).toDateString}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.Amount}
+                              {transaction.description}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                          {order?.totalQuantity}
+                          {transaction?.amount}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.status}
+                          {transaction?.initiator}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                          {transaction?.reciever}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                          {transaction?.type}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                              {transaction.status}
                           </span>
                         </td>
                       </tr>
