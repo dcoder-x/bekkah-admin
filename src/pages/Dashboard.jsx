@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Topbar from "../components/topbar/Topbar";
 import Sidebar from "../components/sidebar/Sidebar";
 // import { Routes } from "@material-ui/core";
@@ -18,8 +18,16 @@ import SubscriptionPlans from "./SubscriptionPlans";
 import Orders from "./Orders";
 import OrderDetails from "../components/OrderDetails";
 import SellerProfile from "./SellerProfile";
+import { useContext,Context } from "react";
+import { SellerContext } from "../App";
+import SellerApproval from "./SellerApproval";
 
 const Dashboard = () => {
+  const {getSeller} = useContext(SellerContext)
+
+  useEffect(()=>{
+    getSeller()
+  },[])
   return (
     <>
       <Topbar />
@@ -58,6 +66,8 @@ const Dashboard = () => {
            
           </Route>
           <Route path="/profile" element={<SellerProfile/>}/>
+          <Route path="/sellerApproval" element={<SellerApproval/>}/>
+
           <Route path="/newproduct" element={<ProductUploadForm />}>
             
           </Route>

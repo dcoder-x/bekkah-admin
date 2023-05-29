@@ -1,11 +1,16 @@
 export const sideBarMenu = [
   {
-    title: "Shop",
+    title: "Shops",
     icon:'fluent:building-shop-16-regular',
     sublinks: [
       {
-        name: "Manage Shop",
+        name: "Manage Shops",
         link: "manage-shop",
+        icon: "",
+      },
+      {
+        name: "Manage Sellers",
+        link: "manage-sellers",
         icon: "",
       },
       {
@@ -13,24 +18,48 @@ export const sideBarMenu = [
         icon: "",
         link: "products",
       },
-      // {
-      //   name: "Product tags",
-      //   icon: "",
-      //   // link: "manage-shop",
-
-      // },
-      // {
-      //   name: "Product Options",
-      //   icon: "",
-      // },
-      // {
-      //   name: "Tax Category",
-      //   icon: "",
-      // },
-      // {
-      //   name: "Requests",
-      //   icon: "",
-      // },
+    ],
+  },
+  {
+    title: "Buyers",
+    icon:'fluent:building-shop-16-regular',
+    sublinks: [
+      {
+        name: "All Buyers",
+        link: "buyers",
+        icon: "",
+      },
+      {
+        name: "Restricted Buyers",
+        link: "restricted-buyers",
+        icon: "",
+      },
+    ],
+  },
+  {
+    title: "Requests",
+    icon:'fluent:building-shop-16-regular',
+    sublinks: [
+      {
+        name: "Account Approval",
+        link: "sellerApproval",
+        icon: "",
+      },
+      {
+        name: "Withrawal Requests",
+        link: "restricted-buyers",
+        icon: "",
+      },
+      {
+        name: "Order Cancellation Requests",
+        link: "restricted-buyers",
+        icon: "",
+      },
+      {
+        name: "Order Return Requests",
+        link: "restricted-buyers",
+        icon: "",
+      },
     ],
   },
   {
@@ -54,57 +83,14 @@ export const sideBarMenu = [
     ],
   },
   {
-    title: "Promotions",
-    icon:'icons8:advertising',
-    sublinks: [
-      {
-        name: "Special Price",
-        // link: "./",
-        icon: "",
-      },
-      {
-        name: "Volume Discount",
-        icon: "",
-      },
-      {
-        name: "Buy Together Products",
-        icon: "",
-      },
-      // {
-      //   name: "Similar Products",
-      //   icon: "",
-      // },
-      // {
-      //   name: "Google Shopping feed",
-      //   icon: "",
-      // },
-      {
-        name: "Badges",
-        icon: "",
-      },
-      {
-        name: "Ribbon",
-        icon: "",
-      },
-    ],
-  },
-  {
     title: "Subscriptions",
     icon:'fluent-mdl2:packages',
     sublinks: [
       {
-        name: "My Subscriptions",
+        name: "Subscribed Sellers",
         icon: "",
         link:'subscription'
-      },
-      {
-        name: "Subscription Packages",
-        icon: "",
-      },
-      {
-        name: "Subscription Offers",
-        icon: "",
-      },
+      }
     ],
   },
   {
@@ -126,10 +112,10 @@ export const sideBarMenu = [
     title: "Financial report",
     icon:'carbon:finance',
     sublinks: [
-      // {
-      //   name: "Profit by products",
-      //   icon: "",
-      // },
+      {
+        name: "Profit by products",
+        icon: "",
+      },
       {
         name: "Payout",
         icon: "",

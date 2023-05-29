@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { category } from "../data/category";
 
 const categories = [
   { id: 1, name: "Electronics" },
@@ -9,12 +10,17 @@ const categories = [
 ];
 
 const CategorySelect = ({ OnSelectCategories, product }) => {
-  console.log(product?.category)
-  const [selectedCategories, setSelectedCategories] = useState(product?.category?product.category[0].split(','):[]);
+  console.log(product?.category);
+  const [selectedCategories, setSelectedCategories] = useState(
+    product?.category ? product.category[0].split(",") : []
+  );
 
   const handleCategorySelect = (category) => {
-    if (category && !selectedCategories?.includes(category) && !product?.category?.includes(category)) {
-      console.log("added");
+    if (
+      category &&
+      !selectedCategories?.includes(category) &&
+      !product?.category?.includes(category)
+    ) {
       setSelectedCategories([...selectedCategories, category]);
 
       OnSelectCategories && OnSelectCategories(selectedCategories);
@@ -39,11 +45,18 @@ const CategorySelect = ({ OnSelectCategories, product }) => {
         }}
       >
         <optgroup>
-          {categories.map((category) => {
+          {category.map((category, i) => {
             return (
-              <option key={category.id} value={category.name}>
-                {category.name}
-              </option>
+              <>
+                {category.subCategory.map((subCategory, i) => {
+                  console.log(category.title)
+                  return (
+                    <option key={i} value={subCategory.name}>
+                     {subCategory.name} - {category.title}
+                    </option>
+                  );
+                })}
+              </>
             );
           })}
         </optgroup>

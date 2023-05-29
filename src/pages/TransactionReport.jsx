@@ -8,14 +8,14 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 
-const Orders = () => {
+const TransactionReport = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
-  const getSellerOrders = async () => {
+  const getSellerTransactionReport = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
@@ -28,14 +28,14 @@ const Orders = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.orders);
+        setData(response.data.TransactionReport);
       }
     } catch (error) {
       setLoading(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
-          "something went wrong : could not fetch orders"
+          "something went wrong : could not fetch TransactionReport"
       );
     }
   };
@@ -64,7 +64,7 @@ const Orders = () => {
       );
       if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerOrders();
+        getSellerTransactionReport();
       }
     } catch (error) {
       setLoading(false);
@@ -74,12 +74,12 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    getSellerOrders();
+    getSellerTransactionReport();
   }, []);
 
   return (
     <div className="orderList">
-      <h2>orders</h2>
+      <h1>Canceled TransactionReport</h1>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -96,10 +96,12 @@ const Orders = () => {
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-left">Order details</th>
+                  <th className="py-3 px-6 text-left">Transaction ID</th>
+                  <th className="py-3 px-6 text-left">Date</th>
+                  <th className="py-3 px-6 text-left">Description</th>
                   <th className="py-3 px-6 text-left">Amount</th>
-                  <th className="py-3 px-6 text-center">Quantity</th>
+                  <th className="py-3 px-6 text-center">Initiator</th>
+                  <th className="py-3 px-6 text-center">Reciever</th>
                   <th className="py-3 px-6 text-center">Status</th>
                 </tr>
               </thead>
@@ -165,7 +167,7 @@ const Orders = () => {
                 }}
                 style={{ alignSelf: "center", maxWidth: "300px" }}
               />
-              <p className=" text-red-400">No order yet</p>
+              <p className=" text-red-400">No Transactions yet</p>
             </div>
             }
 
@@ -176,4 +178,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default TransactionReport;
