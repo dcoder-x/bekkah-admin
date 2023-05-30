@@ -1,7 +1,7 @@
 export const sideBarMenu = [
   {
     title: "Shops",
-    icon:'fluent:building-shop-16-regular',
+    icon: "fluent:building-shop-16-regular",
     sublinks: [
       {
         name: "Manage Shops",
@@ -22,7 +22,7 @@ export const sideBarMenu = [
   },
   {
     title: "Buyers",
-    icon:'fluent:building-shop-16-regular',
+    icon: "fluent:building-shop-16-regular",
     sublinks: [
       {
         name: "All Buyers",
@@ -38,7 +38,7 @@ export const sideBarMenu = [
   },
   {
     title: "Requests",
-    icon:'fluent:building-shop-16-regular',
+    icon: "fluent:building-shop-16-regular",
     sublinks: [
       {
         name: "Account Approval",
@@ -64,7 +64,7 @@ export const sideBarMenu = [
   },
   {
     title: "Sales",
-    icon:'icon-park-outline:sales-report',
+    icon: "icon-park-outline:sales-report",
 
     sublinks: [
       {
@@ -76,46 +76,43 @@ export const sideBarMenu = [
         name: "Cancellation Requests",
         icon: "",
         link: "cancellationRequest",
-
       },
       {
         name: "Order Return Request",
         icon: "",
         link: "returnRequest",
-
       },
     ],
   },
   {
     title: "Subscriptions",
-    icon:'fluent-mdl2:packages',
+    icon: "fluent-mdl2:packages",
     sublinks: [
       {
         name: "Subscribed Sellers",
         icon: "",
-        link:'subscription'
+        link: "subscription",
       },
       {
         name: "Subscription Packages",
         icon: "",
-        link:'subscription'
+        link: "subscription",
       },
       {
         name: "Subscription Offers",
         icon: "",
-        link:'subscription'
+        link: "subscription",
       },
     ],
   },
   {
     title: "Sales Report",
-    icon:'mdi:report-bar-stacked',
+    icon: "mdi:report-bar-stacked",
     sublinks: [
       {
         name: "Sales over time",
         icon: "",
-        link:'sales'
-
+        link: "sales",
       },
       // {
       //   name: "Products",
@@ -126,7 +123,7 @@ export const sideBarMenu = [
 
   {
     title: "Financial report",
-    icon:'carbon:finance',
+    icon: "carbon:finance",
     sublinks: [
       {
         name: "Profit by products",
@@ -139,37 +136,30 @@ export const sideBarMenu = [
       {
         name: "Transaction report",
         icon: "",
-        link:'transactionReport'
-
+        link: "transactionReport",
+      },
+    ],
+  },
+  {
+    title: "Integrations",
+    icon: "streamline:interface-user-profile-focus-close-geometric-human-person-profile-focus-user",
+    sublinks: [
+      {
+        name: "Shipping",
+        icon: "",
+      },
+      {
+        name: "Payment",
+        icon: "",
       },
     ],
   },
   {
     title: "Profile",
-    icon:'streamline:interface-user-profile-focus-close-geometric-human-person-profile-focus-user',
+    icon: "streamline:interface-user-profile-focus-close-geometric-human-person-profile-focus-user",
     sublinks: [
       {
         name: "My Account",
-        icon: "",
-      },
-      {
-        name: "Bank Account",
-        icon: "",
-      },
-      // {
-      //   name: "Cookie preferences",
-      //   icon: "",
-      // },
-      // {
-      //   name: "Messages",
-      //   icon: "",
-      // },
-      {
-        name: "My Credits",
-        icon: "",
-      },
-      {
-        name: "Update Credentials",
         icon: "",
       },
     ],
