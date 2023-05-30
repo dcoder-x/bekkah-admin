@@ -19,7 +19,7 @@ const ProductPerfomance = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/order/seller",
+        "https://mazamaza.onrender.com/api/order/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -55,7 +55,7 @@ const ProductPerfomance = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/order/delete/${id}`,
+        `https://mazamaza.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -96,11 +96,13 @@ const ProductPerfomance = () => {
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-left">Date</th>
-                  <th className="py-3 px-6 text-left">Order details</th>
-                  <th className="py-3 px-6 text-left">Amount</th>
-                  <th className="py-3 px-6 text-center">Quantity</th>
+                  <th className="py-3 px-6 text-left">Product ID</th>
+                  <th className="py-3 px-6 text-left">Product Name</th>
+                  <th className="py-3 px-6 text-left">In Stock</th>
+                  <th className="py-3 px-6 text-left">In cart</th>
+                  <th className="py-3 px-6 text-center">In Wishlist</th>
+                  <th className="py-3 px-6 text-center">In Order</th>
+                  <th className="py-3 px-6 text-center">Sold</th>
                   <th className="py-3 px-6 text-center">Status</th>
                 </tr>
               </thead>

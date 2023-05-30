@@ -75,10 +75,14 @@ export const sideBarMenu = [
       {
         name: "Cancellation Requests",
         icon: "",
+        link: "cancellationRequest",
+
       },
       {
         name: "Order Return Request",
         icon: "",
+        link: "returnRequest",
+
       },
     ],
   },
@@ -90,7 +94,17 @@ export const sideBarMenu = [
         name: "Subscribed Sellers",
         icon: "",
         link:'subscription'
-      }
+      },
+      {
+        name: "Subscription Packages",
+        icon: "",
+        link:'subscription'
+      },
+      {
+        name: "Subscription Offers",
+        icon: "",
+        link:'subscription'
+      },
     ],
   },
   {
@@ -100,11 +114,13 @@ export const sideBarMenu = [
       {
         name: "Sales over time",
         icon: "",
+        link:'sales'
+
       },
-      {
-        name: "Products",
-        icon: "",
-      },
+      // {
+      //   name: "Products",
+      //   icon: "",
+      // },
     ],
   },
 
@@ -123,24 +139,8 @@ export const sideBarMenu = [
       {
         name: "Transaction report",
         icon: "",
-      },
-    ],
-  },
-  {
-    title: "Inventory Reports",
-    icon:'material-symbols:inventory-sharp',
-    sublinks: [
-      {
-        name: "Products Inventory",
-        icon: "",
-      },
-      {
-        name: "Products Inventory Stock Status",
-        icon: "",
-      },
-      {
-        name: "Products Performance Report",
-        icon: "",
+        link:'transactionReport'
+
       },
     ],
   },

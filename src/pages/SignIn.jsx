@@ -1,24 +1,26 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
-import logo from '../assets/images/logo.jpg'
+import logo from "../assets/images/logo.jpg";
 
 const SignIn = () => {
-  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   function signIn(event) {
-    console.log('submitting')
+    setIsLoading(true)
+    console.log("submitting");
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget)
-    console.log(formData,event.currentTarget)
+    const formData = new FormData(event.currentTarget);
+    console.log(formData, event.currentTarget);
     const formObject = {};
-for (const [key, value] of formData.entries()) {
-  formObject[key] = value;
-}
+    for (const [key, value] of formData.entries()) {
+      formObject[key] = value;
+    }
 
-console.log(formObject);
-    
+    console.log(formObject);
+
     // send login request using axios
     axios
       .post("http://localhost:4000/api/admin/signin",formObject)
@@ -26,19 +28,27 @@ console.log(formObject);
         // handle successful login
         localStorage.setItem('AdminAuthToken',response.data.token)
         window.location.href = "/dashboard";
-        toast(response?.data.message)
+        toast(response?.data.message);
       })
       .catch((error) => {
+        setIsLoading(false)
         // handle login error
         console.log(error);
-        toast(error?.response?.data?.message||'something went wrong, please try again')
+        toast(
+          error?.response?.data?.message ||
+            "something went wrong, please try again"
+        );
       });
   }
   return (
     <div class="flex items-center min-h-screen w-full bg-white dark:bg-gray-900">
       <div class="container mx-auto w-full">
         <div class=" mx-auto my-10 w-5/6 lg:w-1/3 max-w-[500px] flex flex-col ">
-            <img src={logo} className=" max-w-[200px] self-center justify-self-center " alt="MazaMaza logo" />
+          <img
+            src={logo}
+            className=" max-w-[200px] self-center justify-self-center "
+            alt="MazaMaza logo"
+          />
           <div class="text-center">
             <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
               Admin Dashboard
@@ -48,8 +58,12 @@ console.log(formObject);
             </p>
           </div>
           <div class="my-7 shadow-sm rounded-sm p-4 w-full bg-white">
-          {/* onSubmit={(e)=>{signIn(e)}} */}
-            <form onSubmit={(e)=>{signIn(e)}} >
+            {/* onSubmit={(e)=>{signIn(e)}} */}
+            <form
+              onSubmit={(e) => {
+                signIn(e);
+              }}
+            >
               <div class="mb-6">
                 <label
                   for="email"
@@ -93,10 +107,11 @@ console.log(formObject);
               <div class="mb-6">
                 <button
                   type="submit"
+                  disabled={isLoading}
                   // onClick={e=>{}}
                   class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none"
                 >
-                  Sign in
+                  {isLoading ? "Processing" : "Sign in"}
                 </button>
               </div>
               {/* <p class="text-sm text-center text-gray-400">

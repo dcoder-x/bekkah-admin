@@ -8,18 +8,18 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 
-const Orders = () => {
+const ReturnRequests = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
-  const getSellerOrders = async () => {
+  const getSellerReturnRequests = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/order/seller",
+        "https://mazamaza.onrender.com/api/order/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -28,14 +28,14 @@ const Orders = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.orders);
+        setData(response.data.ReturnRequests);
       }
     } catch (error) {
       setLoading(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
-          "something went wrong : could not fetch orders"
+          "something went wrong : could not fetch ReturnRequests"
       );
     }
   };
@@ -55,7 +55,7 @@ const Orders = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/order/delete/${id}`,
+        `https://mazamaza.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -64,7 +64,7 @@ const Orders = () => {
       );
       if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerOrders();
+        getSellerReturnRequests();
       }
     } catch (error) {
       setLoading(false);
@@ -74,7 +74,7 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    getSellerOrders();
+    getSellerReturnRequests();
   }, []);
 
   return (
@@ -176,4 +176,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default ReturnRequests;

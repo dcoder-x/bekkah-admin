@@ -19,7 +19,7 @@ const Sales = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/order/seller",
+        "https://mazamaza.onrender.com/api/order/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -55,7 +55,7 @@ const Sales = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/order/delete/${id}`,
+        `https://mazamaza.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
