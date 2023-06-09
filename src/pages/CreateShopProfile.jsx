@@ -7,6 +7,9 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import logo from "../assets/images/logo.jpg";
+import { useNavigate } from "react-router";
+import ReactModal from "react-modal";
 
 const options = [
   { value: "pickup", label: "Pickup" },
@@ -15,6 +18,8 @@ const options = [
 ];
 
 const CreateShopProfileForm = () => {
+
+  const navigate = useNavigate()
   const [identifier, setIdentifier] = useState("");
   const [seoFriendlyUrl, setSeoFriendlyUrl] = useState("");
   const [phone, setPhone] = useState("");
@@ -26,67 +31,193 @@ const CreateShopProfileForm = () => {
   const [orderCancellationAge, setOrderCancellationAge] = useState("");
   const [pickupSlotGap, setPickupSlotGap] = useState("");
   const [fulfillmentMethod, setFulfillmentMethod] = useState("");
+  const [showModal, setShowModal] = useState();
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+  };
 
-
-
-    const searchParams = new URLSearchParams(window.location.search);
-    const id = searchParams.get("id");
 
 
   const handleCountryChange = (selectedOption) => {
     setCountry(selectedOption.label);
   };
 
- async function handleSubmit(e) {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    formData.append('address',{country:country,state:state,city:city})
-    formData.append('phone',phone)
-    console.log(Object.fromEntries(formData.entries()))
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    formData.append("address", { country: country, state: state, city: city });
+    formData.append("phone", phone);
+    console.log(Object.fromEntries(formData.entries()));
     try {
-      
-    const response = await axios.post(`https://mazamaza.onrender.com/api/seller/createShop/?id=${id}`,Object.fromEntries(formData.entries()))
+      const response = await axios.post(
+        `http://localhost:4000/api/admin/shop`,
+        Object.fromEntries(formData.entries()),
+        {
+          headers:{
+            'x-auth-token':localStorage.getItem('AdminAuthToken')
+          }
+        }
+      );
       if (response) {
-        toast(response.data.message)
+        toast(response.data.message);
+        setShowModal(true)
       }
     } catch (error) {
-      console.log(error)
-      toast(error.response.data.message||'something went wrong')
-      
+      console.log(error);
+      toast(error.response.data.message || "something went wrong");
     }
-
-
-
-
   }
 
   return (
     <div class="flex items-center min-h-screen w-full bg-white dark:bg-gray-900">
       <div class="container mx-auto w-full">
-        <div class=" mx-auto my-10 w-5/6 lg:w-2/3 max-w-lg">
-          <img src="" alt="MazaMaza logo" />
+        <div class=" mx-auto my-10 w-full">
+          <img
+            src={logo}
+            className="max-w-[200px] m-auto rounded-full"
+            alt="MazaMaza logo"
+          />
           <div class="text-center">
             <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
-              Shop Profile
+              Create Shop
             </h1>
             <p class="text-gray-500 dark:text-gray-400">
-              Create a profile for your shop
+              Provide seller and shop information to create a shop
             </p>
           </div>
           <div class="my-7 shadow-sm rounded-sm p-4 w-full bg-white">
-            <form  onSubmit={handleSubmit} className="block mb-2 text-sm text-gray-600 dark:text-gray-400 max-w-screen-lg">
-              <div className="p-4 space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className=" mb-2 text-sm flex lg:flex-row flex-col items-start text-gray-600 dark:text-gray-400 w-full"
+            >
+              {/* seller information form */}
+              <div className="p-4 space-y-4 lg:min-w-[50%] w-[100%]">
+                <h2 className='text-xl font-bold' className="text-xl font-bold">Seller Infomation</h2>
+                <div className="space-y-1">
+                  <label
+                    htmlFor="firstName"
+                    className="font-medium text-gray-700"
+                  >
+                    First name
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    name="firstName"
+                    id="firstName"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label
+                    htmlFor="lastName"
+                    className="font-medium text-gray-700"
+                  >
+                    last name
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label
+                    htmlFor="email"
+                    className="font-medium text-gray-700"
+                  >
+                    email
+                  </label>
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label
+                    htmlFor="description"
+                    className="font-medium text-gray-700"
+                  >
+                    Seller/Shop Description
+                  </label>
+                  <textarea
+                    required
+                    type="text"
+                    name="description"
+                    id="description"
+                    placeholder="Describe your Shop and what you intend to sell to us"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label
+                    htmlFor="password"
+                    className="font-medium text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <input
+                    required
+                    type="password"
+                    name="password"
+                    id="password"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label
+                    htmlFor="verifyPassword"
+                    className="font-medium text-gray-700"
+                  >
+                    Confirm Password
+                  </label>
+                  <input
+                    required
+                    type="password"
+                    name="verifyPassword"
+                    id="verifyPassword"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                  />
+                </div>
+
+
+
+                <div className="pt-4">
+
+                </div>
+              </div>
+
+
+              {/* shop creation form */}
+              <div className="p-4 space-y-4 lg:min-w-[50%] w-[100%]">
+                <h2 className='text-xl font-bold' className="text-xl font-bold">
+                  Shop Details
+                </h2>
                 <div className="space-y-1">
                   <label
                     htmlFor="identifier"
                     className="font-medium text-gray-700"
                   >
-                    Identifier
+                    Shop Name
                   </label>
                   <input
                     required
                     type="text"
-                    name="identifier"
+                    name="shopName"
                     id="identifier"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
@@ -94,24 +225,7 @@ const CreateShopProfileForm = () => {
                   />
                 </div>
 
-                <div className="space-y-1">
-                  <label
-                    htmlFor="seoFriendlyUrl"
-                    className="font-medium text-gray-700"
-                  >
-                    Shop SEO-friendly URL
-                  </label>
-                  <input
-                    required
-                    type="text"
-                    name="seoFriendlyUrl"
-                    id="seoFriendlyUrl"
-                    value={seoFriendlyUrl}
-                    onChange={(e) => setSeoFriendlyUrl(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
-                  />
-                  {`https://mazamaza.com/shop/${seoFriendlyUrl}`}
-                </div>
+                
 
                 <div className="space-y-1">
                   <label htmlFor="phone" className="font-medium text-gray-700">
@@ -309,7 +423,7 @@ const CreateShopProfileForm = () => {
                     type="submit"
                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                   >
-                    Create Shop Profile
+                    Create Shop
                   </button>
                 </div>
               </div>
@@ -317,6 +431,23 @@ const CreateShopProfileForm = () => {
           </div>
         </div>
       </div>
+      <ReactModal isOpen={showModal} style={customStyles}>
+        <p>Go to seller dashboard </p>
+        <div className=" flex items-center w-full justify-center">
+          <button
+            className=" m-1 bg-red-400 text-white rounded-sm py-1 px-2 text-center"
+            onClick={(e) => {navigate(-1)}}
+          >
+            Yes
+          </button>
+          <button
+            className=" m-1 bg-blue-300 text-white rounded-sm py-1 px-2 text-center"
+            onClick={(e) => {navigate('dashboard')}}
+          >
+            cancel
+          </button>
+        </div>
+      </ReactModal>
     </div>
   );
 };

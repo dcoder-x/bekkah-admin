@@ -9,20 +9,20 @@ export const sideBarMenu = [
         icon: "",
       },
       {
-        name: "Manage Sellers",
-        link: "manage-sellers",
+        name: "Create shops",
+        link: "create-shop",
         icon: "",
       },
       {
-        name: "Shop Inventory",
+        name: "Manage Sellers",
+        link: "manage-sellers",
         icon: "",
-        link: "products",
       },
     ],
   },
   {
     title: "Buyers",
-    icon: "fluent:building-shop-16-regular",
+    icon: "ph:users-bold",
     sublinks: [
       {
         name: "All Buyers",
@@ -37,8 +37,25 @@ export const sideBarMenu = [
     ],
   },
   {
+    title: "Products",
+    icon: "gridicons:product",
+
+    sublinks: [
+      {
+        name: "Manage Products",
+        link: "products",
+        icon: "",
+      },
+      {
+        name: "Create Products",
+        link: "newProduct",
+        icon: "",
+      },
+    ],
+  },
+  {
     title: "Requests",
-    icon: "fluent:building-shop-16-regular",
+    icon: "codicon:request-changes",
     sublinks: [
       {
         name: "Account Approval",
@@ -50,20 +67,10 @@ export const sideBarMenu = [
         link: "restricted-buyers",
         icon: "",
       },
-      {
-        name: "Order Cancellation Requests",
-        link: "restricted-buyers",
-        icon: "",
-      },
-      {
-        name: "Order Return Requests",
-        link: "restricted-buyers",
-        icon: "",
-      },
     ],
   },
   {
-    title: "Sales",
+    title: "Orders",
     icon: "icon-park-outline:sales-report",
 
     sublinks: [
@@ -73,7 +80,7 @@ export const sideBarMenu = [
         icon: "",
       },
       {
-        name: "Cancellation Requests",
+        name: "Order Cancellation Requests",
         icon: "",
         link: "cancellationRequest",
       },
@@ -85,23 +92,42 @@ export const sideBarMenu = [
     ],
   },
   {
+    title: "Promotions",
+    icon: "icons8:advertising",
+    sublinks: [
+      {
+        name: "Badges",
+        icon: "",
+      },
+      {
+        name: "Ribbon",
+        icon: "",
+      },
+    ],
+  },
+  {
     title: "Subscriptions",
     icon: "fluent-mdl2:packages",
     sublinks: [
       {
-        name: "Subscribed Sellers",
+        name: "All Subscriptions",
         icon: "",
-        link: "subscription",
+        link: "subscriptions",
+      },
+      {
+        name: "Active Subscriptions",
+        icon: "",
+        link: "active-subscriptions",
+      },
+      {
+        name: "Create Subscriptions",
+        icon: "",
+        link: "create-subscription",
       },
       {
         name: "Subscription Packages",
         icon: "",
-        link: "subscription",
-      },
-      {
-        name: "Subscription Offers",
-        icon: "",
-        link: "subscription",
+        link: "subscription-packages",
       },
     ],
   },
@@ -125,10 +151,10 @@ export const sideBarMenu = [
     title: "Financial report",
     icon: "carbon:finance",
     sublinks: [
-      {
-        name: "Profit by products",
-        icon: "",
-      },
+      // {
+      //   name: "Profit by products",
+      //   icon: "",
+      // },
       {
         name: "Payout",
         icon: "",
@@ -141,8 +167,44 @@ export const sideBarMenu = [
     ],
   },
   {
+    title: "Shipments",
+    icon: "carbon:delivery",
+    sublinks: [
+      {
+        name: "All Shipments",
+        icon: "",
+      },
+      {
+        name: "Complete Shipments",
+        icon: "",
+      },
+      {
+        name: "Incomplete Shipments",
+        icon: "",
+      },
+    ],
+  },
+  // {
+  //   title: "Payments",
+  //   icon: "fluent:money-16-regular",
+  //   sublinks: [
+  //     {
+  //       name: "All Payments",
+  //       icon: "",
+  //     },
+  //     {
+  //       name: "Incoming Payments",
+  //       icon: "",
+  //     },
+  //     {
+  //       name: "Seller Withdrawal",
+  //       icon: "",
+  //     },
+  //   ],
+  // },
+  {
     title: "Integrations",
-    icon: "streamline:interface-user-profile-focus-close-geometric-human-person-profile-focus-user",
+    icon: "ic:outline-integration-instructions",
     sublinks: [
       {
         name: "Shipping",
@@ -161,6 +223,12 @@ export const sideBarMenu = [
       {
         name: "My Account",
         icon: "",
+        link: "profile",
+      },
+      {
+        name: "Add Account",
+        icon: "",
+        link: "",
       },
     ],
   },

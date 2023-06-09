@@ -19,7 +19,7 @@ const ProductProfit = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/seller",
+        "http://localhost:4000/api/order/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -55,7 +55,7 @@ const ProductProfit = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -78,7 +78,7 @@ const ProductProfit = () => {
   }, []);
 
   return (
-    <div className="orderList">
+    <div className="w-full w-full px-2">
       <h1>Profit on products</h1>
       <SearchFilter
         onFilter={(filter) => {
@@ -92,7 +92,7 @@ const ProductProfit = () => {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

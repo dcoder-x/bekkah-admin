@@ -12,12 +12,22 @@ import BrandSelect from "./BrandSelector.jsx";
 function ProductUploadForm() {
   const formRef = useRef();
   const [productVariants, setProductVariants] = useState([
-    { name: "", value: "", quantity: "" },
+    {
+      name: "",
+      options: [
+        {
+          value: "",
+          quantity: "",
+          variantImage: "",
+        },
+      ],
+    },
   ]);
   const [productSpecifications, setProductSpecifications] = useState([
     { name: "", value: "" },
   ]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState();
   const [productImages, setProductImages] = useState([]);
 
   const [isActive, setIsActive] = useState(false);
@@ -57,27 +67,46 @@ function ProductUploadForm() {
     setShippingAgent(event.target.value);
   };
 
-  //variant handlers
-  const handleVariantChange = (index, field, value) => {
-    const newVariants = [...productVariants];
-    newVariants[index][field] = value;
-    console.log(newVariants);
-    setProductVariants(newVariants);
-    console.log(productVariants);
+
+  //variant
+  const handleVariantChange = (variantIndex, optionIndex, property, value) => {
+    const updatedVariants = [...productVariants];
+    if (property === "name") {
+      updatedVariants[variantIndex].name = value;
+    } else {
+      updatedVariants[variantIndex].options[optionIndex][property] = value;
+    }
+    setProductVariants(updatedVariants);
+  };
+  
+
+  const handleOptionRemove = (variantIndex, optionIndex) => {
+    const updatedVariants = [...productVariants];
+    updatedVariants[variantIndex].options.splice(optionIndex, 1);
+    setProductVariants(updatedVariants);
+  };
+  const handleVariantRemove = (variantIndex) => {
+    const updatedVariants = [...productVariants];
+    updatedVariants.splice(variantIndex, 1);
+    setProductVariants(updatedVariants);
   };
 
-  const handleVariantAdd = () => {
-    const newVariants = [...productVariants];
-    newVariants.push({ name: "", value: "", quantity: "" });
-    setProductVariants(newVariants);
-  };
+  function handleVariantAdd() {
+    const newVariant = {
+      name: "",
+      options: [{ value: "", quantity: "", variantImage: null }],
+    };
+    const updatedVariants = [...productVariants, newVariant];
+    setProductVariants(updatedVariants);
+  }
 
-  const handleVariantRemove = (index) => {
-    const newVariants = [...productVariants];
-    newVariants.splice(index, 1);
-    setProductVariants(newVariants);
-  };
-
+  function handleOptionAdd(variantIndex) {
+    const newOption = { value: "", quantity: "", variantImage: null };
+    const updatedVariants = [...productVariants];
+    updatedVariants[variantIndex].options.push(newOption);
+    setProductVariants(updatedVariants);
+  }
+  //image change
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
     console.log(files);
@@ -117,8 +146,8 @@ function ProductUploadForm() {
     );
   };
 
-  //category
-  const handleCategorySelect = (category) => {
+  //categories
+  const handleCategoriesSelect = (category) => {
     console.log(category);
     category.forEach((category) => {
       console.log(category);
@@ -127,39 +156,36 @@ function ProductUploadForm() {
     console.log(selectedCategories);
   };
 
+  //category
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
+
   //handle form
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+  
     const data = new FormData(e.target || formRef.current);
+  
+    // Append product images
     productImages.forEach((image) => data.append("images", image.file));
-    data.append("category", selectedCategories);
+  
+    // Append subcategories, category, tags, dimensions, variants, and specifications
+    data.append("subcategories", selectedCategories);
+    data.append("category", selectedCategory);
     data.append("tags", tags);
     data.append(
       "dimensions",
-      JSON.stringify({ height: height, length: length, width: width })
+      JSON.stringify({ height, length, width })
     );
     data.append("variants", JSON.stringify(productVariants));
     data.append("specifications", JSON.stringify(productSpecifications));
-
-    // console.log(JSON.stringify(productVariants), selectedCategories);
-
-    const formObject = {};
-    for (const [key, value] of data.entries()) {
-      formObject[key] = value;
-    }
-
-    for (const [key, value] of data.entries()) {
-      // console.log(key,value)
-      if (value instanceof File) {
-        console.log(`${key}: ${value.name}`);
-      }
-    }
-
+  
     try {
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/product/create",
+        "http://localhost:4000/api/product/create",
         data,
         {
           headers: {
@@ -167,6 +193,7 @@ function ProductUploadForm() {
           },
         }
       );
+  
       if (response) {
         toast(response.data.message);
         setIsLoading(false);
@@ -176,11 +203,11 @@ function ProductUploadForm() {
       setIsLoading(false);
       toast(
         error.response.data.message ||
-          "something went wrong please try again later"
+          "Something went wrong. Please try again later."
       );
     }
   };
-
+  
   return (
     <form
       ref={formRef}
@@ -190,6 +217,24 @@ function ProductUploadForm() {
     >
       <div className="w-full flex flex-col lg:flex-row items-start justify-center">
         <div className="">
+        <div className="mb-4">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="name"
+            >
+              Shop Id / Shop Name
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="name"
+              type="text"
+              placeholder="Enter Seller Id"
+              // value={productName}
+              // onChange={(event) => setProductName(event.target.value)}
+              name="name"
+              required
+            />
+          </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -284,56 +329,109 @@ function ProductUploadForm() {
             </div>
           </div>
           <CategorySelect
-            OnSelectCategories={(category) => handleCategorySelect(category)}
+            OnSelectCategories={(category) => handleCategoriesSelect(category)}
+            OnSelectCategory={(category) => handleCategorySelect(category)}
           />
-          <BrandSelect />
+          {/* <BrandSelect /> */}
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
               Product Variants
             </label>
-            {productVariants.map((variant, index) => (
-              <div className="flex mb-2" key={index}>
+            {productVariants.map((variant, variantIndex) => (
+              <div className="mb-2" key={variantIndex}>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   placeholder="Variant name"
-                  value={variant.name}
+                  value={variant?.name}
                   onChange={(event) =>
-                    handleVariantChange(index, "name", event.target.value)
+                    handleVariantChange(
+                      variantIndex,
+                      null,
+                      "name",
+                      event.target.value
+                    )
                   }
                 />
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
-                  type="text"
-                  placeholder="Variant value"
-                  value={variant.value}
-                  onChange={(event) =>
-                    handleVariantChange(index, "value", event.target.value)
-                  }
-                />
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
-                  type="number"
-                  placeholder="Variant quantity"
-                  value={variant.quantity}
-                  onChange={(event) =>
-                    handleVariantChange(index, "quantity", event.target.value)
-                  }
-                />
-                {index === productVariants.length - 1 && (
+                {variant.options.map((option, optionIndex) => (
+                  <div className="flex" key={optionIndex}>
+                    <input
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
+                      type="text"
+                      placeholder="Option value"
+                      value={option.value}
+                      onChange={(event) =>
+                        handleVariantChange(
+                          variantIndex,
+                          optionIndex,
+                          "value",
+                          event.target.value
+                        )
+                      }
+                    />
+                    <input
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
+                      type="number"
+                      placeholder="Option quantity"
+                      value={option.quantity}
+                      onChange={(event) =>
+                        handleVariantChange(
+                          variantIndex,
+                          optionIndex,
+                          "quantity",
+                          event.target.value
+                        )
+                      }
+                    />
+                    <input
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
+                      type="file"
+                      onChange={(event) =>
+                        handleVariantChange(
+                          variantIndex,
+                          optionIndex,
+                          "variantImage",
+                          event.target.files[0]
+                        )
+                      }
+                    />
+                    {optionIndex !== 0 && (
+                      <button
+                        type="button"
+                        className="ml-2"
+                        onClick={() =>
+                          handleOptionRemove(variantIndex, optionIndex)
+                        }
+                      >
+                        <svg
+                          className="h-5 w-5 text-red-500 hover:text-red-700"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.293-9.707a1 1 0 00-1.414-1.414L10 8.586l-1.879-1.88a1 1 0 00-1.414 1.414L8.586 10l-1.88 1.879a1 1 0 001.414 1.414L10 11.414l1.879 1.88a1 1 0 001.414-1.414L11.414 10l1.879-1.879z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                    )}
+                      <button
+                  type="button"
+                  className="ml-2"
+                  onClick={() => handleOptionAdd(variantIndex)}
+                >
+                  <PlusCircleIcon className="h-5 w-5 text-blue-500 hover:text-blue-700" />
+                </button>
+                  </div>
+                ))}
+              
+                <br />
+                {variantIndex !== 0 && (
                   <button
                     type="button"
-                    className="ml-2"
-                    onClick={handleVariantAdd}
-                  >
-                    <PlusCircleIcon className="h-5 w-5 text-blue-500 hover:text-blue-700" />
-                  </button>
-                )}
-                {index !== productVariants.length - 1 && (
-                  <button
-                    type="button"
-                    className="ml-2"
-                    onClick={() => handleVariantRemove(index)}
+                    className="ml-2 flex"
+                    onClick={() => handleVariantRemove(variantIndex)}
                   >
                     <svg
                       className="h-5 w-5 text-red-500 hover:text-red-700"
@@ -346,11 +444,24 @@ function ProductUploadForm() {
                         clipRule="evenodd"
                       />
                     </svg>
+                    <p>Remove variant </p>
                   </button>
                 )}
+                {variantIndex === productVariants.length - 1 && (
+                  <button
+                    type="button"
+                    className="ml-2 flex"
+                    onClick={handleVariantAdd}
+                  >
+                    <PlusCircleIcon className="h-5 w-5 text-blue-500 hover:text-blue-700" />
+                    <p>New variant</p>
+                  </button>
+                )}
+
               </div>
             ))}
           </div>
+
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
               Product specifications
@@ -365,7 +476,6 @@ function ProductUploadForm() {
                   onChange={(event) =>
                     handleSpecificationChange(index, "name", event.target.value)
                   }
-                 
                 />
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
@@ -379,7 +489,6 @@ function ProductUploadForm() {
                       event.target.value
                     )
                   }
-                  
                 />
                 {index === productSpecifications.length - 1 && (
                   <button
@@ -471,7 +580,7 @@ function ProductUploadForm() {
           <div className="flex flex-col space-y-4">
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className="text-lg font-medium mb-2">Product Status</h2>
+                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Product Status</h2>
                 <div className="flex items-center justify-between">
                   <span>Active</span>
                   <ToggleSwitch
@@ -485,7 +594,7 @@ function ProductUploadForm() {
             </div>
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className="text-lg font-medium mb-2">Featured Product</h2>
+                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Featured Product</h2>
                 <div className="flex items-center justify-between">
                   <span>Mark as featured</span>
                   <Checkbox
@@ -504,7 +613,7 @@ function ProductUploadForm() {
             </div>
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className="text-lg font-medium mb-2">Product Tags</h2>
+                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Product Tags</h2>
                 <p className="text-sm text-gray-500 mb-2">
                   This will be used by Buyer to search the product. Type the tag
                   and click on enter to add another tag
@@ -512,7 +621,7 @@ function ProductUploadForm() {
                 <TagInput onTagSelect={(e) => handleTagChange(e)} />
               </div>
             </div>
-            
+
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="mb-4">
                 <label

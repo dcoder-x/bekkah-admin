@@ -9,35 +9,17 @@ import { Toaster, toast } from "react-hot-toast";
 import CreateShopProfileForm from "./pages/CreateShopProfile";
 import { createContext, useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
 
-export const SellerContext = createContext()
+export const AdminContext = createContext()
 
 
 function App() {
 
   const [seller,setSeller] = useState()
-  const getSeller = async () =>{
-    try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/account',{
-        headers:{
-          'x-auth-token':localStorage.getItem('AdminAuthToken')
-        }
-      })
-      if (response) {
-        setSeller(response.data.seller)
-        // console.log(response.data.shop)
-        
-      }
-    } catch (error) {
-      toast(error.response.data.message|| 'something went Wrong, please try again')
-      console.log(error)
-    }
-    
-  }
-
   return (
-    <SellerContext.Provider value={{seller,getSeller}}>
+    <AdminContext.Provider>
       <Routes>
         <Route path="/" index element={<SignIn />} />
         <Route path="/signin" index element={<SignIn />} />
@@ -69,7 +51,7 @@ function App() {
           },
         }}
       />
-    </SellerContext.Provider>
+    </AdminContext.Provider>
   );
 }
 

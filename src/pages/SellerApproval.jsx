@@ -80,7 +80,7 @@ const SellerApproval = () => {
   const handleApproveRequest = async (id) => {
     try {
       setLoading(true);
-      const response = await axios.delete(
+      const response = await axios.get(
         `http://localhost:4000/api/admin/approveSellerRequest/${id}`,
         {
           headers: {
@@ -106,8 +106,8 @@ const SellerApproval = () => {
   }, []);
 
   return (
-    <div className="orderList">
-      <h2>SellerApproval</h2>
+    <div className="w-full">
+      <h2 className='text-xl font-bold'>Seller Approval</h2>
       {/* <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -245,7 +245,7 @@ const SellerApproval = () => {
                   }}
                   style={{ alignSelf: "center", maxWidth: "300px" }}
                 />
-                <p className=" text-red-400">No order yet</p>
+                <p className=" text-red-400">No Seller Request </p>
               </div>
             )}
           </div>

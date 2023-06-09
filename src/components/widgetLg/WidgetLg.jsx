@@ -1,37 +1,80 @@
 import "./widgetLg.css";
+import { Visibility } from "@material-ui/icons";
+import Lottie from "react-lottie";
+import empty from "../../assets/lottie/emptyList.json";
+import { useEffect } from "react";
+import { Button } from "@material-ui/core";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 export default function WidgetLg() {
-  const Button = ({ type }) => {
-    return <button className={"widgetLgButton " + type}>{type}</button>;
+  const [loading, setLoading] = useState()
+  const [newTransactions, setNewTransactions] = useState();
+  const getNewTransactions = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "http://localhost:4000/api/admin/Transactions-graph",
+        {
+          headers: {
+            "x-auth-token": localStorage.getItem("AdminAuthToken"),
+          },
+        }
+      );
+      if (response) {
+        console.log(response?.data?.Transactions);
+        setNewTransactions(response?.data?.Transactions);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast(error?.response?.data?.message);
+    }
   };
+
+  useEffect(() => {
+    getNewTransactions();
+  }, []);
   return (
     <div className="widgetLg">
-      <h3 className="widgetLgTitle">Latest transactions</h3>
+      <span className="widgetLgTitle my-2">New Transactions</span>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
-          <th className="widgetLgTh">Customer</th>
-          <th className="widgetLgTh">Date</th>
-          <th className="widgetLgTh">Amount</th>
+          <th className="widgetLgTh">Transaction Ref</th>
+          <th className="widgetLgTh">Transaction Type</th>
           <th className="widgetLgTh">Status</th>
+          <th className="widgetLgTh">Amount</th>
+          <th className="widgetLgTh">Date</th>
+          <th className="widgetLgTh">Action</th>
         </tr>
-        {/* <tr className="widgetLgTr">
-          <td className="widgetLgUser">
-            <img
-              src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-              alt=""
-              className="widgetLgImg"
-            />
-            <span className="widgetLgName">Susan Carol</span>
-          </td>
-          <td className="widgetLgDate">2 Jun 2021</td>
-          <td className="widgetLgAmount">$122.00</td>
-          <td className="widgetLgStatus">
-            <Button type="Approved" />
-          </td>
-        </tr> */}
-
-        no transactions yet
-
+        {newTransactions?.length > 0 ? (
+          newTransactions.slice(0,10).map((transaction) => (
+            <tr className="widgetLgTr">
+              <td className="widgetLgUser">
+                <img
+                  src={transaction?.product?.productImage[0]}
+                  alt=""
+                  className="widgetLgImg"
+                />
+                <span className="widgetLgName">{transaction?.transactionRef}</span>
+              </td>
+              <td className="widgetLgDate">{`${transaction?.transactionType} ${
+                transaction?.user?.lastName || ""
+              }`}</td>
+              <td className="widgetLgDate">{`${transaction?.status} ${
+                transaction?.seller?.lastName || ""
+              }`}</td>
+              <td className="widgetLgAmount">{transaction?.Amount||null}</td>
+              <td className="widgetLgAmount">{new Date(transaction?.createdAt).toDateString()}</td>
+              <td className="widgetLgStatus">
+                <Button type="Approved" />
+              </td>
+            </tr>
+          ))
+        ) : (
+          <p>no Transactions yet</p>
+        )}
       </table>
     </div>
   );

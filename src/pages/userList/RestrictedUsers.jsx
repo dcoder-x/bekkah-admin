@@ -1,41 +1,41 @@
-import "./productList/productList.css";
+import "../productList/productList.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import SearchFilter from "../components/SearchBar";
+import SearchFilter from "../../components/SearchBar";
 import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
-import empty from "../assets/lottie/emptyList.json";
+import empty from "../../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
-import Pagination from "../components/Pagination";
+import Pagination from "../../components/Pagination";
 
-export default function SellerList() {
+export default function RestrictedUserList() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState();
-  const [sellerId, setsellerId] = useState(null);
+  const [userId, setuserId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-const [sellersPerPage,setSellerPerPage] = useState(10);
+const [usersPerPage,setUserPerPage] = useState(10);
 
 const handlePageChange = (pageNumber) => {
   setCurrentPage(pageNumber);
 };
 const handleItemsPerPageChange = (pageNumber) => {
-  setSellerPerPage(pageNumber);
+  setUserPerPage(pageNumber);
 };
-const indexOfLastseller = currentPage * sellersPerPage;
-const indexOfFirstseller = indexOfLastseller - sellersPerPage;
-const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
+const indexOfLastuser = currentPage * usersPerPage;
+const indexOfFirstuser = indexOfLastuser - usersPerPage;
+const currentusers = data.slice(indexOfFirstuser, indexOfLastuser);
 
 
-  const getSellers = async () => {
+  const getRestrictedUsers = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/sellers",
+        "http://localhost:4000/api/admin/users/restricted",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -43,32 +43,32 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
         }
       );
       if (response) {
-        console.log(response.data.sellers);
-        setData(response.data.sellers);
+        console.log(response.data.users);
+        setData(response.data.users);
       }
     } catch (error) {
       setLoading(false);
       console.log(error, error?.response?.data?.message);
-      toast("no seller ");
+      toast("no user ");
     }
   };
 
   const handleSearch = (search) => {
     if (search) {
       console.log(search);
-      const filteredsellers = data.filter((seller) => {
-        const searchResult = seller.firstName.toLowerCase().includes(search.toLowerCase())||seller.lastName.toLowerCase().includes(search.toLowerCase());
+      const filteredusers = data.filter((user) => {
+        const searchResult = user.firstName.toLowerCase().includes(search.toLowerCase())||user.lastName.toLowerCase().includes(search.toLowerCase());
         return searchResult
       });
-      if (filteredsellers.length>0) {
-      setSearchData(filteredsellers);
+      if (filteredusers.length>0) {
+      setSearchData(filteredusers);
       }
       else{
-        toast('no sellers match your seach')
+        toast('no users match your seach')
       }
     } else {
       setSearchData([])
-      getSellers();
+      getRestrictedUsers();
     }
   };
   const customStyles = {
@@ -82,11 +82,11 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
     },
   };
 
-  const handleDeleteseller = async (id) => {
+  const handleDeleteuser = async (id) => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/admin/delete-seller/${id}`,
+        `http://localhost:4000/api/user/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -95,24 +95,24 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
       );
       if (response) {
         toast(
-          `${response.data.message} ${response?.data?.deletedseller?.name}`
+          `${response.data.message} ${response?.data?.deleteduser?.name}`
         );
-        getSellers();
+        getRestrictedUsers();
       }
     } catch (error) {
       setLoading(false);
       console.log(error);
-      toast("unable to delete seller");
+      toast("unable to delete user");
     }
   };
 
   useEffect(() => {
-    getSellers();
+    getRestrictedUsers();
   }, []);
 
   return (
-    <div className="w-full">
-      <h2 className='text-xl font-bold'>sellers</h2>
+    <div className="userList w-full">
+      <h2 className='text-xl font-bold'>users</h2>
       <SearchFilter
         onFilter={(filter) => {}}
         onSearch={(search) => {
@@ -123,17 +123,17 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
 
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
-          <div className=" flex flex-row px-4 item-center justify-between"></div>
+          <div className=" flex flex-row px-4 w-full item-center justify-between"></div>
           <div className="bg-white shadow-md rounded my-6 w-full">
             {data?.length > 0 ? (
               <table className="min-w-max w-full table-auto">
                 <thead>
                   <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Seller</th>
+                    <th className="py-3 px-6 text-left">Buyer</th>
+                    <th className="py-3 px-6 text-left">Username</th>
                     <th className="py-3 px-6 text-left">Email</th>
-                    <th className="py-3 px-6 text-left">Email Verified</th>
-                    <th className="py-3 px-6 text-left">Shop name</th>
-                    <th className="py-3 px-6 text-center">Phone</th>
+                    <th className="py-3 px-6 text-left">Date Joined</th>
+                    {/* <th className="py-3 px-6 text-center">Phone</th> */}
                     <th className="py-3 px-6 text-center">Status</th>
                     <th className="py-3 px-6 text-center">Actions</th>
                   </tr>
@@ -141,7 +141,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
 
                 <tbody className="text-gray-600 text-sm font-light">
                   {searchData.length > 0
-                    ? searchData.map((seller, i) => {
+                    ? searchData.map((user, i) => {
                         return (
                             <tr
                               key={i}
@@ -149,48 +149,35 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                             >
                               <td className="py-3 px-6 text-left whitespace-nowrap">
                                 <div className="flex items-center">
-                                  <div className="mr-2">
+                                  {/* <div className="mr-2">
                                     <img
                                       className={` w-[30px]`}
-                                      src={seller?.avatar||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500seller.avatar||'}
+                                      src={user?.avatar||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500user.avatar||'}
                                       alt=""
                                     />
-                                  </div>
+                                  </div> */}
                                   <span className="font-medium">
-                                  {`${seller?.firstName} ${seller?.lastName}`}
+                                  {`${user?.firstName} ${user?.lastName}`}
                                   </span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-left">
                                 <div className="flex items-center">
-                                  <span className="font-medium">{seller?.email} email</span>
+                                  <span className="font-medium">{user?.username} email</span>
+                                </div>
+                              </td>
+                              <td className="py-3 px-6 text-left">
+                                <div className="flex items-center">
+                                  <span className="font-medium">{user?.email} email</span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                            <span
-                              className={`font-medium ${
-                                seller?.email_verified
-                                  ? "text-green-300"
-                                  : "text-red-300"
-                              }`}
-                            >
-                              {seller?.email_verified
-                                ? "verified"
-                                : "not verified"}
-                            </span>
-                          </td>
-                              <td className="py-3 px-6 text-center">
                                 <span className="font-medium">
-                                  {seller?.shopName||'No shop'}
+                                  {new Date(user.createdAt).toDateString}
                                 </span>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                <span className="font-medium">
-                                  {seller?.shop?.phone}
-                                </span>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                {!seller?.isRestricted? (
+                                {!user?.isRestricted? (
                                   <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
                                     Active
                                   </span>
@@ -204,7 +191,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                 <div className="flex item-center justify-center">
                                   <div
                                     onClick={(e) =>
-                                      navigate("../seller-details", { state: seller })
+                                      navigate("../user-details", { state: user })
                                     }
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                   >
@@ -230,7 +217,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                   </div>
                                   <div
                                     onClick={(e) =>
-                                      navigate("../seller", { state: seller })
+                                      navigate("../user", { state: user })
                                     }
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                   >
@@ -252,7 +239,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                     onClick={(e) => {
                                       setShowModal(true);
-                                      setsellerId(seller._id);
+                                      setuserId(user._id);
                                     }}
                                   >
                                     <svg
@@ -274,7 +261,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                             </tr>
                           );
                       })
-                    : data.map((seller, i) => {
+                    : data.map((user, i) => {
                         return (
                             <tr
                               key={i}
@@ -282,48 +269,35 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                             >
                               <td className="py-3 px-6 text-left whitespace-nowrap">
                                 <div className="flex items-center">
-                                  <div className="mr-2">
+                                  {/* <div className="mr-2">
                                     <img
                                       className={` w-[30px]`}
-                                      src={seller?.avatar||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500seller.avatar||'}
+                                      src={user?.avatar||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500user.avatar||'}
                                       alt=""
                                     />
-                                  </div>
+                                  </div> */}
                                   <span className="font-medium">
-                                  {`${seller?.firstName} ${seller?.lastName}`}
+                                  {`${user?.firstName} ${user?.lastName}`}
                                   </span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-left">
                                 <div className="flex items-center">
-                                  <span className="font-medium">{seller?.email}</span>
+                                  <span className="font-medium">{user?.username}</span>
+                                </div>
+                              </td>
+                              <td className="py-3 px-6 text-left">
+                                <div className="flex items-center">
+                                  <span className="font-medium">{user?.email}</span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                            <span
-                              className={`font-medium ${
-                                seller?.email_verified
-                                  ? "text-green-300"
-                                  : "text-red-300"
-                              }`}
-                            >
-                              {seller?.email_verified
-                                ? "verified"
-                                : "not verified"}
-                            </span>
-                          </td>
-                              <td className="py-3 px-6 text-center">
                                 <span className="font-medium">
-                                  {seller?.shopName||'No shop'}
+                                  {new Date(user?.createdAt).toDateString()}
                                 </span>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                <span className="font-medium">
-                                  {seller?.shop?.phone}
-                                </span>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                {!seller?.isRestricted? (
+                                {!user?.isRestricted? (
                                   <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
                                     Active
                                   </span>
@@ -337,7 +311,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                 <div className="flex item-center justify-center">
                                   <div
                                     onClick={(e) =>
-                                      navigate("../seller-details", { state: seller })
+                                      navigate("../user-details", { state: user })
                                     }
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                   >
@@ -365,7 +339,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                     onClick={(e) => {
                                       setShowModal(true);
-                                      setsellerId(seller._id);
+                                      setuserId(user._id);
                                     }}
                                   >
                                     <svg
@@ -402,28 +376,28 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                   }}
                   style={{ alignSelf: "center", maxWidth: "300px" }}
                 />
-                <p className=" text-red-400">No seller in the inventory</p>
+                <p className=" text-red-400">Users not found</p>
               </div>
             )}
 
           </div>
         </div>
       </div>
-      {data.length > sellersPerPage && (
+      {data.length > usersPerPage && (
         <Pagination
           currentPage={currentPage}
-          itemsPerPage={sellersPerPage}
+          itemsPerPage={usersPerPage}
           totalItems={searchData.length > 0 ? searchData.length : data.length}
           onPageChange={(number)=>handlePageChange(number)}
           onItemsPerPageChange={(number)=>handleItemsPerPageChange(number)}
         />
       )}
       <ReactModal isOpen={showModal} style={customStyles}>
-        <p>Are you sure you want to delete this seller ?</p>
+        <p>Are you sure you want to delete this user ?</p>
         <div className=" flex items-center w-full justify-center">
           <button
             className=" m-1 bg-red-400 text-white rounded-sm py-1 px-2 text-center"
-            onClick={(e) => handleDeleteseller(sellerId)}
+            onClick={(e) => handleDeleteuser(userId)}
           >
             Yes
           </button>

@@ -8,18 +8,18 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 
-const Orders = () => {
+const Subscriptions = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
-  const getSellerOrders = async () => {
+  const getSubscriptions = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/orders",
+        "http://localhost:4000/api/admin/subscriptions",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -28,14 +28,14 @@ const Orders = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.orders);
+        setData(response.data.Subscriptions);
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
-          "something went wrong : could not fetch orders"
+          "something went wrong : could not fetch Subscriptions"
       );
     }
   };
@@ -58,13 +58,13 @@ const Orders = () => {
         `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
-            "x-auth-token": localStorage.getItem("AdminAuthToken"),
+            "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
       if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerOrders();
+        getSubscriptions();
       }
     } catch (error) {
       setLoading(false);
@@ -74,12 +74,12 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    getSellerOrders();
+    getSubscriptions();
   }, []);
 
   return (
     <div className="w-full px-2">
-      <h2 className='text-xl font-bold'>orders</h2>
+      <h2 className='text-xl font-bold'>Subscriptions</h2>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -96,11 +96,15 @@ const Orders = () => {
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-left">Buyer</th>
+                  <th className="py-3 px-6 text-left">Subscription ID</th>
+                  <th className="py-3 px-6 text-left">Package Name</th>
+                  <th className="py-3 px-6 text-left">Seller</th>
                   <th className="py-3 px-6 text-left">Amount</th>
+                  <th className="py-3 px-6 text-center">Frequency</th>
                   <th className="py-3 px-6 text-center">Status</th>
-                  <th className="py-3 px-6 text-center">Actions</th>
+                  <th className="py-3 px-6 text-center">Subscription Valid till</th>
+                  <th className="py-3 px-6 text-center">Action</th>
+
                 </tr>
               </thead>
               {data?.length > 0 &&
@@ -118,24 +122,56 @@ const Orders = () => {
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {`${order?.user?.firstName } ${order?.user?.lastName }`}
+                            {order?.package?.name}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.totalPrice}
-                          </span>
-                        </td>
-
-                        <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                              {order.status}
+                           {` ${order?.seller?.firstName}  ${order?.seller?.lastName}`}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                          {order?.totalQuantity}
+                              {order.package?.price}
                           </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                          {order?.package?.durationInDays}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                              {order.expiryDate > Date.now() ? 'Expired':'Valid'}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <div className="flex item-center justify-center">
+                            <div
+                              onClick={(e) =>{}}
+                              className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                />
+                              </svg>
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -152,14 +188,14 @@ const Orders = () => {
                 options={{
                   loop: true,
                   autoplay: true,
-                  animationData: empty,
+                  animationData: empty, 
                   rendererSettings: {
                     preserveAspectRatio: "xMidYMid slice",
                   },
                 }}
                 style={{ alignSelf: "center", maxWidth: "300px" }}
               />
-              <p className=" text-red-400">No order yet</p>
+              <p className=" text-red-400">No Subscription yet</p>
             </div>
             }
 
@@ -170,4 +206,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Subscriptions;

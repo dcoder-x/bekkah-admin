@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/solid";
 import { FaStar } from "react-icons/fa";
 import { useContext } from "react";
@@ -11,125 +11,28 @@ import facebookIcon from "@iconify-icons/mdi/facebook";
 import instagramIcon from "@iconify-icons/mdi/instagram";
 import youtubeIcon from "@iconify-icons/mdi/youtube";
 import { Icon } from "@iconify/react";
-import axios from "axios";
-import ReactModal from "react-modal";
 
-function SellerDetails() {
-  const urlSeller = useLocation().state;
+function AdminProfile() {
+  const { admin} = useContext(AdminContext);
   const navigate = useNavigate();
-  const [seller, setSeller] = useState(urlSeller);
-  const [loading, setLoading] = useState(false);
-  const [deleteModal, setDeleteModal] = useState();
-  const [restrictModal, setRestrictModal] = useState();
-  const [sellerId, setSellerId] = useState();
-
-  console.log(urlSeller);
-
-  async function getSeller() {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        "http://localhost:4000/api/admin/seller",
-        {
-          sellerId: urlSeller._id,
-        },
-        {
-          headers: {
-            "x-auth-token": localStorage.getItem("AdminAuthToken"),
-          },
-        }
-      );
-      if (response) {
-        console.log(response.data.seller);
-        setSeller(response.data.seller);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log(error, error.response.data.message);
-      toast("no seller in your inventory");
-    }
-  }
-
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
-  };
-
-  const handleDeleteseller = async (id) => {
-    try {
-      setLoading(true);
-      const response = await axios.delete(
-        `http://localhost:4000/api/admin/delete-seller/${id}`,
-        {
-          headers: {
-            "x-auth-token": localStorage.getItem("AdminAuthToken"),
-          },
-        }
-      );
-      if (response) {
-        toast(
-          `${response.data.message} ${response?.data?.deletedseller?.name}`
-        );
-        navigate(-1);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      toast("unable to delete seller");
-    }
-  };
-
-  const handleRestrictseller = async (id) => {
-    try {
-      setLoading(true);
-      const response = await axios.delete(
-        `http://localhost:4000/api/admin/restrict-seller/${id}`,
-        {
-          headers: {
-            "x-auth-token": localStorage.getItem("AdminAuthToken"),
-          },
-        }
-      );
-      if (response) {
-        toast(
-          `${response.data.message} ${response?.data?.deletedseller?.name}`
-        );
-        navigate(-1);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      toast(error.response?.data?.message||"unable to restrict seller");
-    }
-  };
-
-  useEffect(() => {
-    getSeller();
-  }, []);
-
   const [modal, setModal] = useState();
-
+  !admin&& toast("adminprofile is not complete");
+  !admin&& navigate("/shopSetup");
   return (
     <div className="bg-gray-100 min-w-[80%] min-h-screen">
-      {seller ? (
+      {admin? (
         <>
           <div className="bg-white shadow-sm">
             <div className="mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
               <h1 className="text-2xl font-bold text-gray-800">
-                Seller Profile
+                Admin Profile
               </h1>
               <div className="flex items-center space-x-2">
-                <p>Seller rating: </p>
+                <p>adminrating: </p>
                 <FaStar className="w-5 h-5 text-yellow-400" />
                 <span className="font-medium text-gray-800 ">
                   {" "}
-                  {seller.shop?.rating || 0}
+                  {admin.shop?.rating || 0}
                 </span>
               </div>
             </div>
@@ -151,15 +54,15 @@ function SellerDetails() {
                       Full name
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{`${
-                      seller.firstName
-                    } ${seller.lastName || ""}`}</dd>
+                      admin.firstName
+                    } ${admin.laststName || ""}`}</dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">
                       Email address
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      {seller.email}{" "}
+                      {admin.email}{" "}
                     </dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
@@ -167,7 +70,7 @@ function SellerDetails() {
                       Phone number
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      {seller.shop?.phone}
+                      {admin.shop?.phone}
                     </dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
@@ -175,7 +78,7 @@ function SellerDetails() {
                       Shop name
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      {seller.shopName}
+                      {admin.shopName}
                     </dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
@@ -183,27 +86,33 @@ function SellerDetails() {
                       Shop ID
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      {seller.shop?._id}
+                      {admin.shop?._id}
                     </dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">
                       Shop address
                     </dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{` ${seller?.shop?.address?.city}, ${seller.shop?.address?.state}, ${seller.shop?.address?.country} `}</dd>
+                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{` ${admin.shop?.address.city}, ${admin.shop?.address.state}, ${admin.shop?.address.country} `}</dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">
                       Description
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      {seller.description}
+                      {admin.description}
                     </dd>
                   </div>
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                     <dt className="text-sm font-medium text-gray-500">
                       Profile photo
                     </dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex items-center">
+                      <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                        <UserCircleIcon className="h-full w-full text-gray-300" />
+                      </span>
+                      <span className="ml-4">Upload a new photo</span>
+                    </dd>
                   </div>
                 </dl>
                 <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
@@ -212,8 +121,8 @@ function SellerDetails() {
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                     <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                      {seller?.shop?.socialPlatforms?.length > 0 ? (
-                        seller?.shop?.socialPlatforms?.map(
+                      {admin?.shop?.socialPlatforms?.length > 0 ? (
+                        admin?.shop?.socialPlatforms?.map(
                           ({ name, link }, index) => {
                             let icon = null;
 
@@ -264,14 +173,14 @@ function SellerDetails() {
                                       </a>
                                     </div>
                                   </div>
-                                  {/* <div className="flex-shrink-0 sm:ml-4">
+                                  <div className="flex-shrink-0 sm:ml-4">
                                     <button
                                       type="button"
                                       className="font-medium text-blue-600 hover:text-blue-500"
                                     >
                                       Edit
                                     </button>
-                                  </div> */}
+                                  </div>
                                 </li>
                               )
                             );
@@ -292,68 +201,31 @@ function SellerDetails() {
                   </dd>
                 </div>
               </div>
-              <div className="flex items-center">
-                <button
-                  onClick={(e) => {
-                    setDeleteModal(!deleteModal);
-                    setSellerId(seller._id);
-                  }}
-                  className=" px-4 py-2 rounded-sm  text-white hover:bg-blue-500 bg-blue-400 "
-                >
-                  Delete Seller
-                </button>
-                <button
-                  onClick={(e) => {
-                    setRestrictModal(!deleteModal);
-                    setSellerId(seller._id);
-                  }}
-                  className=" px-4 py-2 rounded-sm mx-4 text-white hover:bg-red-500  bg-red-400 "
-                >
-                  Restrict Seller
-                </button>
-              </div>
+              <button
+                onClick={(e) => setModal(!modal)}
+                className=" px-4 py-2 rounded-sm text-white bg-blue-400 "
+              >
+                Update credentianls
+              </button>
             </div>
           </div>
         </>
       ) : (
-        <p>Seller Profile not available</p>
+        <p>adminProfile not available</p>
       )}
-      <ReactModal isOpen={deleteModal} style={customStyles}>
-        <p>Are you sure you want to delete this seller ?</p>
-        <div className=" flex items-center w-full justify-center">
-          <button
-            className=" m-1 bg-red-400 text-white rounded-sm py-1 px-2 text-center"
-            onClick={(e) => handleDeleteseller(sellerId)}
-          >
-            Yes
-          </button>
-          <button
-            className=" m-1 bg-blue-300 text-white rounded-sm py-1 px-2 text-center"
-            onClick={(e) => setDeleteModal(false)}
-          >
-            cancel
-          </button>
-        </div>
-      </ReactModal>
-      <ReactModal isOpen={restrictModal} style={customStyles}>
-        <p>Are you sure you want to restrict this seller ?</p>
-        <div className=" flex items-center w-full justify-center">
-          <button
-            className=" m-1 bg-red-400 text-white rounded-sm py-1 px-2 text-center"
-            onClick={(e) => handleRestrictseller(sellerId)}
-          >
-            Yes
-          </button>
-          <button
-            className=" m-1 bg-blue-300 text-white rounded-sm py-1 px-2 text-center"
-            onClick={(e) => setRestrictModal(false)}
-          >
-            cancel
-          </button>
-        </div>
-      </ReactModal>
+      {admin&& (
+        <UpdateProfileModal
+          onClose={() => setModal(false)}
+          show={modal}
+          laststName={admin.lastName}
+          firstName={admin.firstName}
+          email={admin.email}
+          phone={admin.shop?.phone}
+          description={admin.description}
+        />
+      )}
     </div>
   );
 }
 
-export default SellerDetails;
+export default AdminProfile;

@@ -46,7 +46,7 @@ function TabContent({ activeTab }) {
 
   const getShopProfile = async () =>{
     try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/shop',{
+      const response = await axios.get('http://localhost:4000/api/seller/shop',{
         headers:{
           'x-auth-token':localStorage.getItem('AdminAuthToken')
         }
@@ -89,7 +89,7 @@ function ManageShop() {
 
   return (
     <div className=" w-full min-h-screen overflow-scroll">
-      <h2>Manage Shop</h2>
+      <h2 className='text-xl font-bold'>Manage Shop</h2>
       <div className="mb-4 w-full flex justify-start">
         <Tab label="General" activeTab={activeTab} onClick={handleTabClick} />
         <Tab label="Media" activeTab={activeTab} onClick={handleTabClick} />

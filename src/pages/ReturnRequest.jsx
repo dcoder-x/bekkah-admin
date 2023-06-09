@@ -19,7 +19,7 @@ const ReturnRequests = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/seller",
+        "http://localhost:4000/api/order/requests/return",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -32,7 +32,7 @@ const ReturnRequests = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error, error.response.data.message);
+      console.log(error);
       toast(
         error?.response?.data?.message ||
           "something went wrong : could not fetch ReturnRequests"
@@ -55,7 +55,7 @@ const ReturnRequests = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -78,8 +78,8 @@ const ReturnRequests = () => {
   }, []);
 
   return (
-    <div className="orderList">
-      <h2>Returned Products</h2>
+    <div className="w-full px-2">
+      <h2 className='text-xl font-bold'>Returned Products</h2>
       <SearchFilter
         onFilter={(filter) => {
           console.log(filter);
@@ -92,15 +92,16 @@ const ReturnRequests = () => {
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 w-full">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">Order ID</th>
                   <th className="py-3 px-6 text-left">Order details</th>
-                  <th className="py-3 px-6 text-left">Amount</th>
+                  {/* <th className="py-3 px-6 text-left">Amount</th> */}
                   <th className="py-3 px-6 text-center">Quantity</th>
                   <th className="py-3 px-6 text-center">Status</th>
+                  <th className="py-3 px-6 text-center">Actions</th>
                 </tr>
               </thead>
               {data?.length > 0 &&
@@ -111,11 +112,7 @@ const ReturnRequests = () => {
                         key={i}
                         className="border-b border-gray-200 hover:bg-gray-100"
                       >
-                        <td className="py-3 px-6 text-left whitespace-nowrap">
-                          <div className="flex items-center">
-                            <span className="font-medium">{}</span>
-                          </div>
-                        </td>
+
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
                             <span className="font-medium">{`${order?._id}`}</span>
@@ -123,24 +120,27 @@ const ReturnRequests = () => {
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {order.category
-                              ? order?.category[0].split(",")[0]
-                              : "no category"}
+                            {order.productName}
                           </span>
                         </td>
-                        <td className="py-3 px-6 text-center">
+                        {/* <td className="py-3 px-6 text-center">
                           <span className="font-medium">
                               {order.Amount}
                           </span>
-                        </td>
+                        </td> */}
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                          {order?.totalQuantity}
+                          {order?.quantity}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {order.status}
+                              {order?.status}
+                          </span>
+                        </td>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium text-blue-600">
+                              View details
                           </span>
                         </td>
                       </tr>
@@ -165,7 +165,7 @@ const ReturnRequests = () => {
                 }}
                 style={{ alignSelf: "center", maxWidth: "300px" }}
               />
-              <p className=" text-red-400">No order yet</p>
+              <p className=" text-red-400">No Return request at the moment</p>
             </div>
             }
 

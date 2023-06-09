@@ -10,15 +10,15 @@ import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 import Pagination from "../components/Pagination";
 
-export default function SellerList() {
+export default function ShopList() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState();
-  const [sellerId, setsellerId] = useState(null);
+  const [shopId, setshopId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-const [sellersPerPage,setSellerPerPage] = useState(10);
+const [shopsPerPage,setSellerPerPage] = useState(10);
 
 const handlePageChange = (pageNumber) => {
   setCurrentPage(pageNumber);
@@ -26,16 +26,16 @@ const handlePageChange = (pageNumber) => {
 const handleItemsPerPageChange = (pageNumber) => {
   setSellerPerPage(pageNumber);
 };
-const indexOfLastseller = currentPage * sellersPerPage;
-const indexOfFirstseller = indexOfLastseller - sellersPerPage;
-const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
+const indexOfLastseller = currentPage * shopsPerPage;
+const indexOfFirstseller = indexOfLastseller - shopsPerPage;
+const currentsellers = data?.slice(indexOfFirstseller, indexOfLastseller);
 
 
-  const getSellers = async () => {
+  const getShops = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/sellers",
+        "http://localhost:4000/api/admin/shops",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -43,8 +43,8 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
         }
       );
       if (response) {
-        console.log(response.data.sellers);
-        setData(response.data.sellers);
+        console.log(response.data.shops);
+        setData(response.data.shops);
       }
     } catch (error) {
       setLoading(false);
@@ -56,19 +56,19 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
   const handleSearch = (search) => {
     if (search) {
       console.log(search);
-      const filteredsellers = data.filter((seller) => {
+      const filteredShops = data.filter((seller) => {
         const searchResult = seller.firstName.toLowerCase().includes(search.toLowerCase())||seller.lastName.toLowerCase().includes(search.toLowerCase());
         return searchResult
       });
-      if (filteredsellers.length>0) {
-      setSearchData(filteredsellers);
+      if (filteredShops.length>0) {
+      setSearchData(filteredShops);
       }
       else{
         toast('no sellers match your seach')
       }
     } else {
       setSearchData([])
-      getSellers();
+      getShops();
     }
   };
   const customStyles = {
@@ -82,11 +82,11 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
     },
   };
 
-  const handleDeleteseller = async (id) => {
+  const handleDeleteShop = async (id) => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/admin/delete-seller/${id}`,
+        `http://localhost:4000/api/admin/shop/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -95,24 +95,25 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
       );
       if (response) {
         toast(
-          `${response.data.message} ${response?.data?.deletedseller?.name}`
+          `${response.data.message} ${shopId}`
         );
-        getSellers();
+        getShops();
+        setShowModal(false)
       }
     } catch (error) {
       setLoading(false);
       console.log(error);
-      toast("unable to delete seller");
+      toast(error.response.data.message||"unable to delete shop");
     }
   };
 
   useEffect(() => {
-    getSellers();
+    getShops();
   }, []);
 
   return (
     <div className="w-full">
-      <h2 className='text-xl font-bold'>sellers</h2>
+      <h2 className='text-xl font-bold'>Shops</h2>
       <SearchFilter
         onFilter={(filter) => {}}
         onSearch={(search) => {
@@ -120,7 +121,14 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
         }}
         filterOptions={["active", "inactive"]}
       />
-
+              <button
+        className=" border-1 border-slate-200 border-solid rounded-md bg-red-500 text-white p-2"
+        onClick={(e) => {
+          navigate("../newProduct");
+        }}
+      >
+        create new shop
+      </button>
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
@@ -129,11 +137,10 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
               <table className="min-w-max w-full table-auto">
                 <thead>
                   <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Seller</th>
+                    <th className="py-3 px-6 text-left">Shop</th>
                     <th className="py-3 px-6 text-left">Email</th>
                     <th className="py-3 px-6 text-left">Email Verified</th>
-                    <th className="py-3 px-6 text-left">Shop name</th>
-                    <th className="py-3 px-6 text-center">Phone</th>
+                    <th className="py-3 px-6 text-left">Seller</th>
                     <th className="py-3 px-6 text-center">Status</th>
                     <th className="py-3 px-6 text-center">Actions</th>
                   </tr>
@@ -141,7 +148,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
 
                 <tbody className="text-gray-600 text-sm font-light">
                   {searchData.length > 0
-                    ? searchData.map((seller, i) => {
+                    ? searchData.map((shop, i) => {
                         return (
                             <tr
                               key={i}
@@ -152,45 +159,40 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                   <div className="mr-2">
                                     <img
                                       className={` w-[30px]`}
-                                      src={seller?.avatar||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500seller.avatar||'}
+                                      src={shop?.shopLogo||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500seller.avatar||'}
                                       alt=""
                                     />
                                   </div>
                                   <span className="font-medium">
-                                  {`${seller?.firstName} ${seller?.lastName}`}
+                                  {`${shop?.seller?.shopName}`}
                                   </span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-left">
                                 <div className="flex items-center">
-                                  <span className="font-medium">{seller?.email} email</span>
+                                  <span className="font-medium">{shop?.seller?.email}</span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-center">
                             <span
                               className={`font-medium ${
-                                seller?.email_verified
+                                shop?.seller?.email_verified
                                   ? "text-green-300"
                                   : "text-red-300"
                               }`}
                             >
-                              {seller?.email_verified
+                              {shop?.seller?.email_verified
                                 ? "verified"
                                 : "not verified"}
                             </span>
                           </td>
                               <td className="py-3 px-6 text-center">
                                 <span className="font-medium">
-                                  {seller?.shopName||'No shop'}
+                                  {shop?.seller?.firstName} ${shop?.seller?.lastName||'null'}
                                 </span>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                <span className="font-medium">
-                                  {seller?.shop?.phone}
-                                </span>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                {!seller?.isRestricted? (
+                                {!shop?.seller?.isRestricted? (
                                   <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
                                     Active
                                   </span>
@@ -204,7 +206,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                 <div className="flex item-center justify-center">
                                   <div
                                     onClick={(e) =>
-                                      navigate("../seller-details", { state: seller })
+                                      navigate("../shop-details", { state: shop })
                                     }
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                   >
@@ -230,7 +232,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                   </div>
                                   <div
                                     onClick={(e) =>
-                                      navigate("../seller", { state: seller })
+                                      navigate("../seller", { state: shop })
                                     }
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                   >
@@ -252,7 +254,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                     onClick={(e) => {
                                       setShowModal(true);
-                                      setsellerId(seller._id);
+                                      setshopId(shop._id);
                                     }}
                                   >
                                     <svg
@@ -274,7 +276,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                             </tr>
                           );
                       })
-                    : data.map((seller, i) => {
+                    : data.map((shop, i) => {
                         return (
                             <tr
                               key={i}
@@ -285,45 +287,40 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                   <div className="mr-2">
                                     <img
                                       className={` w-[30px]`}
-                                      src={seller?.avatar||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500seller.avatar||'}
+                                      src={shop?.shopLogo||'https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500seller.avatar||'}
                                       alt=""
                                     />
                                   </div>
                                   <span className="font-medium">
-                                  {`${seller?.firstName} ${seller?.lastName}`}
+                                  {`${shop?.seller?.shopName}`}
                                   </span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-left">
                                 <div className="flex items-center">
-                                  <span className="font-medium">{seller?.email}</span>
+                                  <span className="font-medium">{shop?.seller?.email}</span>
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-center">
                             <span
                               className={`font-medium ${
-                                seller?.email_verified
+                                shop?.seller?.email_verified
                                   ? "text-green-300"
                                   : "text-red-300"
                               }`}
                             >
-                              {seller?.email_verified
+                              {shop?.seller?.email_verified
                                 ? "verified"
                                 : "not verified"}
                             </span>
                           </td>
                               <td className="py-3 px-6 text-center">
                                 <span className="font-medium">
-                                  {seller?.shopName||'No shop'}
+                                  {shop?.seller?.firstName} {shop?.seller?.lastName||'null'}
                                 </span>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                <span className="font-medium">
-                                  {seller?.shop?.phone}
-                                </span>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                {!seller?.isRestricted? (
+                                {!shop?.seller?.isRestricted? (
                                   <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
                                     Active
                                   </span>
@@ -337,7 +334,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                 <div className="flex item-center justify-center">
                                   <div
                                     onClick={(e) =>
-                                      navigate("../seller-details", { state: seller })
+                                      navigate("../shop-details", { state: shop })
                                     }
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                   >
@@ -365,7 +362,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
                                     className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                     onClick={(e) => {
                                       setShowModal(true);
-                                      setsellerId(seller._id);
+                                      setshopId(shop._id);
                                     }}
                                   >
                                     <svg
@@ -409,21 +406,21 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
           </div>
         </div>
       </div>
-      {data.length > sellersPerPage && (
+      {data?.length > shopsPerPage && (
         <Pagination
           currentPage={currentPage}
-          itemsPerPage={sellersPerPage}
+          itemsPerPage={shopsPerPage}
           totalItems={searchData.length > 0 ? searchData.length : data.length}
           onPageChange={(number)=>handlePageChange(number)}
           onItemsPerPageChange={(number)=>handleItemsPerPageChange(number)}
         />
       )}
       <ReactModal isOpen={showModal} style={customStyles}>
-        <p>Are you sure you want to delete this seller ?</p>
+        <p>Are you sure you want to delete this shop  ?</p>
         <div className=" flex items-center w-full justify-center">
           <button
             className=" m-1 bg-red-400 text-white rounded-sm py-1 px-2 text-center"
-            onClick={(e) => handleDeleteseller(sellerId)}
+            onClick={(e) => handleDeleteShop(shopId)}
           >
             Yes
           </button>
