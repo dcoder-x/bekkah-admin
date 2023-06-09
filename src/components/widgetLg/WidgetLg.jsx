@@ -15,7 +15,7 @@ export default function WidgetLg() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/Transactions-graph",
+        "https://mazamaza.onrender.com/api/admin/Transactions-graph",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

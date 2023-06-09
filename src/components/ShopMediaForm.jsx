@@ -45,7 +45,7 @@ function ShopMediaForm({ shop }) {
     const formData = new FormData(event.target);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/seller/shop/logo",
+        "https://mazamaza.onrender.com/api/seller/shop/logo",
         formData,
         {
           headers:{
@@ -67,7 +67,7 @@ function ShopMediaForm({ shop }) {
     const formData = new FormData(event.target);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/seller/shop/banner",
+        "https://mazamaza.onrender.com/api/seller/shop/banner",
         formData,
         {
           headers: { "x-auth-token": localStorage.getItem("sellerAuthToken") },

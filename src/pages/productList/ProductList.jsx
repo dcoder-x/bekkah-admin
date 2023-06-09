@@ -35,7 +35,7 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/products",
+        "https://mazamaza.onrender.com/api/admin/products",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -85,7 +85,7 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/product/delete/${id}`,
+        `https://mazamaza.onrender.com/api/product/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

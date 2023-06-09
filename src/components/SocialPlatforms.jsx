@@ -40,7 +40,7 @@ function Socialname() {
     try {
       setProcessing(true);
       const response = await axios.post(
-        "http://localhost:4000/api/seller/shop/social",
+        "https://mazamaza.onrender.com/api/seller/shop/social",
         newSocialLink,
         {
           headers: {
@@ -67,7 +67,7 @@ function Socialname() {
   const handleDeletePlatform = async (name) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/seller/shop/social/${name}`,
+        `https://mazamaza.onrender.com/api/seller/shop/social/${name}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),

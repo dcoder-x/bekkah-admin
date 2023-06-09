@@ -27,7 +27,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/admin/package/${id}`,
+        `https://mazamaza.onrender.com/api/admin/package/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -57,7 +57,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        "http://localhost:4000/api/admin/package",
+        "https://mazamaza.onrender.com/api/admin/package",
         data,
         {
           headers: {
@@ -79,7 +79,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/packages",
+        "https://mazamaza.onrender.com/api/admin/packages",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
