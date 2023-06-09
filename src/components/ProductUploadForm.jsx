@@ -610,7 +610,7 @@ function ProductUploadForm() {
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="weight"
                 >
-                  Weight (lbs)
+                  Weight (kg)
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -620,7 +620,7 @@ function ProductUploadForm() {
                   value={weight}
                   name="weight"
                   onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Enter weight in pounds"
+                  placeholder="Enter weight in kilograms"
                 />
               </div>
               <div className="mb-4">
@@ -716,7 +716,6 @@ function ProductUploadForm() {
                       {/* <option value="">--Select Shipping Agent--</option> */}
                       <option value="UPS">UPS</option>
                       <option value="DHL">DHL</option>
-                      <option value="Aramex">Aramex</option>
                     </select>
                   </label>
                 </div>
