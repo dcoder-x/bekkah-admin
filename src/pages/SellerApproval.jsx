@@ -34,7 +34,7 @@ const SellerApproval = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error, error.response.data.message);
+      console.log(error, error?.response?.data?.message);
       toast(
         error?.response?.data?.message ||
           "something went wrong : could not fetch SellerApproval"
