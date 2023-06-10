@@ -148,24 +148,24 @@ const SellerApproval = () => {
                         <td className="py-3 px-6 text-center">
                           <span
                             className={`font-medium ${
-                              request.sellerInfo.email_verified
+                              request.sellerInfo?.email_verified
                                 ? "text-green-300"
                                 : "text-red-300"
                             }`}
                           >
-                            {request.sellerInfo.email_verified
+                            {request.sellerInfo?.email_verified
                               ? "verified"
                               : "not verified"}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {request.sellerInfo.email}
+                            {request.sellerInfo?.email}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {request?.sellerInfo.shopName}
+                            {request?.sellerInfo?.shopName}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
