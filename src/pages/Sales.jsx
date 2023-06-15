@@ -97,7 +97,7 @@ const Sales = () => {
   return (
     <div className="orderList w-full px-2">
       <Header
-        title={"Order Cancellation Requests"}
+        title={"My Sales"}
         component={
           <SearchFilter
             onFilter={(filter) => {
