@@ -8,7 +8,7 @@ const Header = ({ title, navigationArr, component }) => {
 
   // console.log(navigation.location)
   return (
-    <header className="flex flex-col w-full bg-green-200 p-2">
+    <header className="flex flex-col w-full bg-green-300 rounded-md  p-2">
       <div className="flex flex-col items-start w-full">
         <p
           onClick={(e) => navigate(-1)}
@@ -16,15 +16,14 @@ const Header = ({ title, navigationArr, component }) => {
         >
           &larr; <p className="underline">Go back</p>
         </p>
-        <div className="flex items-start justify-between w-full">
-        <p className="text-black text-3xl font-extrabold">{title}</p>
+        <div className="flex items-baseline justify-between w-full">
+          <p className="text-black text-3xl font-extrabold">{title}</p>
 
           {component}
-
         </div>
         <p className="underline text-sm text-black">
-            {navigationArr?.length > 0 && navigationArr?.join(" > ")}
-          </p>
+          {navigationArr?.length > 0 && navigationArr?.join(" > ")}
+        </p>
       </div>
     </header>
   );

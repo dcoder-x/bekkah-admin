@@ -8,6 +8,8 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 import { SellerContext } from "../App";
+import Header from "../components/Header";
+import Pagination from "../components/Pagination";
 
 const Sales = () => {
   const navigate = useNavigate();
@@ -16,6 +18,19 @@ const Sales = () => {
  const {setLoader} = useContext(SellerContext)
 ;  const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ItemsPerPage, setProductPerPage] = useState(10);
+  const [searchData, setSearchData] = useState([]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const handleItemsPerPageChange = (pageNumber) => {
+    setProductPerPage(pageNumber);
+  };
+  const indexOfLastItem = currentPage * ItemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const getSellerSales = async () => {
     try {
@@ -81,16 +96,29 @@ const Sales = () => {
 
   return (
     <div className="orderList w-full px-2">
-      <h1>Canceled Sales</h1>
-      <SearchFilter
-        onFilter={(filter) => {
-          console.log(filter);
-        }}
-        onSearch={(filter) => {
-          console.log(filter);
-        }}
-        filterOptions={["active", "inactive"]}
+      <Header
+        title={"Order Cancellation Requests"}
+        component={
+          <SearchFilter
+            onFilter={(filter) => {
+              console.log(filter);
+            }}
+            onSearch={(filter) => {
+              console.log(filter);
+            }}
+            filterOptions={["active", "inactive"]}
+          />
+        }
       />
+      {data.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={ItemsPerPage}
+          totalItems={searchData.length > 0 ? searchData.length : data.length}
+          onPageChange={(number) => handlePageChange(number)}
+          onItemsPerPageChange={(number) => handleItemsPerPageChange(number)}
+        />
+      )}
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
@@ -110,7 +138,7 @@ const Sales = () => {
               </thead>
               {data?.length > 0 &&
                 <tbody className="text-gray-600 text-sm font-light">
-                  {data.map((sale, i) => {
+                  {currentItems.map((sale, i) => {
                     return (
                       <tr
                         key={i}
