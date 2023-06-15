@@ -2,20 +2,24 @@ import "./productList.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchFilter from "../../components/SearchBar";
 import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 import Pagination from "../../components/Pagination";
+import { SellerContext } from "../../App";
+import Header from "../../components/Header";
+
 
 export default function ProductList() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState();
+     const [loading, setLoading] = useState(false);
+ const {setLoader} = useContext(SellerContext)
+;  const [showModal, setShowModal] = useState();
   const [productId, setProductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 const [productsPerPage,setProductPerPage] = useState(10);
@@ -33,7 +37,7 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const getProducts = async () => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.get(
         "https://mazamaza.onrender.com/api/admin/products",
         {
@@ -83,23 +87,23 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const handleDeleteProduct = async (id) => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/product/delete/${id}`,
+        `http://localhost:4000/api/product/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         toast(
           `${response.data.message} ${response?.data?.deletedProduct?.name}`
         );
         getProducts();
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error);
       toast("unable to delete product");
     }
@@ -111,14 +115,29 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
     <div className="productList">
-      <h2 className='text-xl font-bold'>Products</h2>
-      <SearchFilter
-        onFilter={(filter) => {}}
-        onSearch={(search) => {
-          handleSearch(search);
-        }}
-        filterOptions={["active", "inactive"]}
+      <Header
+        title={"My Products"}
+        component={
+          <SearchFilter
+            onFilter={(filter) => {
+              console.log(filter);
+            }}
+            onSearch={(filter) => {
+              handleSearch(filter)
+            }}
+            filterOptions={["active", "inactive"]}
+          />
+        }
       />
+      {data.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={productsPerPage}
+          totalItems={searchData.length > 0 ? searchData.length : data.length}
+          onPageChange={(number) => handlePageChange(number)}
+          onItemsPerPageChange={(number) => handleItemsPerPageChange(number)}
+        />
+      )}
 
       <button
         className=" border-1 border-slate-200 border-solid rounded-md bg-red-500 text-white p-2"
@@ -415,15 +434,6 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
           </div>
         </div>
       </div>
-      {data?.length > productsPerPage && (
-        <Pagination
-          currentPage={currentPage}
-          itemsPerPage={productsPerPage}
-          totalItems={searchData?.length > 0 ? searchData?.length : data?.length}
-          onPageChange={(number)=>handlePageChange(number)}
-          onItemsPerPageChange={(number)=>handleItemsPerPageChange(number)}
-        />
-      )}
       <ReactModal isOpen={showModal} style={customStyles}>
         <p>Are you sure you want to delete this product ?</p>
         <div className=" flex items-center w-full justify-center">

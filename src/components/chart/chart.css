@@ -8,3 +8,8 @@
 .chartTitle {
   margin-bottom: 20px;
 }
+
+.chartLine {
+  border: 2.46471px solid #6acc1a;
+  box-shadow: 0px 8.21569px 3.28627px rgba(98, 60, 234, 0.08);
+}

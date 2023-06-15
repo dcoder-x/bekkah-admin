@@ -99,7 +99,6 @@ const SubscriptionPlans = () => {
       );
     }
   };
-
   useEffect(()=>{
     getSubscriptionPackages()
   },[])
@@ -115,6 +114,10 @@ const SubscriptionPlans = () => {
           Manage subscription plans from this page
           </p>
         </div>
+
+        <p>
+        Your Current Plan : {seller?.packageName||'None'}
+        </p>
 
         <div className="mt-[20px] grid grid-cols-3 gap-[20px]">
           {data?.length > 0 ? (

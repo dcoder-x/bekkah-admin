@@ -2,6 +2,7 @@ import "./sidebar.css";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { sideBarMenu } from "../../data/sideBar.js";
+import '../../index.css'
 
 export default function Sidebar() {
   return (
@@ -11,7 +12,7 @@ export default function Sidebar() {
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link to="" className="link">
-              <li className="sidebarListItem">
+              <li className="sidebarListItem text-[#03750D]">
                 <Icon icon="material-symbols:home-app-logo" />
                 <p className=" mx-4">Home</p>
               </li>
@@ -20,7 +21,7 @@ export default function Sidebar() {
               return (
                 <>
                   <li
-                    className="sidebarListItem flex justify-between w-full my-2  "
+                    className="sidebarListItem text-[#03750D]  flex justify-between w-full my-2  "
                     onClick={(e) => {
                       e.currentTarget.nextSibling.classList.toggle(
                         "openSubMenu"

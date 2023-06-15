@@ -8,8 +8,11 @@ import CategorySelect from "./CategorySelect.jsx";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import BrandSelect from "./BrandSelector.jsx";
+import { useNavigate } from "react-router";
 
 function ProductUploadForm() {
+
+  const navigate = useNavigate()
   const formRef = useRef();
   const [productVariants, setProductVariants] = useState([
     {
@@ -42,7 +45,7 @@ function ProductUploadForm() {
   const [shippingAgent, setShippingAgent] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
-
+[].push(1,2)
   //handle toggle for Isactive field
   const handleToggle = (e) => {
     setIsActive(!isActive);
@@ -185,7 +188,7 @@ function ProductUploadForm() {
   
     try {
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/product/create",
+        "http://localhost:4000/api/product/create",
         data,
         {
           headers: {
@@ -421,7 +424,7 @@ function ProductUploadForm() {
                   className="ml-2"
                   onClick={() => handleOptionAdd(variantIndex)}
                 >
-                  <PlusCircleIcon className="h-5 w-5 text-blue-500 hover:text-blue-700" />
+                  <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
                 </button>
                   </div>
                 ))}
@@ -453,7 +456,7 @@ function ProductUploadForm() {
                     className="ml-2 flex"
                     onClick={handleVariantAdd}
                   >
-                    <PlusCircleIcon className="h-5 w-5 text-blue-500 hover:text-blue-700" />
+                    <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
                     <p>New variant</p>
                   </button>
                 )}
@@ -496,7 +499,7 @@ function ProductUploadForm() {
                     className="ml-2"
                     onClick={handleSpecificationAdd}
                   >
-                    <PlusCircleIcon className="h-5 w-5 text-blue-500 hover:text-blue-700" />
+                    <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
                   </button>
                 )}
                 {index !== productSpecifications.length - 1 && (
@@ -628,7 +631,7 @@ function ProductUploadForm() {
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="weight"
                 >
-                  Weight (lbs)
+                  Weight (kg)
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -638,7 +641,7 @@ function ProductUploadForm() {
                   value={weight}
                   name="weight"
                   onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Enter weight in pounds"
+                  placeholder="Enter weight in kilograms"
                 />
               </div>
               <div className="mb-4">
@@ -718,6 +721,27 @@ function ProductUploadForm() {
                   <span className="ml-2 text-sm leading-5 text-gray-700">
                     Free shipping
                   </span>
+
+                  <div className=" mx-2">
+                    <label htmlFor="free-shipping-scope">
+                      Scope:
+                    </label>
+                  </div>
+                  <select name="free-shipping-scope" className="free-shipping-scope" id="">
+                    <option value="global">
+                      Global
+                    </option>
+                    <option value="country">
+                      Same Country
+                    </option>
+                    <option value="state">
+                    Same State
+                    </option>
+                    <option value="city">
+                    Same City
+                    </option>
+                  </select>
+                  
                 </label>
               </div>
 
@@ -734,7 +758,6 @@ function ProductUploadForm() {
                       {/* <option value="">--Select Shipping Agent--</option> */}
                       <option value="UPS">UPS</option>
                       <option value="DHL">DHL</option>
-                      <option value="Aramex">Aramex</option>
                     </select>
                   </label>
                 </div>
@@ -748,7 +771,7 @@ function ProductUploadForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-500 flex  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+          className="bg-[#03750D] flex  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
           // onClick={handleSubmit}
         >
           {isLoading ? "Creating product" : "Create product"}
@@ -756,7 +779,7 @@ function ProductUploadForm() {
         <button
           type="reset"
           className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-          //   onClick={handleCancel}
+            onClick={e=>{navigate(-1)}}
         >
           Cancel
         </button>

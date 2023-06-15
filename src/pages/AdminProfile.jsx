@@ -154,7 +154,7 @@ function AdminProfile() {
                                       href={link}
                                       className="flex-shrink-0 group block"
                                     >
-                                      <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 hover:bg-blue-600">
+                                      <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#03750D] hover:bg-blue-600">
                                         <Icon
                                           icon={icon}
                                           className="text-white w-6 h-6 mr-2"
@@ -176,7 +176,7 @@ function AdminProfile() {
                                   <div className="flex-shrink-0 sm:ml-4">
                                     <button
                                       type="button"
-                                      className="font-medium text-blue-600 hover:text-blue-500"
+                                      className="font-medium text-blue-600 hover:text-[#03750D]"
                                     >
                                       Edit
                                     </button>
@@ -191,7 +191,7 @@ function AdminProfile() {
                           <p>You have not added any socaial Platform </p>
                           <a
                             href=""
-                            className=" text-white bg-blue-500 rounded-sm p-2 mx-4"
+                            className=" text-white bg-[#03750D] rounded-sm p-2 mx-4"
                           >
                             Add now
                           </a>

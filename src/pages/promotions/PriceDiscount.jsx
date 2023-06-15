@@ -13,8 +13,9 @@ export default function PriceDiscount() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState();
+     const [loading, setLoading] = useState(false);
+ const {setLoader} = useContext(SellerContext)
+;  const [showModal, setShowModal] = useState();
   const [productId, setProductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductPerPage] = useState(10);
@@ -40,21 +41,21 @@ export default function PriceDiscount() {
   //get seller's products
   const getProducts = async () => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products/",
+        "http://localhost:4000/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         console.log(response.data.products);
         setProducts(response.data.products);
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error, error.response.data.message);
       toast("no product in your inventory");
     }
@@ -62,21 +63,21 @@ export default function PriceDiscount() {
 
   const getPriceDiscounts = async () => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products/",
+        "http://localhost:4000/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         console.log(response.data.products);
         setProducts(response.data.products);
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error, error.response.data.message);
       toast("no product in your inventory");
     }
@@ -305,7 +306,7 @@ export default function PriceDiscount() {
           </div>
         </div>
       </div>
-      {data.length > productsPerPage && (
+      {data.length >0 && (
         <Pagination
           currentPage={currentPage}
           itemsPerPage={productsPerPage}
@@ -325,7 +326,7 @@ export default function PriceDiscount() {
             </label>
             <select
               id="option"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={selectedOption}
               onChange={handleOptionChange}
             >
@@ -349,7 +350,7 @@ export default function PriceDiscount() {
             <input
               type="date"
               id="startDate"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={startDate}
               onChange={handleStartDateChange}
             />
@@ -364,7 +365,7 @@ export default function PriceDiscount() {
             <input
               type="date"
               id="endDate"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={endDate}
               onChange={handleEndDateChange}
             />
@@ -379,14 +380,14 @@ export default function PriceDiscount() {
             <input
               type="text"
               id="textInput"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={textInput}
               onChange={handleTextInputChange}
             />
           </div>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-[#03750D] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-[#03750D]"
             onClick={handleSubmit}
           >
             Submit

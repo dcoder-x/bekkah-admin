@@ -4,6 +4,7 @@ import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 import { useContext } from "react";
 import { AdminContext } from "../../App";
 import { useNavigate } from "react-router";
+import logo from '../../assets/images/logo3.png'
 
 export default function Topbar() {
   // const {seller} = useContext(AdminContext)
@@ -12,7 +13,7 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">Mazamaza Admin</span>
+          <img src={logo} className="logo" alt="logo" />
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">

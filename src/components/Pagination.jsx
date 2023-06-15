@@ -20,7 +20,7 @@ const Pagination = ({
   };
 
   return (
-    <div className="flex items-center justify-center mt-6">
+    <div className="flex bg-white w-full  items-center justify-center mt-6 py-4">
       <button
         className="px-3 py-1 mr-2 rounded bg-gray-200 hover:bg-gray-300 focus:outline-none"
         onClick={() => onPageChange(currentPage - 1)}
@@ -48,7 +48,7 @@ const Pagination = ({
           key={pageNumber}
           className={`px-3 py-1 mx-1 rounded ${
             pageNumber === currentPage
-              ? "bg-blue-500 text-white"
+              ? "bg-[#03750D] text-white"
               : "bg-gray-200 hover:bg-gray-300"
           } focus:outline-none`}
           onClick={() => onPageChange(pageNumber)}

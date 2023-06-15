@@ -26,7 +26,7 @@ export default function SearchFilter({ onSearch, onFilter, filterOptions,placeho
   //   };
 
   return (
-    <div className="flex justify-between px-4 items-center border-b mb-4 pb-2">
+    <div className="flex justify-between my-2 items-center border-b mb-4 pb-2">
       <div className="flex-grow mr-4">
         <label htmlFor="search" className="sr-only">
           Search
@@ -48,7 +48,7 @@ export default function SearchFilter({ onSearch, onFilter, filterOptions,placeho
           <input
             id="search"
             type="search"
-            className="form-input block w-full p-2 pl-10 sm:text-sm sm:leading-5"
+            className="bg-white border border-solid border-gray-300 rounded-lg form-input block w-full p-2 pl-10 sm:text-sm sm:leading-5"
             placeholder={placeholder||"Search here..."}
             value={searchQuery}
             onChange={e=>handleSearch(e)}

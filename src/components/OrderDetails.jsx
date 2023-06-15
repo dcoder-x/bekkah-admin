@@ -36,7 +36,7 @@ const OrderDetails = () => {
         <div className="pt-4">
           <div className="flex flex-col items-end text-sm leading-8 pb-6">
             <div>
-              Total use value：733.33 <span className="text-blue-500">unfold</span>
+              Total use value：733.33 <span className="text-[#03750D]">unfold</span>
             </div>
             <div className="flex w-96 justify-between">
               <div>membership card x1</div>

@@ -1,25 +1,43 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchFilter from "../components/SearchBar";
 import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
+import { SellerContext } from "../App";
+import Pagination from "../components/Pagination";
+import Header from "../components/Header";
 
 const ProductPerfomance = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { setLoader } = useContext(SellerContext);
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ItemsPerPage, setProductPerPage] = useState(10);
+  const [searchData, setSearchData] = useState([]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const handleItemsPerPageChange = (pageNumber) => {
+    setProductPerPage(pageNumber);
+  };
+  const indexOfLastItem = currentPage * ItemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const getSellerProductPerfomance = async () => {
     try {
       setLoading(true);
+      setLoader(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products_performance",
+        "http://localhost:4000/api/product/my_products_performance",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -27,12 +45,14 @@ const ProductPerfomance = () => {
         }
       );
       if (response) {
+        setLoader(false);
         console.log(response);
         setData(response.data.data);
-        console.log(data)
+        console.log(data);
       }
     } catch (error) {
       setLoading(false);
+      setLoader(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
@@ -55,8 +75,9 @@ const ProductPerfomance = () => {
   const handleDeleteorder = async (id) => {
     try {
       setLoading(true);
+      setLoader(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -64,11 +85,13 @@ const ProductPerfomance = () => {
         }
       );
       if (response) {
+        setLoader(false);
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
         getSellerProductPerfomance();
       }
     } catch (error) {
       setLoading(false);
+      setLoader(false);
       console.log(error);
       toast("unable to delete order");
     }
@@ -79,17 +102,30 @@ const ProductPerfomance = () => {
   }, []);
 
   return (
-    <div className="w-full px-2">
-      <h1>Canceled ProductPerfomance</h1>
-      <SearchFilter
-        onFilter={(filter) => {
-          console.log(filter);
-        }}
-        onSearch={(filter) => {
-          console.log(filter);
-        }}
-        filterOptions={["active", "inactive"]}
+    <div className="orderList w-full px-2">
+      <Header
+        title={"Product Perfomance Report"}
+        component={
+          <SearchFilter
+            onFilter={(filter) => {
+              console.log(filter);
+            }}
+            onSearch={(filter) => {
+              console.log(filter);
+            }}
+            filterOptions={["active", "inactive"]}
+          />
+        }
       />
+      {data.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={ItemsPerPage}
+          totalItems={searchData.length > 0 ? searchData.length : data.length}
+          onPageChange={(number) => handlePageChange(number)}
+          onItemsPerPageChange={(number) => handleItemsPerPageChange(number)}
+        />
+      )}
       <div className="overflow-x-auto w-full px-4">
         <div className="w-full">
           <div className=" flex flex-row px-4 item-center justify-between"></div>
@@ -107,9 +143,9 @@ const ProductPerfomance = () => {
                   <th className="py-3 px-6 text-center">Status</th>
                 </tr>
               </thead>
-              {data?.length > 0 && (
+              {currentItems?.length > 0 && (
                 <tbody className="text-gray-600 text-sm font-light">
-                  {data.map((product, i) => {
+                  {currentItems.map((product, i) => {
                     return (
                       <tr
                         key={i}
@@ -127,7 +163,7 @@ const ProductPerfomance = () => {
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                            {product?.leftInStock||0}
+                            {product?.leftInStock || 0}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
@@ -146,14 +182,10 @@ const ProductPerfomance = () => {
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                            {product?.sold}
-                          </span>
+                          <span className="font-medium">{product?.sold}</span>
                         </td>
-                           <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                            {product?.status}
-                          </span>
+                        <td className="py-3 px-6 text-center">
+                          <span className="font-medium">{product?.status}</span>
                         </td>
                       </tr>
                     );

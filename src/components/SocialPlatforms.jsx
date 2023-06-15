@@ -40,7 +40,7 @@ function Socialname() {
     try {
       setProcessing(true);
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/seller/shop/social",
+        "http://localhost:4000/api/seller/shop/social",
         newSocialLink,
         {
           headers: {
@@ -67,7 +67,7 @@ function Socialname() {
   const handleDeletePlatform = async (name) => {
     try {
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/seller/shop/social/${name}`,
+        `http://localhost:4000/api/seller/shop/social/${name}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -118,7 +118,7 @@ function Socialname() {
           />
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
+            className="bg-[#03750D] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4"
           >
             {processing ? "Processing" : "Add"}
           </button>

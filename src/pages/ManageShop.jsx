@@ -7,6 +7,7 @@ import AddShippingAddress from "../components/AddShippingAddress";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { faWifiStrong } from "@fortawesome/free-solid-svg-icons";
+import Header from "../components/Header";
 
 
 
@@ -24,7 +25,7 @@ function Tab({ activeTab, label, onClick }) {
   const tabClassNames = classNames(
     "inline-block px-4 py-2 font-bold",
     {
-      "border-b-4 border-blue-500": activeTab === label,
+      "border-b-4 border-[#03750D]": activeTab === label,
     },
     {
       "border-b-4 border-gray-300": activeTab !== label,
@@ -46,7 +47,7 @@ function TabContent({ activeTab }) {
 
   const getShopProfile = async () =>{
     try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/shop',{
+      const response = await axios.get('http://localhost:4000/api/seller/shop',{
         headers:{
           'x-auth-token':localStorage.getItem('AdminAuthToken')
         }
@@ -89,7 +90,7 @@ function ManageShop() {
 
   return (
     <div className=" w-full min-h-screen overflow-scroll">
-      <h2 className='text-xl font-bold'>Manage Shop</h2>
+      <Header title={'Manage Shop'} navigationArr={['Dashboard','Manage Shop']}/>
       <div className="mb-4 w-full flex justify-start">
         <Tab label="General" activeTab={activeTab} onClick={handleTabClick} />
         <Tab label="Media" activeTab={activeTab} onClick={handleTabClick} />

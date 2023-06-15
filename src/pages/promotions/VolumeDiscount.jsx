@@ -1,20 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchFilter from "../../components/SearchBar";
 import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 import Pagination from "../../components/Pagination";
+import { SellerContext } from "../../App";
 
 export default function VolumeDiscount() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState();
+     const [loading, setLoading] = useState(false);
+ const {setLoader} = useContext(SellerContext)
+;  const [showModal, setShowModal] = useState();
   const [productId, setProductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductPerPage] = useState(10);
@@ -40,21 +42,21 @@ export default function VolumeDiscount() {
   //get seller's products
   const getProducts = async () => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products/",
+        "http://localhost:4000/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         console.log(response.data.products);
         setProducts(response.data.products);
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error, error.response.data.message);
       toast("no product in your inventory");
     }
@@ -62,21 +64,21 @@ export default function VolumeDiscount() {
 
   const getPriceDiscounts = async () => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products/",
+        "http://localhost:4000/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         console.log(response.data.products);
         setProducts(response.data.products);
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error, error.response.data.message);
       toast("no product in your inventory");
     }
@@ -297,7 +299,7 @@ export default function VolumeDiscount() {
           </div>
         </div>
       </div>
-      {data.length > productsPerPage && (
+      {data.length >0 && (
         <Pagination
           currentPage={currentPage}
           itemsPerPage={productsPerPage}
@@ -317,7 +319,7 @@ export default function VolumeDiscount() {
             </label>
             <select
               id="option"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={selectedOption}
               onChange={e=>handleOptionChange(e.target.value)}
             >
@@ -335,7 +337,7 @@ export default function VolumeDiscount() {
               required
               type="date"
               id="startDate"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={startDate}
               onChange={e=>handleStartDateChange(e.target.value)}
             />
@@ -351,7 +353,7 @@ export default function VolumeDiscount() {
               required
               type="date"
               id="endDate"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={endDate}
               onChange={e=>handleEndDateChange(e.target.value)}
             />
@@ -367,7 +369,7 @@ export default function VolumeDiscount() {
               required
               type="text"
               id="textInput"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
               value={`${textInput} %`}
               onChange={e=>handleTextInputChange(e.target.value)}
             />
@@ -375,7 +377,7 @@ export default function VolumeDiscount() {
           <button
             required
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-[#03750D] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-[#03750D]"
             onClick={handleSubmit}
           >
             Submit

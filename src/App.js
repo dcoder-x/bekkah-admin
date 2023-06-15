@@ -5,11 +5,14 @@ import Home from "./pages/home/Home";
 import { Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import CreateShopProfileForm from "./pages/CreateShopProfile";
 import { createContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import ReactModal from "react-modal";
+import Loader from "./components/Loader";
+import PaymentComplete from "./pages/PaymentComplete";
 
 
 export const AdminContext = createContext()
@@ -17,12 +20,15 @@ export const AdminContext = createContext()
 
 function App() {
 
+  const [loader, setLoader] = useState(false)
+
   const [seller,setSeller] = useState()
   return (
     <AdminContext.Provider>
       <Routes>
         <Route path="/" index element={<SignIn />} />
         <Route path="/signin" index element={<SignIn />} />
+        <Route path="/payment" index element={<PaymentComplete />} />
         <Route path="/shopSetup" index element={<CreateShopProfileForm />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
       </Routes>
@@ -40,6 +46,7 @@ function App() {
             background: "#363636",
             color: "#fff",
           },
+          
 
           // Default options for specific types
           success: {
@@ -51,7 +58,11 @@ function App() {
           },
         }}
       />
+         <ReactModal isOpen={loader}>
+        <Loader></Loader>
+      </ReactModal>
     </AdminContext.Provider>
+   
   );
 }
 

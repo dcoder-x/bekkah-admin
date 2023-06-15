@@ -99,7 +99,7 @@ const CreateShopProfileForm = () => {
             >
               {/* seller information form */}
               <div className="p-4 space-y-4 lg:min-w-[50%] w-[100%]">
-                <h2 className='text-xl font-bold' className="text-xl font-bold">Seller Infomation</h2>
+                <h2 className='text-xl font-bold'>Seller Infomation</h2>
                 <div className="space-y-1">
                   <label
                     htmlFor="firstName"
@@ -204,7 +204,7 @@ const CreateShopProfileForm = () => {
 
               {/* shop creation form */}
               <div className="p-4 space-y-4 lg:min-w-[50%] w-[100%]">
-                <h2 className='text-xl font-bold' className="text-xl font-bold">
+                <h2 className='text-xl font-bold'>
                   Shop Details
                 </h2>
                 <div className="space-y-1">
@@ -221,7 +221,7 @@ const CreateShopProfileForm = () => {
                     id="identifier"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -243,7 +243,7 @@ const CreateShopProfileForm = () => {
                       defaultCountry="NG"
                       value={phone}
                       onChange={setPhone}
-                      className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-12 sm:text-sm border rounded-md"
+                      className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full pl-10 pr-12 sm:text-sm border rounded-md"
                     />
                   </div>
                 </div>
@@ -279,7 +279,7 @@ const CreateShopProfileForm = () => {
                     id="state"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -294,7 +294,7 @@ const CreateShopProfileForm = () => {
                     id="city"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -355,7 +355,7 @@ const CreateShopProfileForm = () => {
                     id="orderReturnAge"
                     value={orderReturnAge}
                     onChange={(e) => setOrderReturnAge(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -373,7 +373,7 @@ const CreateShopProfileForm = () => {
                     id="orderCancellationAge"
                     value={orderCancellationAge}
                     onChange={(e) => setOrderCancellationAge(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -391,7 +391,7 @@ const CreateShopProfileForm = () => {
                     id="pickupSlotGap"
                     value={pickupSlotGap}
                     onChange={(e) => setPickupSlotGap(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -408,7 +408,7 @@ const CreateShopProfileForm = () => {
                     id="fulfillmentMethod"
                     value={fulfillmentMethod}
                     onChange={(e) => setFulfillmentMethod(e.target.value)}
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
                   >
                     <option value="">Select a method</option>
                     <option value="shipping">Shipping</option>
@@ -421,7 +421,7 @@ const CreateShopProfileForm = () => {
                   <button
                     required
                     type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                    className="bg-[#03750D] text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                   >
                     Create Shop
                   </button>

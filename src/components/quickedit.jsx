@@ -40,7 +40,7 @@
         className="ml-2"
         onClick={handleSpecificationAdd}
       >
-        <PlusCircleIcon className="h-5 w-5 text-blue-500 hover:text-blue-700" />
+        <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
       </button>
     )}
     {index !== productSpecifications.length - 1 && (
