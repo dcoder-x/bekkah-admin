@@ -1,37 +1,39 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchFilter from "../components/SearchBar";
 import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
+import { SellerContext } from "../App";
 
 const Sales = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState();
+     const [loading, setLoading] = useState(false);
+ const {setLoader} = useContext(SellerContext)
+;  const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
   const getSellerSales = async () => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/sale/seller",
+        "http://localhost:4000/api/sale/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         console.log(response);
         setData(response.data.sales);
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
@@ -53,21 +55,21 @@ const Sales = () => {
 
   const handleDeleteorder = async (id) => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
         getSellerSales();
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error);
       toast("unable to delete order");
     }

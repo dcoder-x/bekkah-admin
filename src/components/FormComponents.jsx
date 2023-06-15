@@ -35,7 +35,7 @@ const ToggleSwitch = ({ label, name, checked,  onChange,required,product }) => {
           value={checked}
           // required={required}
           onChange={(e)=>{onChange(e.currentTarget.value)}}
-          className={`toggle-checkbox absolute block w-6 h-6 rounded-full transition-all ${checked?'bg-blue-500 translate-x-4':'bg-white translate-x-0'} border-4 appearance-none cursor-pointer`}
+          className={`toggle-checkbox absolute block w-6 h-6 rounded-full transition-all ${checked?'bg-[#03750D] translate-x-4':'bg-white translate-x-0'} border-4 appearance-none cursor-pointer`}
         />
         <label
           htmlFor={name}

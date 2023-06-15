@@ -11,27 +11,28 @@ import ReactModal from "react-modal";
 const ProductProfit = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState();
+     const [loading, setLoading] = useState(false);
+ const {setLoader} = useContext(SellerContext)
+;  const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
   const getSellerProductProfit = async () => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/seller",
+        "http://localhost:4000/api/order/seller",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         console.log(response);
         setData(response.data.ProductProfit);
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
@@ -53,21 +54,21 @@ const ProductProfit = () => {
 
   const handleDeleteorder = async (id) => {
     try {
-      setLoading(true);
+      setLoading(true);setLoader(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
-      if (response) {
+      if (response) {setLoader(false);
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
         getSellerProductProfit();
       }
     } catch (error) {
-      setLoading(false);
+      setLoading(false);setLoader(false);
       console.log(error);
       toast("unable to delete order");
     }

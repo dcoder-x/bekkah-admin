@@ -5,11 +5,14 @@ import Home from "./pages/home/Home";
 import { Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import CreateShopProfileForm from "./pages/CreateShopProfile";
 import { createContext, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import ReactModal from "react-modal";
+import Loader from "./components/Loader";
+import PaymentComplete from "./pages/PaymentComplete";
 
 
 export const SellerContext = createContext()
@@ -17,15 +20,17 @@ export const SellerContext = createContext()
 
 function App() {
 
+  const [loader, setLoader] = useState(false)
+
   const [seller,setSeller] = useState()
   const getSeller = async () =>{
     try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/account',{
+      const response = await axios.get('http://localhost:4000/api/seller/account',{
         headers:{
           'x-auth-token':localStorage.getItem('sellerAuthToken')
         }
       })
-      if (response) {
+      if (response) {setLoader(false);
        setSeller(response.data.seller)
         console.log(response.data)
         
@@ -40,11 +45,24 @@ function App() {
     getSeller()
   },[])
 
+
+  // handle toast queing
+  const TOAST_LIMIT = 1
+  const { toasts } = useToasterStore();
+
+  // Enforce Limit
+  useEffect(() => {
+    toasts
+      .filter((t) => t.visible) // Only consider visible toasts
+      .filter((_, i) => i >= TOAST_LIMIT) // Is toast index over limit
+      .forEach((t) => toast.dismiss(t.id)); // Dismiss – Use toast.remove(t.id) removal without animation
+  }, [toasts]);
   return (
-    <SellerContext.Provider value={{seller,getSeller}}>
+    <SellerContext.Provider value={{seller,getSeller,loader,setLoader}}>
       <Routes>
         <Route path="/" index element={<SignIn />} />
         <Route path="/signin" index element={<SignIn />} />
+        <Route path="/payment" index element={<PaymentComplete />} />
         <Route path="/shopSetup" index element={<CreateShopProfileForm />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
       </Routes>
@@ -62,6 +80,7 @@ function App() {
             background: "#363636",
             color: "#fff",
           },
+          
 
           // Default options for specific types
           success: {
@@ -73,6 +92,9 @@ function App() {
           },
         }}
       />
+      <ReactModal isOpen={loader}>
+        <Loader></Loader>
+      </ReactModal>
     </SellerContext.Provider>
   );
 }

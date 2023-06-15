@@ -58,7 +58,7 @@ const UpdateCredentialsPage = () => {
           <div className="text-right">
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+              className="px-4 py-2 bg-[#03750D] text-white rounded hover:bg-indigo-600"
             >
               Update Email
             </button>
@@ -82,7 +82,7 @@ const UpdateCredentialsPage = () => {
           <div className="text-right">
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+              className="px-4 py-2 bg-[#03750D] text-white rounded hover:bg-indigo-600"
             >
               Update Password
             </button>
@@ -106,7 +106,7 @@ const UpdateCredentialsPage = () => {
           <div className="text-right">
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+              className="px-4 py-2 bg-[#03750D] text-white rounded hover:bg-indigo-600"
             >
               Update Name
             </button>

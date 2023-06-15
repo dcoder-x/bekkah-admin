@@ -46,7 +46,7 @@ function BankAccountForm() {
     try {
       setProcessing(true);
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/seller/account/bank",
+        "http://localhost:4000/api/seller/account/bank",
         {
           bankAddress,
           bankName,
@@ -149,7 +149,7 @@ function BankAccountForm() {
         <div className="flex items-center justify-between">
           <button
             disabled={processing}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-[#03750D] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             {processing

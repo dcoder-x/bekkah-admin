@@ -55,6 +55,7 @@ const CategorySelect = ({ OnSelectCategories,OnSelectCategory,subCategories,cate
         name=""
         className="border-1 border-solid border-gray-500 p-1"
         id=""
+        required
         value={selectedCategory}
         onChange={(e) => {
           handleCategorySelect(e.currentTarget.value);
@@ -76,6 +77,7 @@ const CategorySelect = ({ OnSelectCategories,OnSelectCategory,subCategories,cate
       <select
         name=""
         id=""
+        required
         onChange={(e) => {
           handleCategoriesSelect(e.currentTarget.value);
         }}
@@ -101,7 +103,7 @@ const CategorySelect = ({ OnSelectCategories,OnSelectCategory,subCategories,cate
           {selectedCategories?.map((category, i) => (
             <div
               key={i}
-              className="px-2 py-1 rounded-full bg-blue-500 text-white mr-2 mb-2 flex items-center"
+              className="px-2 py-1 rounded-full bg-[#03750D] text-white mr-2 mb-2 flex items-center"
             >
               <span>{category}</span>
               <button

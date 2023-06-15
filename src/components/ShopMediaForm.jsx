@@ -45,7 +45,7 @@ function ShopMediaForm({ shop }) {
     const formData = new FormData(event.target);
     try {
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/seller/shop/logo",
+        "http://localhost:4000/api/seller/shop/logo",
         formData,
         {
           headers:{
@@ -67,7 +67,7 @@ function ShopMediaForm({ shop }) {
     const formData = new FormData(event.target);
     try {
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/seller/shop/banner",
+        "http://localhost:4000/api/seller/shop/banner",
         formData,
         {
           headers: { "x-auth-token": localStorage.getItem("sellerAuthToken") },
@@ -143,7 +143,7 @@ function ShopMediaForm({ shop }) {
           <div className="mt-8">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-[#03750D] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Update Banner
             </button>
@@ -201,7 +201,7 @@ function ShopMediaForm({ shop }) {
           <div className="mt-8">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-[#03750D] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Update Logo
             </button>
