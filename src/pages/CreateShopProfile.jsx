@@ -57,7 +57,7 @@ const CreateShopProfileForm = () => {
     console.log(Object.fromEntries(formData.entries()));
     try {
       const response = await axios.post(
-        `https://mazamaza.onrender.com/api/admin/shop`,
+        `http://localhost:4000/api/admin/shop`,
         Object.fromEntries(formData.entries()),
         {
           headers:{

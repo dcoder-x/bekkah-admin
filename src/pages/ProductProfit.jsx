@@ -12,13 +12,13 @@ const ProductProfit = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
      const [loading, setLoading] = useState(false);
- const {setLoader} = useContext(SellerContext)
+ 
 ;  const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
 
   const getSellerProductProfit = async () => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.get(
         "http://localhost:4000/api/order/seller",
         {
@@ -27,12 +27,12 @@ const ProductProfit = () => {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         console.log(response);
         setData(response.data.ProductProfit);
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
@@ -54,7 +54,7 @@ const ProductProfit = () => {
 
   const handleDeleteorder = async (id) => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.delete(
         `http://localhost:4000/api/order/delete/${id}`,
         {
@@ -63,12 +63,12 @@ const ProductProfit = () => {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
         getSellerProductProfit();
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error);
       toast("unable to delete order");
     }
@@ -79,7 +79,7 @@ const ProductProfit = () => {
   }, []);
 
   return (
-    <div className="w-full w-full px-2">
+    <div className="w-full px-2">
       <h1>Profit on products</h1>
       <SearchFilter
         onFilter={(filter) => {

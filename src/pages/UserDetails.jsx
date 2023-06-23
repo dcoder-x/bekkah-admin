@@ -30,7 +30,7 @@ function UserDetails() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/user",
+        "http://localhost:4000/api/admin/user",
         {
           userId: urluser._id,
         },
@@ -66,7 +66,7 @@ function UserDetails() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/admin/delete-user/${id}`,
+        `http://localhost:4000/api/admin/delete-user/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -90,7 +90,7 @@ function UserDetails() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/admin/restrict-user/${id}`,
+        `http://localhost:4000/api/admin/restrict-user/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

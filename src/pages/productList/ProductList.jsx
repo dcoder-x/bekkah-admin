@@ -9,7 +9,7 @@ import Lottie from "react-lottie";
 import empty from "../../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 import Pagination from "../../components/Pagination";
-import { SellerContext } from "../../App";
+
 import Header from "../../components/Header";
 
 
@@ -18,7 +18,7 @@ export default function ProductList() {
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
      const [loading, setLoading] = useState(false);
- const {setLoader} = useContext(SellerContext)
+
 ;  const [showModal, setShowModal] = useState();
   const [productId, setProductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,9 +37,9 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const getProducts = async () => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/products",
+        "http://localhost:4000/api/admin/products",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -87,7 +87,7 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const handleDeleteProduct = async (id) => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.delete(
         `http://localhost:4000/api/product/delete/${id}`,
         {
@@ -96,14 +96,14 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         toast(
           `${response.data.message} ${response?.data?.deletedProduct?.name}`
         );
         getProducts();
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error);
       toast("unable to delete product");
     }

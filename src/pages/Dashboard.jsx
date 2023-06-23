@@ -40,6 +40,11 @@ import CreateShopProfileForm from "./CreateShopProfile";
 import RestrictedUserList from "./userList/RestrictedUsers";
 import ActiveSubscriptions from "./ActiveSubscriptions";
 import CreateSubscription from "./CreateSubscription";
+import ShippingInregrations from "./Integrations";
+import Transactions from "./Transactions";
+import { ShipmentDetailsPage } from "./ShipmentDetails";
+import PaymentInregrations from "./PaymentIntegrations";
+import Shipments from "./ShipmentList";
 
 const Dashboard = () => {
   return (
@@ -75,7 +80,7 @@ const Dashboard = () => {
           <Route path="/create-subscription" element={<CreateSubscription />}/>
           <Route path="/active-subscriptions" element={<ActiveSubscriptions />}/>
 
-
+          
           <Route path="/products" element={ <ProductList />}>
            
           </Route>
@@ -84,6 +89,13 @@ const Dashboard = () => {
            
           </Route>
           <Route path="/seller-details" element={<SellerDetails/>}/>
+          <Route path="/shipping-integrations" element={<ShippingInregrations/>}/>
+          <Route path="/payment-integrations" element={<PaymentInregrations/>}/>
+
+          <Route path="/shipment" element={<ShipmentDetailsPage/>}/>
+          <Route path="/shipments" element={<Shipments/>}/>
+
+
           <Route path="/shop-details" element={<ShopDetails/>}/>
 
           <Route path="/manage-sellers" element={<SellerList/>}/>
@@ -100,12 +112,14 @@ const Dashboard = () => {
           <Route path="/volumeDiscount" element={<VolumeDiscount/>}/>
           <Route path="/mySubscriptions" element={<Subscriptions/>}/>
           <Route path="/bank" element={<BankAccountForm/>}/>
+          <Route path="/order" element={<OrderDetails/>}/>
 
           <Route path="/returnRequest" element={<ReturnRequests/>}/>
           <Route path="/cancellationRequest" element={<CancellationRequests/>}/>
           <Route path="/productPerfomance" element={<ProductPerfomance/>}/>
           <Route path="/sales" element={<Sales/>}/>
           <Route path="/transactionReport" element={<TransactionReport/>}/>
+          {/* <Route path="/transactions" element={<Transactions/>}/> */}
           <Route path="/updateCredentials" element={<UpdateCredentialsPage/>}/>
           <Route path="/newproduct" element={<ProductUploadForm />}>
             

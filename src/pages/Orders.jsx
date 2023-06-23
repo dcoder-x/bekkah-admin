@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
-import { SellerContext } from "../App";
+
 import Header from "../components/Header";
 import Pagination from "../components/Pagination";
 
@@ -15,7 +15,7 @@ const Orders = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
      const [loading, setLoading] = useState(false);
- const {setLoader} = useContext(SellerContext)
+ 
 ;  const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,18 +32,18 @@ const Orders = () => {
   const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  const getSellerOrders = async () => {
+  const getOrders = async () => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/orders",
+        "http://localhost:4000/api/admin/orders",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         console.log(response);
         setData(response.data.orders);
       }
@@ -70,7 +70,7 @@ const Orders = () => {
 
   const handleDeleteorder = async (id) => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.delete(
         `http://localhost:4000/api/order/delete/${id}`,
         {
@@ -79,19 +79,19 @@ const Orders = () => {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerOrders();
+        getOrders();
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error);
       toast("unable to delete order");
     }
   };
 
   useEffect(() => {
-    getSellerOrders();
+    getOrders();
   }, []);
 
   return (
@@ -129,8 +129,8 @@ const Orders = () => {
                   <th className="py-3 px-6 text-left">Order ID</th>
                   <th className="py-3 px-6 text-left">Buyer</th>
                   <th className="py-3 px-6 text-left">Amount</th>
-                  <th className="py-3 px-6 text-center">Status</th>
-                  <th className="py-3 px-6 text-center">Actions</th>
+                  <th className="py-3 px-6 text-left">Status</th>
+                  <th className="py-3 px-6 text-left">Actions</th>
                 </tr>
               </thead>
               {currentItems?.length > 0 &&
@@ -146,26 +146,26 @@ const Orders = () => {
                             <span className="font-medium">{`${order?._id}`}</span>
                           </div>
                         </td>
-                        <td className="py-3 px-6 text-center">
+                        <td className="py-3 px-6 text-left">
                           <span className="font-medium">
                             {`${order?.user?.firstName } ${order?.user?.lastName }`}
                           </span>
                         </td>
-                        <td className="py-3 px-6 text-center">
+                        <td className="py-3 px-6 text-left">
                           <span className="font-medium">
-                              {order.totalPrice}
+                          {order.currency||'NGN'} {order.totalPrice}
                           </span>
                         </td>
 
-                        <td className="py-3 px-6 text-center">
+                        <td className="py-3 px-6 text-left">
                           <span className="font-medium">
                               {order.status}
                           </span>
                         </td>
-                        <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                          {order?.totalQuantity}
-                          </span>
+                        <td className="py-3 px-6 text-left">
+                          <Link state={order} to={'../order'} className="font-medium text-green-500">
+                          {'view details >'}
+                          </Link>
                         </td>
                       </tr>
                     );

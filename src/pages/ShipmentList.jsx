@@ -7,36 +7,52 @@ import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
-
-import Header from "../components/Header";
 import Pagination from "../components/Pagination";
 
-const Sales = () => {
+import Header from "../components/Header";
+
+const Shipments = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
      const [loading, setLoading] = useState(false);
- 
+
 ;  const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [ItemsPerPage, setProductPerPage] = useState(10);
   const [searchData, setSearchData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+const [ItemsPerPage,setProductPerPage] = useState(10);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+const handlePageChange = (pageNumber) => {
+  setCurrentPage(pageNumber);
+};
+const handleItemsPerPageChange = (pageNumber) => {
+  setProductPerPage(pageNumber);
+};
+const indexOfLastItem = currentPage * ItemsPerPage;
+const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
+const currentShpments = data?.slice(indexOfFirstItem, indexOfLastItem);
+  const handleSearch = (search) => {
+    if (search) {
+      console.log(search);
+      const filteredShpments = data.filter((product) => {
+        return product.name.toLowerCase().includes(search.toLowerCase());
+      });
+      if (filteredShpments.length>0) {
+      setSearchData(filteredShpments);
+      }
+      else{
+        toast.error('no Shpments match your search')
+      }
+    } else {
+      setSearchData([])
+    }
   };
-  const handleItemsPerPageChange = (pageNumber) => {
-    setProductPerPage(pageNumber);
-  };
-  const indexOfLastItem = currentPage * ItemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  const getSellerSales = async () => {
+  const getShipments = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/sales",
+        "http://localhost:4000/api/admin/shipments",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -44,15 +60,14 @@ const Sales = () => {
         }
       );
       if (response) {
-        console.log(response);
-        setData(response.data.sales);
+        console.log(response.data.shipments);
+        setData(response.data.shipments);
       }
     } catch (error) {
       setLoading(false);
-      console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
-          "something went wrong : could not fetch Sales"
+          "something went wrong : could not fetch Shipments"
       );
     }
   };
@@ -75,13 +90,13 @@ const Sales = () => {
         `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
-            "x-auth-token": localStorage.getItem("AdminAuthToken"),
+            "x-auth-token": localStorage.getItem("sellerAuthToken"),
           },
         }
       );
       if (response) {
-        toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerSales();
+        toast(`${response.data.message} ${response?.data?.deletedshipment?.name}`);
+        getShipments();
       }
     } catch (error) {
       setLoading(false);
@@ -91,13 +106,13 @@ const Sales = () => {
   };
 
   useEffect(() => {
-    getSellerSales();
+    getShipments();
   }, []);
 
   return (
     <div className="orderList w-full px-2">
       <Header
-        title={"My Sales"}
+        title={"My Shipments"}
         component={
           <SearchFilter
             onFilter={(filter) => {
@@ -126,67 +141,57 @@ const Sales = () => {
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left">ID</th>
-                  <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-left">Date</th>
-                  <th className="py-3 px-6 text-center">Buyer</th>
-                  <th className="py-3 px-6 text-left">Product</th>
-                  <th className="py-3 px-6 text-center">Quantity</th>
-                  <th className="py-3 px-6 text-left">Amount</th>
-                  <th className="py-3 px-6 text-center">Status</th>
+                  <th className="py-3 px-6 text-left">Shipment ID</th>
+                  <th className="py-3 px-6 text-left">Tracking Number</th>
+                  <th className="py-3 px-6 text-left">From</th>
+                  <th className="py-3 px-6 text-left">To</th>
+                  <th className="py-3 px-6 text-center">Product</th>
+                  <th className="py-3 px-6 text-center">Date</th>
+                  <th className="py-3 px-6 text-center">Action</th>
                 </tr>
               </thead>
-              {data?.length > 0 &&
+              {currentShpments?.length > 0 &&
                 <tbody className="text-gray-600 text-sm font-light">
-                  {currentItems.map((sale, i) => {
+                  {currentShpments.map((shipment, i) => {
                     return (
                       <tr
                         key={i}
                         className="border-b border-gray-200 hover:bg-gray-100"
                       >
-                        <td className="py-3 px-6 text-left whitespace-nowrap">
-                          <div className="flex items-center">
-                            <span className="font-medium">{
-                                sale._id
-                            }</span>
-                          </div>
-                        </td>
                         <td className="py-3 px-6 text-left">
                           <div className="flex items-center">
-                            <span className="font-medium">{`${sale?.order?._id}`}</span>
+                            <span className="font-medium">{`${shipment?._id}`}</span>
                           </div>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                           {
-                            sale.createdAt
-                           }
+                            {shipment?.trackingNumber}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {sale.buyer.username}
+                           {shipment?.from?.address1} 
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                          {sale?.product.name}
+                              {shipment?.to?.address1}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {sale.quantity}
+                          {shipment?.product?.name} Days
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
-                              {sale.amount}
+                              {new Date(shipment.createdAt).toDateString()}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                              {sale.status}
-                          </span>
+                          <Link to={'../shipment'} state={shipment} className="font-medium bg-green-500 rounded-sm p-2 text-white">
+                              Track
+                          </Link>
                         </td>
                       </tr>
                     );
@@ -203,14 +208,14 @@ const Sales = () => {
                 options={{
                   loop: true,
                   autoplay: true,
-                  animationData: empty,
+                  animationData: empty, 
                   rendererSettings: {
                     preserveAspectRatio: "xMidYMid slice",
                   },
                 }}
                 style={{ alignSelf: "center", maxWidth: "300px" }}
               />
-              <p className=" text-red-400">No order yet</p>
+              <p className=" text-red-400">No Shipment yet</p>
             </div>
             }
 
@@ -221,4 +226,4 @@ const Sales = () => {
   );
 };
 
-export default Sales;
+export default Shipments;

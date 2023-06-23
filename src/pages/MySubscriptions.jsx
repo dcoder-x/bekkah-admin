@@ -8,14 +8,14 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 import Pagination from "../components/Pagination";
-import { SellerContext } from "../App";
+
 import Header from "../components/Header";
 
 const Subscriptions = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
      const [loading, setLoading] = useState(false);
- const {setLoader} = useContext(SellerContext)
+
 ;  const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
   const [searchData, setSearchData] = useState([]);
@@ -41,31 +41,30 @@ const currentProducts = data.slice(indexOfFirstItem, indexOfLastItem);
       setSearchData(filteredProducts);
       }
       else{
-        toast('no products match your seach')
+        toast.error('no products match your search')
       }
     } else {
       setSearchData([])
-      getSellerSubscriptions()
     }
   };
 
   const getSubscriptions = async () => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/subscriptions",
+        "http://localhost:4000/api/admin/subscriptions",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         console.log(response);
         setData(response.data.subscriptions);
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
@@ -87,7 +86,7 @@ const currentProducts = data.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleDeleteorder = async (id) => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.delete(
         `http://localhost:4000/api/order/delete/${id}`,
         {
@@ -96,12 +95,12 @@ const currentProducts = data.slice(indexOfFirstItem, indexOfLastItem);
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
         getSubscriptions();
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error);
       toast("unable to delete order");
     }

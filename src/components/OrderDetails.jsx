@@ -1,63 +1,71 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router";
 
-const OrderDetails = () => {
+const OrderDetails = ({}) => {
+  const navigate = useNavigate()
+  const location =useLocation()
+  const order = location.state
+  console.log(order)
   return (
     
-    <div className="h-screen flex justify-center items-center bg-gray-200">
-      <div className="bg-white w-2/3 shadow-xl rounded-lg p-6">
+    <div className="h-full flex flex-col justify-center items-Start bg-gray-200 p-2">
+      <h1 className="text-2xl font-bold" onClick={e=>navigate(-1)}>
+       &larr; Order Details
+      </h1>
+      <div className="bg-white w-full shadow-xl rounded-lg p-6 my-4">
         <div className="border-b-2 border-dashed pb-3">
           <div className="border-l-2 border-l-blue-400 pl-2 mb-3">
-            The refund goods
+            Order banner
           </div>
           <div className="flex justify-between">
             <div className="flex items-start">
-              <div className="w-52 h-28 rounded-xl bg-gray-200 mr-3"></div>
+              <div className="w-52 overflow-hidden h-28 rounded-xl bg-gray-200 mr-3">
+                <img className="w-fit" src={order?.products[0]?.product?.productImage[0]} alt="" />
+              </div>
               <div>
-                <div className="pb-2 font-bold">One on one coach ...</div>
+                <div className="pb-2 font-bold">Order ID: {order?._id}</div>
                 <div className="text-xs text-gray-400 leading-6">
-                  membership card x1、personal training x10
+                  Transaction Ref：{order?.transactionRef}
                 </div>
                 <div className="text-xs text-gray-400 leading-6">
-                  Item value of goods：30000 | Commodity price：20000
+                  status：{order?.status}
                 </div>
               </div>
             </div>
             <div className="text-right text-sm leading-7">
-              <p>quantity：x3</p>
-              <p>aggre：9000</p>
-              <p>amount：6000</p>
-              <div>
-                total ：<sapn className="text-red-500">-900</sapn>
-              </div>
-              <div className="font-bold">the amount actually paid：$1500.00</div>
+              <p>Amount：{order?.currency} {order?.totalPrice}</p>
+              <p>Shipping fee：{order?.currency} {order?.shippingFee} </p>
+              <div className="font-bold">Amount paid：{order?.currency} {order?.totalPrice}</div>
             </div>
           </div>
         </div>
         <div className="pt-4">
-          <div className="flex flex-col items-end text-sm leading-8 pb-6">
-            <div>
-              Total use value：733.33 <span className="text-[#03750D]">unfold</span>
-            </div>
-            <div className="flex w-96 justify-between">
-              <div>membership card x1</div>
-              <div>
-                <span className="text-gray-400">(Have use value)</span> 333.33
+        <h1 className="text-xl">
+          Products
+        </h1>
+        <div className="flex flex-col w-full p-4">
+          {
+            order.products?.map((product)=>(
+              <div className="flex items-center justify-between my-2 rounded-sm bg-gray-50 px-2">
+                <div className="">
+
+                <img src={product?.product?.productImage[0]} className="max-w-[200px] w-[100px]" alt="" />
+                <p className="text-gray-500">
+                  {product.product?.name}
+                </p>
+                </div>
+
+                <p className="text-black">
+                {product?.product?.currency} {product?.product?.price}
+                </p>
               </div>
-            </div>
-            <div className="flex w-96 justify-between">
-              <div>personal training x10</div>
-              <div>
-                <span className="text-gray-400">(Have use value)</span> 400.00
-              </div>
-            </div>
-          </div>
-          <div className="border-l-2 border-l-blue-400 pl-2 mb-3">
-            The refund way
-          </div>
-          <div className="h-64 rounded-xl bg-gray-100 mt-4"></div>
+            ))
+          }
+        </div>
           <div className="mt-6 border-t pt-5 text-sm flex items-center">
-            Refund to payer：
-            <span className="text-base text-red-500 font-bold">366.80</span>
+           <button className={`rounded-lg ${order.status==='shipped'?'bg-green-500':order.status==='pending'?'bg-red-500':"bg-blue-500"} p-2 text-white`}>
+            {order.status==='shipped'?'Track order':order.status==='pending'?'Cancel Order':"Refund buyer"}
+           </button>
           </div>
         </div>
       </div>

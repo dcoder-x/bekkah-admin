@@ -21,7 +21,7 @@ const SellerApproval = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/getSellerRequest",
+        "http://localhost:4000/api/admin/getSellerRequest",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -57,7 +57,7 @@ const SellerApproval = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/admin/deleteSellerRequest/${id}`,
+        `http://localhost:4000/api/admin/deleteSellerRequest/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -81,7 +81,7 @@ const SellerApproval = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://mazamaza.onrender.com/api/admin/approveSellerRequest/${id}`,
+        `http://localhost:4000/api/admin/approveSellerRequest/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

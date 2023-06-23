@@ -27,7 +27,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/admin/package/${id}`,
+        `http://localhost:4000/api/admin/package/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -57,7 +57,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        "https://mazamaza.onrender.com/api/admin/package",
+        "http://localhost:4000/api/admin/package",
         data,
         {
           headers: {
@@ -79,7 +79,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/packages",
+        "http://localhost:4000/api/admin/packages",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -115,9 +115,6 @@ const SubscriptionPlans = () => {
           </p>
         </div>
 
-        <p>
-        Your Current Plan : {seller?.packageName||'None'}
-        </p>
 
         <div className="mt-[20px] grid grid-cols-3 gap-[20px]">
           {data?.length > 0 ? (

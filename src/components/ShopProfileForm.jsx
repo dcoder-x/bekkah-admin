@@ -6,7 +6,7 @@
 // import PhoneInput from "react-phone-number-input";
 // import "react-phone-number-input/style.css";
 // import { useContext } from "react";
-// import { SellerContext } from "../App";
+// 
 // import { toast } from "react-hot-toast";
 // import axios from "axios";
 // import { useRef } from "react";
@@ -53,7 +53,7 @@
 //     try {
 //       setProcessing(true);
 //       const response = await axios.post(
-//         "https://mazamaza.onrender.com/api/seller/shop/update",
+//         "http://localhost:4000/api/seller/shop/update",
 //         {
 //           gapBetweenOrder,
 //           fulfillmentMethod,

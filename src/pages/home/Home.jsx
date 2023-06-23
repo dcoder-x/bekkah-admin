@@ -19,7 +19,7 @@ export default function Home() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/sales-graph",
+        "http://localhost:4000/api/admin/sales-graph",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -44,7 +44,7 @@ export default function Home() {
     <div className="home">
       <FeaturedInfo />
       <Chart data={data} title="Sales Analytics" grid dataKey="totalSale"/>
-      <div className="homeWidgets">
+      <div className="flex flex-col">
         <WidgetSm/>
         <WidgetLg/>
       </div>

@@ -8,14 +8,14 @@ import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
 import Pagination from "../components/Pagination";
-import { SellerContext } from "../App";
+
 import Header from "../components/Header";
 
 const TransactionReport = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { setLoader } = useContext(SellerContext);
+  
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
   const [searchData, setSearchData] = useState([]);
@@ -44,16 +44,16 @@ const TransactionReport = () => {
       }
     } else {
       setSearchData([]);
-      getSellerTransactionReport();
+      getTransactionReports();
     }
   };
 
-  const getSellerTransactionReport = async () => {
+  const getTransactionReports = async () => {
     try {
       setLoading(true);
-      setLoader(true);
+      
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/transactions",
+        "http://localhost:4000/api/admin/transactions",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -61,14 +61,14 @@ const TransactionReport = () => {
         }
       );
       if (response) {
-        setLoader(false);
+        
         console.log(response);
         setData(response.data.transactions);
       }
     } catch (error) {
       setLoading(false);
-      setLoader(false);
-      console.log(error, error.response.data.message);
+      
+      console.log(error, error?.response?.data?.message);
       toast(
         error?.response?.data?.message ||
           "something went wrong : could not fetch TransactionReport"
@@ -90,7 +90,7 @@ const TransactionReport = () => {
   const handleDeleteorder = async (id) => {
     try {
       setLoading(true);
-      setLoader(true);
+      
       const response = await axios.delete(
         `http://localhost:4000/api/order/delete/${id}`,
         {
@@ -100,20 +100,20 @@ const TransactionReport = () => {
         }
       );
       if (response) {
-        setLoader(false);
+        
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
-        getSellerTransactionReport();
+        getTransactionReports();
       }
     } catch (error) {
       setLoading(false);
-      setLoader(false);
+      
       console.log(error);
       toast("unable to delete order");
     }
   };
 
   useEffect(() => {
-    getSellerTransactionReport();
+    getTransactionReports();
   }, []);
 
   return (
@@ -151,7 +151,6 @@ const TransactionReport = () => {
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">Transaction Ref</th>
                   <th className="py-3 px-6 text-left">Date</th>
-                  <th className="py-3 px-6 text-left">Description</th>
                   <th className="py-3 px-6 text-left">Amount</th>
                   <th className="py-3 px-6 text-center">Initiator</th>
                   <th className="py-3 px-6 text-center">Reciever</th>
@@ -175,11 +174,6 @@ const TransactionReport = () => {
                         <td className="py-3 px-6 text-center">
                           <span className="font-medium">
                             {new Date(transaction.date).toDateString()}
-                          </span>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                            {transaction.description}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">

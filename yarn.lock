@@ -1192,6 +1192,13 @@
   dependencies:
     "@iconify/types" "*"
 
+"@iconify/icons-eva@^1.2.6":
+  "integrity" "sha512-Qo5GWzKNj7QDLh2IHlzfF4s1VjX2ZcA4ZtDHjD234f3Gn8u42OSRYM7w/gUab+NjgY7ViU0Hz5IPkVpz+HCGaQ=="
+  "resolved" "https://registry.npmjs.org/@iconify/icons-eva/-/icons-eva-1.2.6.tgz"
+  "version" "1.2.6"
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify/react@^4.1.0":
   "integrity" "sha512-Mf72i3TNNKpKCKxmo7kzqyrUdCgaoljpqtWmtqpqwyxoV4ukhnDsSRNLhf2yBnqGr3cVZsdj/i0FMpXIY0Qk0g=="
   "resolved" "https://registry.npmjs.org/@iconify/react/-/react-4.1.0.tgz"
@@ -7756,10 +7763,10 @@
   dependencies:
     "goober" "^2.1.10"
 
-"react-icons@^4.8.0":
-  "integrity" "sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg=="
-  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.8.0.tgz"
-  "version" "4.8.0"
+"react-icons@^4.9.0":
+  "integrity" "sha512-ijUnFr//ycebOqujtqtV9PFS7JjhWg0QU6ykURVHuL4cbofvRCf3f6GMn9+fBktEFQOIVZnuAYLZdiyadRQRFg=="
+  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.9.0.tgz"
+  "version" "4.9.0"
 
 "react-image-gallery@^1.2.11":
   "integrity" "sha512-YLMCdNSCf3YPhRmnjEOdEZGEXghTMx4o3dlAqd0rz0nAyebUvTz/xJnIHPActbPSHCvVJgt5A09EPHYbGqw++w=="

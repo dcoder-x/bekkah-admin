@@ -1,0 +1,32 @@
+[33m2a87720[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m merge complete
+[33mab286f1[m[33m ([m[1;31mseller/main[m[33m)[m Updated:Header,Sales
+[33m6f76575[m Updated:Header,Sales
+[33m8790ea3[m created:paymentCompleted,Loader
+[33m8e1667d[m[33m ([m[1;31morigin/main[m[33m)[m fixed error seller approval
+[33m0a28f38[m fiesd bug
+[33m59b59f0[m update dummy.js
+[33mce1783b[m customized for admin dashboard
+[33mde1227b[m update dummy.js
+[33mb9cbc91[m customized for admin dashboard
+[33m5c4fd07[m changed navogation bar menu
+[33ma4852c5[m changed navogation bar menu
+[33m2ebe759[m some changes
+[33m6a45674[m updated axios endpoints
+[33m2b9a916[m updated dashboard
+[33mf046c4c[m updated dashboard
+[33mf6ccf20[m updated dashboard
+[33m977c22d[m added category and subcategory
+[33m121ac15[m added category and subcategory
+[33m4e55ad2[m added valid links in routes
+[33mf344e76[m added valid links in routes
+[33m84fda68[m test enpoint
+[33m6517732[m start
+[33m789e613[m updated tables
+[33mc802c3f[m added vercel.json
+[33m9ded234[m added logo
+[33m3c424f8[m added logo
+[33me56690f[m changed endpoints to remote endpoints
+[33mc415cb7[m updated product upload, created product update
+[33mcba0850[m product upload form updated
+[33mefac0cb[m redploy
+[33m77d3b0a[m first phase

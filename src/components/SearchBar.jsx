@@ -26,7 +26,7 @@ export default function SearchFilter({ onSearch, onFilter, filterOptions,placeho
   //   };
 
   return (
-    <div className="flex justify-between my-2 items-center border-b mb-4 pb-2">
+    <div className="flex w-full justify-between my-2 items-center border-b mb-4 pb-2">
       <div className="flex-grow mr-4">
         <label htmlFor="search" className="sr-only">
           Search
@@ -48,7 +48,7 @@ export default function SearchFilter({ onSearch, onFilter, filterOptions,placeho
           <input
             id="search"
             type="search"
-            className="bg-white border border-solid border-gray-300 rounded-lg form-input block w-full p-2 pl-10 sm:text-sm sm:leading-5"
+            className="bg-gray-200 text-gray-600 border border-solid border-gray-300 rounded-lg form-input block w-full p-2 pl-10 sm:text-sm sm:leading-5"
             placeholder={placeholder||"Search here..."}
             value={searchQuery}
             onChange={e=>handleSearch(e)}
@@ -63,7 +63,7 @@ export default function SearchFilter({ onSearch, onFilter, filterOptions,placeho
           <div>
             <select
               type="select"
-              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+              className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-green-400 text-sm leading-5 font-medium text-white hover:bg-green-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
               id="filter"
               aria-haspopup="true"
               aria-expanded="true"

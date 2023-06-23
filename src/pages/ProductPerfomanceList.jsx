@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
-import { SellerContext } from "../App";
+
 import Pagination from "../components/Pagination";
 import Header from "../components/Header";
 
@@ -15,7 +15,7 @@ const ProductPerfomance = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { setLoader } = useContext(SellerContext);
+  
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +35,7 @@ const ProductPerfomance = () => {
   const getSellerProductPerfomance = async () => {
     try {
       setLoading(true);
-      setLoader(true);
+      
       const response = await axios.get(
         "http://localhost:4000/api/product/my_products_performance",
         {
@@ -45,14 +45,14 @@ const ProductPerfomance = () => {
         }
       );
       if (response) {
-        setLoader(false);
+        
         console.log(response);
         setData(response.data.data);
         console.log(data);
       }
     } catch (error) {
       setLoading(false);
-      setLoader(false);
+      
       console.log(error, error.response.data.message);
       toast(
         error?.response?.data?.message ||
@@ -75,7 +75,7 @@ const ProductPerfomance = () => {
   const handleDeleteorder = async (id) => {
     try {
       setLoading(true);
-      setLoader(true);
+      
       const response = await axios.delete(
         `http://localhost:4000/api/order/delete/${id}`,
         {
@@ -85,13 +85,13 @@ const ProductPerfomance = () => {
         }
       );
       if (response) {
-        setLoader(false);
+        
         toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
         getSellerProductPerfomance();
       }
     } catch (error) {
       setLoading(false);
-      setLoader(false);
+      
       console.log(error);
       toast("unable to delete order");
     }

@@ -173,15 +173,9 @@ export const sideBarMenu = [
       {
         name: "All Shipments",
         icon: "",
+        link:'shipments'
       },
-      {
-        name: "Complete Shipments",
-        icon: "",
-      },
-      {
-        name: "Incomplete Shipments",
-        icon: "",
-      },
+
     ],
   },
   // {
@@ -208,11 +202,11 @@ export const sideBarMenu = [
     sublinks: [
       {
         name: "Shipping",
-        icon: "",
+        link: "shipping-integrations",
       },
       {
         name: "Payment",
-        icon: "",
+        link: "payment-integrations",
       },
     ],
   },

@@ -14,7 +14,7 @@ export default function PriceDiscount() {
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
      const [loading, setLoading] = useState(false);
- const {setLoader} = useContext(SellerContext)
+ 
 ;  const [showModal, setShowModal] = useState();
   const [productId, setProductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +41,7 @@ export default function PriceDiscount() {
   //get seller's products
   const getProducts = async () => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.get(
         "http://localhost:4000/api/product/my_products/",
         {
@@ -50,12 +50,12 @@ export default function PriceDiscount() {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         console.log(response.data.products);
         setProducts(response.data.products);
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error, error.response.data.message);
       toast("no product in your inventory");
     }
@@ -63,7 +63,7 @@ export default function PriceDiscount() {
 
   const getPriceDiscounts = async () => {
     try {
-      setLoading(true);setLoader(true);
+      setLoading(true);
       const response = await axios.get(
         "http://localhost:4000/api/product/my_products/",
         {
@@ -72,12 +72,12 @@ export default function PriceDiscount() {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         console.log(response.data.products);
         setProducts(response.data.products);
       }
     } catch (error) {
-      setLoading(false);setLoader(false);
+      setLoading(false);
       console.log(error, error.response.data.message);
       toast("no product in your inventory");
     }

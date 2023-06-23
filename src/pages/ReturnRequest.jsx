@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import Lottie from "react-lottie";
 import empty from "../assets/lottie/emptyList.json";
 import ReactModal from "react-modal";
-import { SellerContext } from "../App";
+
 import Header from "../components/Header";
 import Pagination from "../components/Pagination";
 
@@ -15,7 +15,7 @@ const ReturnRequests = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { setLoader } = useContext(SellerContext);
+  
   const [showModal, setShowModal] = useState();
   const [orderId, setOrderId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,9 +35,9 @@ const ReturnRequests = () => {
   const getSellerReturnRequests = async () => {
     try {
       setLoading(true);
-      setLoader(true);
+      
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/requests/return",
+        "http://localhost:4000/api/order/requests/return",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -45,13 +45,13 @@ const ReturnRequests = () => {
         }
       );
       if (response) {
-        setLoader(false);
+        
         console.log(response);
         setData(response.data?.returnRequests||[]);
       }
     } catch (error) {
       setLoading(false);
-      setLoader(false);
+      
       console.log(error);
       toast(
         error?.response?.data?.message ||
@@ -74,7 +74,7 @@ const ReturnRequests = () => {
   const handleDeleteorder = async (id) => {
     try {
       setLoading(true);
-      setLoader(true);
+      
       const response = await axios.delete(
         `http://localhost:4000/api/order/delete/${id}`,
         {
@@ -84,13 +84,13 @@ const ReturnRequests = () => {
         }
       );
       if (response) {
-        setLoader(false);
+        
         toast(`${response.data?.message} ${response?.data?.deletedorder?.name}`);
         getSellerReturnRequests();
       }
     } catch (error) {
       setLoading(false);
-      setLoader(false);
+      
       console.log(error);
       toast("unable to delete order");
     }

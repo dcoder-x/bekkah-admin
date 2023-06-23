@@ -19,7 +19,7 @@ const ActiveSubscriptions = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/subscriptions/active",
+        "http://localhost:4000/api/admin/subscriptions/active",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -28,7 +28,7 @@ const ActiveSubscriptions = () => {
       );
       if (response) {
         console.log(response);
-        setData(response.data.Subscriptions);
+        setData(response.data.subscriptions);
       }
     } catch (error) {
       setLoading(false);
@@ -55,7 +55,7 @@ const ActiveSubscriptions = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `http://localhost:4000/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -103,7 +103,7 @@ const ActiveSubscriptions = () => {
                   <th className="py-3 px-6 text-center">Frequency</th>
                   <th className="py-3 px-6 text-center">Status</th>
                   <th className="py-3 px-6 text-center">Subscription Valid till</th>
-                  <th className="py-3 px-6 text-center">Action</th>
+                  {/* <th className="py-3 px-6 text-center">Action</th> */}
 
                 </tr>
               </thead>
@@ -141,11 +141,16 @@ const ActiveSubscriptions = () => {
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
-                          <span className="font-medium">
-                              {order.expiryDate > Date.now() ? 'Expired':'Valid'}
+                          <span className={`font-medium  bg-green-200 px-2 text-green-600 p-1 rounded-full`}>
+                              {order.expiryDate > Date.now() ? 'Expired':'Active'}
                           </span>
                         </td>
                         <td className="py-3 px-6 text-center">
+                          <span className="font-medium">
+                              { new Date(order.expiryDate).toDateString()}
+                          </span>
+                        </td>
+                        {/* <td className="py-3 px-6 text-center">
                           <div className="flex item-center justify-center">
                             <div
                               onClick={(e) =>{}}
@@ -172,7 +177,7 @@ const ActiveSubscriptions = () => {
                               </svg>
                             </div>
                           </div>
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   })}

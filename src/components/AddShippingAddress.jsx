@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import ReactModal from "react-modal";
 import { Icon } from "@iconify/react";
-import { SellerContext } from "../App";
+
 
 const AddShippingAddress = () => {
   const [name, setName] = useState("");
@@ -26,7 +26,7 @@ const AddShippingAddress = () => {
   const [filteredStates, setFilteredStates] = useState([]);
   const [stateSelect, setStateSelect] = useState();
   const [addresses, setAddresses] = useState();
- const {setLoader} = useContext(SellerContext)
+
 
   const [addressModal, setAddressModal] = useState(false);
 
@@ -154,7 +154,7 @@ const AddShippingAddress = () => {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         setAddresses(response?.data?.address);
         console.log(response.data);
       }
@@ -176,7 +176,7 @@ const AddShippingAddress = () => {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         toast.success(response?.data?.message || "Done");
         getAddresses();
       }
@@ -199,7 +199,7 @@ const AddShippingAddress = () => {
           },
         }
       );
-      if (response) {setLoader(false);
+      if (response) {
         toast.success(response?.data?.message || "Done");
         getAddresses();
       }
