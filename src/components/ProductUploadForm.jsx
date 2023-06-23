@@ -583,7 +583,7 @@ function ProductUploadForm() {
           <div className="flex flex-col space-y-4">
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Product Status</h2>
+                <h2  className="text-lg font-medium mb-2">Product Status</h2>
                 <div className="flex items-center justify-between">
                   <span>Active</span>
                   <ToggleSwitch
@@ -597,7 +597,7 @@ function ProductUploadForm() {
             </div>
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Featured Product</h2>
+                <h2  className="text-lg font-medium mb-2">Featured Product</h2>
                 <div className="flex items-center justify-between">
                   <span>Mark as featured</span>
                   <Checkbox
@@ -616,7 +616,7 @@ function ProductUploadForm() {
             </div>
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Product Tags</h2>
+                <h2  className="text-lg font-medium mb-2">Product Tags</h2>
                 <p className="text-sm text-gray-500 mb-2">
                   This will be used by Buyer to search the product. Type the tag
                   and click on enter to add another tag
