@@ -37,7 +37,7 @@ const CancellationRequests = () => {
       setLoading(true);
       
       const response = await axios.get(
-        "http://localhost:4000/api/admin/order/requests/cancellation",
+        "https://mazamaza.onrender.com/api/admin/order/requests/cancellation",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -76,7 +76,7 @@ const CancellationRequests = () => {
       setLoading(true);
       
       const response = await axios.delete(
-        `http://localhost:4000/api/order/delete/${id}`,
+        `https://mazamaza.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

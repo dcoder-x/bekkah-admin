@@ -123,7 +123,7 @@ const AddShippingAddress = () => {
 
     // send login request using axios
     axios
-      .post("http://localhost:4000/api/seller/address?action=add", formObject, {
+      .post("https://mazamaza.onrender.com/api/seller/address?action=add", formObject, {
         headers: { "x-auth-token": localStorage.getItem("sellerAuthToken") },
       })
       .then((response) => {
@@ -147,7 +147,7 @@ const AddShippingAddress = () => {
   const getAddresses = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/seller/address",
+        "https://mazamaza.onrender.com/api/seller/address",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -169,7 +169,7 @@ const AddShippingAddress = () => {
   const setPrimaryAddresses = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/seller/address/primary?address=${id}`,
+        `https://mazamaza.onrender.com/api/seller/address/primary?address=${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -192,7 +192,7 @@ const AddShippingAddress = () => {
   const deleteAddress = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/seller/address?action=delete&address=${id}`,
+        `https://mazamaza.onrender.com/api/seller/address?action=delete&address=${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),

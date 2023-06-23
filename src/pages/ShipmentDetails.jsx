@@ -13,7 +13,7 @@ export const ShipmentDetailsPage = () => {
 
     function trackShipment() {
         try {
-            const response = axios.get(`http://localhost:4000/api/delivery/track/${shipment.trackingNumber}`)
+            const response = axios.get(`https://mazamaza.onrender.com/api/delivery/track/${shipment.trackingNumber}`)
             if (response) {
                 setTrackingData(response?.data?.trackingData?.shipments)
             }

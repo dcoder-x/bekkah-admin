@@ -18,7 +18,7 @@ export default function WidgetLg() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/sales/new",
+        "https://mazamaza.onrender.com/api/admin/sales/new",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

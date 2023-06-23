@@ -23,7 +23,7 @@ const SignIn = () => {
 
     // send login request using axios
     axios
-      .post("http://localhost:4000/api/admin/signin",formObject)
+      .post("https://mazamaza.onrender.com/api/admin/signin",formObject)
       .then((response) => {
         // handle successful login
         localStorage.setItem('AdminAuthToken',response.data.token)

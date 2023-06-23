@@ -43,7 +43,7 @@ export default function PriceDiscount() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/product/my_products/",
+        "https://mazamaza.onrender.com/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -65,7 +65,7 @@ export default function PriceDiscount() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/product/my_products/",
+        "https://mazamaza.onrender.com/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),

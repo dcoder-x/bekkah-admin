@@ -11,7 +11,7 @@ const PaymentComplete = () => {
 
     const completeTransaction = async () =>{
         try {
-          const response = await axios.get(`http://localhost:4000/api/payment/callback?reference=${transactionRef}`)
+          const response = await axios.get(`https://mazamaza.onrender.com/api/payment/callback?reference=${transactionRef}`)
           console.log('here here')
           if (response) {
 

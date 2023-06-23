@@ -29,7 +29,7 @@ function SellerDetails() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:4000/api/admin/seller",
+        "https://mazamaza.onrender.com/api/admin/seller",
         {
           sellerId: urlSeller._id,
         },
@@ -65,7 +65,7 @@ function SellerDetails() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/admin/delete-seller/${id}`,
+        `https://mazamaza.onrender.com/api/admin/delete-seller/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -89,7 +89,7 @@ function SellerDetails() {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `http://localhost:4000/api/admin/restrict-seller/${id}`,
+        `https://mazamaza.onrender.com/api/admin/restrict-seller/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

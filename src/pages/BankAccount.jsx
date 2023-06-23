@@ -46,7 +46,7 @@ function BankAccountForm() {
     try {
       setProcessing(true);
       const response = await axios.post(
-        "http://localhost:4000/api/seller/account/bank",
+        "https://mazamaza.onrender.com/api/seller/account/bank",
         {
           bankAddress,
           bankName,
