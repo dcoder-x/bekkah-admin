@@ -37,7 +37,7 @@ const ReturnRequests = () => {
       setLoading(true);
       
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/order/requests/return",
+        "https://api-bekkah.onrender.com/api/order/requests/return",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -76,7 +76,7 @@ const ReturnRequests = () => {
       setLoading(true);
       
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `https://api-bekkah.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

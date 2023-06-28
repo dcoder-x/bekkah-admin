@@ -43,7 +43,7 @@ export default function PriceDiscount() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products/",
+        "https://api-bekkah.onrender.com/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -65,7 +65,7 @@ export default function PriceDiscount() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products/",
+        "https://api-bekkah.onrender.com/api/product/my_products/",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -326,7 +326,7 @@ export default function PriceDiscount() {
             </label>
             <select
               id="option"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1874BD]"
               value={selectedOption}
               onChange={handleOptionChange}
             >
@@ -350,7 +350,7 @@ export default function PriceDiscount() {
             <input
               type="date"
               id="startDate"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1874BD]"
               value={startDate}
               onChange={handleStartDateChange}
             />
@@ -365,7 +365,7 @@ export default function PriceDiscount() {
             <input
               type="date"
               id="endDate"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1874BD]"
               value={endDate}
               onChange={handleEndDateChange}
             />
@@ -380,14 +380,14 @@ export default function PriceDiscount() {
             <input
               type="text"
               id="textInput"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#03750D]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1874BD]"
               value={textInput}
               onChange={handleTextInputChange}
             />
           </div>
           <button
             type="submit"
-            className="bg-[#03750D] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-[#03750D]"
+            className="bg-[#1874BD] hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-[#1874BD]"
             onClick={handleSubmit}
           >
             Submit

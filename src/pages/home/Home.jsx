@@ -19,7 +19,7 @@ export default function Home() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/sales-graph",
+        "https://api-bekkah.onrender.com/api/admin/sales-graph",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

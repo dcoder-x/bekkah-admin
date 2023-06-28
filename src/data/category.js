@@ -81,27 +81,6 @@ export const categories = [
   },
 
   {
-    sublistTag: "hairZones",
-    heading: "Hair Salon",
-    sublist: [
-      "Wigs",
-      "Brazilian hair",
-      "Braids",
-      "Dreadlocks",
-      "Ghana weave",
-      "Natural hair",
-      "Head tie",
-      "Facinator",
-      "Head band",
-      "Malaysia Hair",
-      "Peruvian Hair",
-      "Indian Hair",
-      "Hair accessories",
-      "Head gear",
-    ],
-  },
-
-  {
     sublistTag: "fashion",
     heading: "Fashion",
     sublist: [
@@ -129,64 +108,4 @@ export const categories = [
     ],
   },
 
-  {
-    sublistTag: "foodStuff",
-    heading: "Food Stuff & Allied Agro Products",
-    sublist: [
-      "Fast food & Restaurant",
-      "Unprocessed food / Products",
-      "Dairy Food",
-      "Dry Fish",
-      "Grain & Flour",
-      "Nuts & Seed",
-      "Processed Food & products",
-    ],
-  },
-
-  {
-    sublistTag: "herbs",
-    heading: "Herbs/Spices & Spiritual",
-    sublist: [
-      "Roots & Plants",
-      "Seed & Leaves",
-      "Honey",
-      "Garlic",
-      "Ginger",
-      "Paprinka",
-      "Peppercorns",
-      "Incense",
-      "Candles",
-      "Beads",
-      "Oil",
-      "Fragrance",
-      "Pepper soup Spices",
-      "Jollof rice Spices",
-      "Stew Spices",
-      "Fried rice Spices",
-      "Meat",
-      "Chicken Spices",
-      "Soup Spices",
-      "Genaral Spices",
-    ],
-  },
-
-  {
-    sublistTag: "education",
-    heading: "Education",
-    sublist: [
-      "Novels",
-      "Books",
-      "Magazines",
-      "Children Books",
-      "Making Money online",
-      "Bestsellers",
-      "How to make something",
-    ],
-  },
-
-  {
-    sublistTag: "generalServices",
-    heading: "General Services",
-    sublist: ["Buy & Sell Properties", "Rent Properties", "Advertise"],
-  },
 ];

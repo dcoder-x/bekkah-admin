@@ -176,7 +176,7 @@ function ProductUploadForm() {
     productImages.forEach((image) => data.append("images", image.file));
   
     // Append subcategories, category, tags, dimensions, variants, and specifications
-    data.append("subcategories", selectedCategories);
+    data.append("subcategories", JSON.stringify(selectedCategories));
     data.append("category", selectedCategory);
     data.append("tags", tags);
     data.append(
@@ -185,14 +185,19 @@ function ProductUploadForm() {
     );
     data.append("variants", JSON.stringify(productVariants));
     data.append("specifications", JSON.stringify(productSpecifications));
+
+
+   const dataObj =  Object.fromEntries(data)
+   console.log(dataObj,'obj')
   
     try {
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/product/create",
+        "https://api-bekkah.onrender.com/api/product/create",
         data,
         {
           headers: {
             "x-auth-token": `${localStorage.getItem("AdminAuthToken")}`,
+            "Content-Type":'multipart/form-data'
           },
         }
       );
@@ -220,24 +225,6 @@ function ProductUploadForm() {
     >
       <div className="w-full flex flex-col lg:flex-row items-start justify-center">
         <div className="">
-        <div className="mb-4">
-            <label
-              className="block text-gray-700 font-bold mb-2"
-              htmlFor="name"
-            >
-              Shop Id / Shop Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="name"
-              type="text"
-              placeholder="Enter Seller Id"
-              // value={productName}
-              // onChange={(event) => setProductName(event.target.value)}
-              name="name"
-              required
-            />
-          </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -386,7 +373,7 @@ function ProductUploadForm() {
                         )
                       }
                     />
-                    <input
+                    {/* <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
                       type="file"
                       onChange={(event) =>
@@ -397,7 +384,7 @@ function ProductUploadForm() {
                           event.target.files[0]
                         )
                       }
-                    />
+                    /> */}
                     {optionIndex !== 0 && (
                       <button
                         type="button"
@@ -424,7 +411,7 @@ function ProductUploadForm() {
                   className="ml-2"
                   onClick={() => handleOptionAdd(variantIndex)}
                 >
-                  <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
+                  <PlusCircleIcon className="h-5 w-5 text-[#1874BD] hover:text-blue-700" />
                 </button>
                   </div>
                 ))}
@@ -456,7 +443,7 @@ function ProductUploadForm() {
                     className="ml-2 flex"
                     onClick={handleVariantAdd}
                   >
-                    <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
+                    <PlusCircleIcon className="h-5 w-5 text-[#1874BD] hover:text-blue-700" />
                     <p>New variant</p>
                   </button>
                 )}
@@ -499,7 +486,7 @@ function ProductUploadForm() {
                     className="ml-2"
                     onClick={handleSpecificationAdd}
                   >
-                    <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
+                    <PlusCircleIcon className="h-5 w-5 text-[#1874BD] hover:text-blue-700" />
                   </button>
                 )}
                 {index !== productSpecifications.length - 1 && (
@@ -771,7 +758,7 @@ function ProductUploadForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-[#03750D] flex  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+          className="bg-[#1874BD] flex  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
           // onClick={handleSubmit}
         >
           {isLoading ? "Creating product" : "Create product"}

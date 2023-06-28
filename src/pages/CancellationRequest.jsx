@@ -30,14 +30,14 @@ const CancellationRequests = () => {
   };
   const indexOfLastItem = currentPage * ItemsPerPage;
   const indexOfFirstItem = indexOfLastItem - ItemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data?.slice(indexOfFirstItem, indexOfLastItem);
 
   const getSellerCancellationRequests = async () => {
     try {
       setLoading(true);
       
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/order/requests/cancellation",
+        "https://api-bekkah.onrender.com/api/admin/order/requests/cancellation",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -47,12 +47,12 @@ const CancellationRequests = () => {
       if (response) {
         
         console.log(response);
-        setData(response.data.CancellationRequests);
+        setData(response.data?.CancellationRequests);
       }
     } catch (error) {
       setLoading(false);
       
-      console.log(error, error.response.data.message);
+      console.log(error, error.response.data?.message);
       toast(
         error?.response?.data?.message ||
           "something went wrong : could not fetch CancellationRequests"
@@ -76,7 +76,7 @@ const CancellationRequests = () => {
       setLoading(true);
       
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `https://api-bekkah.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -85,7 +85,7 @@ const CancellationRequests = () => {
       );
       if (response) {
         
-        toast(`${response.data.message} ${response?.data?.deletedorder?.name}`);
+        toast(`${response.data?.message} ${response?.data?.deletedorder?.name}`);
         getSellerCancellationRequests();
       }
     } catch (error) {
@@ -116,11 +116,11 @@ const CancellationRequests = () => {
           />
         }
       />
-      {data.length > 0 && (
+      {data?.length > 0 && (
         <Pagination
           currentPage={currentPage}
           itemsPerPage={ItemsPerPage}
-          totalItems={searchData.length > 0 ? searchData.length : data.length}
+          totalItems={searchData?.length > 0 ? searchData?.length : data?.length}
           onPageChange={(number) => handlePageChange(number)}
           onItemsPerPageChange={(number) => handleItemsPerPageChange(number)}
         />

@@ -10,7 +10,7 @@ export default function FeaturedInfo() {
         <span className="featuredTitle flex items-center">
           <Icon
             width={30}
-            color="#03750D"
+            color="#1874BD"
             icon="fluent:money-24-filled"
             className='mr-2'
           />{" "}
@@ -28,7 +28,7 @@ export default function FeaturedInfo() {
         <span className="featuredTitle flex items-center">
           <Icon
             width={30}
-            color="#03750D"
+            color="#1874BD"
             icon="icon-park-outline:sales-report"
             className='mr-2'
           />{" "}
@@ -47,7 +47,7 @@ export default function FeaturedInfo() {
       <span className="featuredTitle flex items-center">
           <Icon
             width={30}
-            color="#03750D"
+            color="#1874BD"
             icon="fluent-mdl2:product-variant"
             className='mr-2'
           />{" "}

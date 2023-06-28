@@ -190,7 +190,7 @@ function ProductUpdateForm({ product }) {
 
     try {
       const response = await axios.post(
-        `https://mazamaza.onrender.com/api/product/${product._id}/update`,
+        `https://api-bekkah.onrender.com/api/product/${product._id}/update`,
         data,
         {
           headers: {
@@ -372,7 +372,7 @@ function ProductUpdateForm({ product }) {
                         )
                       }
                     />
-                    <input
+                    {/* <input
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
                       type="file"
                       onChange={(event) =>
@@ -383,7 +383,7 @@ function ProductUpdateForm({ product }) {
                           event.target.files[0]
                         )
                       }
-                    />
+                    /> */}
                     {optionIndex !== 0 && (
                       <button
                         type="button"
@@ -410,7 +410,7 @@ function ProductUpdateForm({ product }) {
                   className="ml-2"
                   onClick={() => handleOptionAdd(variantIndex)}
                 >
-                  <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
+                  <PlusCircleIcon className="h-5 w-5 text-[#1874BD] hover:text-blue-700" />
                 </button>
                   </div>
                 ))}
@@ -442,7 +442,7 @@ function ProductUpdateForm({ product }) {
                     className="ml-2 flex"
                     onClick={handleVariantAdd}
                   >
-                    <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
+                    <PlusCircleIcon className="h-5 w-5 text-[#1874BD] hover:text-blue-700" />
                     <p>New variant</p>
                   </button>
                 )}
@@ -484,7 +484,7 @@ function ProductUpdateForm({ product }) {
                     className="ml-2"
                     onClick={handleSpecificationAdd}
                   >
-                    <PlusCircleIcon className="h-5 w-5 text-[#03750D] hover:text-blue-700" />
+                    <PlusCircleIcon className="h-5 w-5 text-[#1874BD] hover:text-blue-700" />
                   </button>
                 )}
                 {index !== productSpecifications.length - 1 && (
@@ -569,7 +569,7 @@ function ProductUpdateForm({ product }) {
           <div className="flex flex-col space-y-4">
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Product Status</h2>
+                <h2  className="text-lg font-medium mb-2">Product Status</h2>
                 <div className="flex items-center justify-between">
                   <span>Active</span>
                   <ToggleSwitch
@@ -584,7 +584,7 @@ function ProductUpdateForm({ product }) {
             </div>
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Featured Product</h2>
+                <h2  className="text-lg font-medium mb-2">Featured Product</h2>
                 <div className="flex items-center justify-between">
                   <span>Mark as featured</span>
                   <Checkbox
@@ -603,7 +603,7 @@ function ProductUpdateForm({ product }) {
             </div>
             <div className="card p-4 shadow-md rounded-sm bg-slate-100">
               <div className="card-body">
-                <h2 className='text-xl font-bold' className="text-lg font-medium mb-2">Product Tags</h2>
+                <h2  className="text-lg font-medium mb-2">Product Tags</h2>
                 <p className="text-sm text-gray-500 mb-2">
                   This will be used by Buyer to search the product. Type the tag
                   and click on enter to add another tag
@@ -741,7 +741,7 @@ function ProductUpdateForm({ product }) {
         <button
           type="submit"
           disabled={isLoading}
-          className="bg-[#03750D] flex  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+          className="bg-[#1874BD] flex  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
           // onClick={handleSubmit}
         >
           {isLoading ? "Updating product" : "Update product"}

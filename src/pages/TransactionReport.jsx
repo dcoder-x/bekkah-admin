@@ -53,7 +53,7 @@ const TransactionReport = () => {
       setLoading(true);
       
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/transactions",
+        "https://api-bekkah.onrender.com/api/admin/transactions",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -92,7 +92,7 @@ const TransactionReport = () => {
       setLoading(true);
       
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `https://api-bekkah.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

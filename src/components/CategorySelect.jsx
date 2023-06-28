@@ -103,7 +103,7 @@ const CategorySelect = ({ OnSelectCategories,OnSelectCategory,subCategories,cate
           {selectedCategories?.map((category, i) => (
             <div
               key={i}
-              className="px-2 py-1 rounded-full bg-[#03750D] text-white mr-2 mb-2 flex items-center"
+              className="px-2 py-1 rounded-full bg-[#1874BD] text-white mr-2 mb-2 flex items-center"
             >
               <span>{category}</span>
               <button

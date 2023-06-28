@@ -27,7 +27,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/admin/package/${id}`,
+        `https://api-bekkah.onrender.com/api/admin/package/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -57,7 +57,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        "https://mazamaza.onrender.com/api/admin/package",
+        "https://api-bekkah.onrender.com/api/admin/package",
         data,
         {
           headers: {
@@ -79,7 +79,7 @@ const SubscriptionPlans = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/packages",
+        "https://api-bekkah.onrender.com/api/admin/packages",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

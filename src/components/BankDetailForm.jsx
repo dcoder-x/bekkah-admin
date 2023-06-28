@@ -59,7 +59,7 @@ function BankDetailsForm() {
           required
         />
       </div>
-      <button type="submit" className="bg-[#03750D] text-white rounded-lg px-4 py-2">
+      <button type="submit" className="bg-[#1874BD] text-white rounded-lg px-4 py-2">
         Add Bank Details
       </button>
     </form>

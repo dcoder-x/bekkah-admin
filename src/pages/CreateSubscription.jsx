@@ -16,7 +16,7 @@ const CreateSubscription = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://mazamaza.onrender.com/api/admin/package",
+        "https://api-bekkah.onrender.com/api/admin/package",
         data,
         {
           headers: {

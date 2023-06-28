@@ -1,25 +1,25 @@
 export const sideBarMenu = [
-  {
-    title: "Shops",
-    icon: "fluent:building-shop-16-regular",
-    sublinks: [
-      {
-        name: "Manage Shops",
-        link: "manage-shop",
-        icon: "",
-      },
-      {
-        name: "Create shops",
-        link: "create-shop",
-        icon: "",
-      },
-      {
-        name: "Manage Sellers",
-        link: "manage-sellers",
-        icon: "",
-      },
-    ],
-  },
+  // {
+  //   title: "Shops",
+  //   icon: "fluent:building-shop-16-regular",
+  //   sublinks: [
+  //     {
+  //       name: "Manage Shops",
+  //       link: "manage-shop",
+  //       icon: "",
+  //     },
+  //     {
+  //       name: "Create shops",
+  //       link: "create-shop",
+  //       icon: "",
+  //     },
+  //     {
+  //       name: "Manage Sellers",
+  //       link: "manage-sellers",
+  //       icon: "",
+  //     },
+  //   ],
+  // },
   {
     title: "Buyers",
     icon: "ph:users-bold",
@@ -53,22 +53,22 @@ export const sideBarMenu = [
       },
     ],
   },
-  {
-    title: "Requests",
-    icon: "codicon:request-changes",
-    sublinks: [
-      {
-        name: "Account Approval",
-        link: "sellerApproval",
-        icon: "",
-      },
-      {
-        name: "Withrawal Requests",
-        link: "restricted-buyers",
-        icon: "",
-      },
-    ],
-  },
+  // {
+  //   title: "Requests",
+  //   icon: "codicon:request-changes",
+  //   sublinks: [
+  //     {
+  //       name: "Account Approval",
+  //       link: "sellerApproval",
+  //       icon: "",
+  //     },
+  //     {
+  //       name: "Withrawal Requests",
+  //       link: "restricted-buyers",
+  //       icon: "",
+  //     },
+  //   ],
+  // },
   {
     title: "Orders",
     icon: "icon-park-outline:sales-report",

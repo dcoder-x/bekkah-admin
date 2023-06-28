@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
-import logo from "../assets/images/logo.jpg";
+import logo from "../assets/images/1.png";
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +23,7 @@ const SignIn = () => {
 
     // send login request using axios
     axios
-      .post("https://mazamaza.onrender.com/api/admin/signin",formObject)
+      .post("https://api-bekkah.onrender.com/api/admin/signin",formObject)
       .then((response) => {
         // handle successful login
         localStorage.setItem('AdminAuthToken',response.data.token)
@@ -47,7 +47,7 @@ const SignIn = () => {
           <img
             src={logo}
             className=" max-w-[200px] self-center justify-self-center "
-            alt="MazaMaza logo"
+            alt="bekkah logo"
           />
           <div class="text-center">
             <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
@@ -109,7 +109,7 @@ const SignIn = () => {
                   type="submit"
                   disabled={isLoading}
                   // onClick={e=>{}}
-                  class="w-full px-3 py-4 text-white bg-[#03750D] rounded-md focus:bg-[#037531] focus:outline-none"
+                  class="w-full px-3 py-4 text-white bg-[#1874BD] rounded-md focus:bg-[#037531] focus:outline-none"
                 >
                   {isLoading ? "Processing" : "Sign in"}
                 </button>

@@ -57,7 +57,7 @@ const CreateShopProfileForm = () => {
     console.log(Object.fromEntries(formData.entries()));
     try {
       const response = await axios.post(
-        `https://mazamaza.onrender.com/api/admin/shop`,
+        `https://api-bekkah.onrender.com/api/admin/shop`,
         Object.fromEntries(formData.entries()),
         {
           headers:{
@@ -82,7 +82,7 @@ const CreateShopProfileForm = () => {
           <img
             src={logo}
             className="max-w-[200px] m-auto rounded-full"
-            alt="MazaMaza logo"
+            alt="bekkah logo"
           />
           <div class="text-center">
             <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
@@ -221,7 +221,7 @@ const CreateShopProfileForm = () => {
                     id="identifier"
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
-                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -243,7 +243,7 @@ const CreateShopProfileForm = () => {
                       defaultCountry="NG"
                       value={phone}
                       onChange={setPhone}
-                      className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full pl-10 pr-12 sm:text-sm border rounded-md"
+                      className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full pl-10 pr-12 sm:text-sm border rounded-md"
                     />
                   </div>
                 </div>
@@ -279,7 +279,7 @@ const CreateShopProfileForm = () => {
                     id="state"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
-                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -294,7 +294,7 @@ const CreateShopProfileForm = () => {
                     id="city"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -355,7 +355,7 @@ const CreateShopProfileForm = () => {
                     id="orderReturnAge"
                     value={orderReturnAge}
                     onChange={(e) => setOrderReturnAge(e.target.value)}
-                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -373,7 +373,7 @@ const CreateShopProfileForm = () => {
                     id="orderCancellationAge"
                     value={orderCancellationAge}
                     onChange={(e) => setOrderCancellationAge(e.target.value)}
-                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -391,7 +391,7 @@ const CreateShopProfileForm = () => {
                     id="pickupSlotGap"
                     value={pickupSlotGap}
                     onChange={(e) => setPickupSlotGap(e.target.value)}
-                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full p-2 sm:text-sm border rounded-md"
                   />
                 </div>
 
@@ -408,7 +408,7 @@ const CreateShopProfileForm = () => {
                     id="fulfillmentMethod"
                     value={fulfillmentMethod}
                     onChange={(e) => setFulfillmentMethod(e.target.value)}
-                    className="border-gray-300 focus:ring-[#03750D] focus:border-[#03750D] block w-full p-2 sm:text-sm border rounded-md"
+                    className="border-gray-300 focus:ring-[#1874BD] focus:border-[#1874BD] block w-full p-2 sm:text-sm border rounded-md"
                   >
                     <option value="">Select a method</option>
                     <option value="shipping">Shipping</option>
@@ -421,7 +421,7 @@ const CreateShopProfileForm = () => {
                   <button
                     required
                     type="submit"
-                    className="bg-[#03750D] text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                    className="bg-[#1874BD] text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                   >
                     Create Shop
                   </button>

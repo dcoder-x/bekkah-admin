@@ -35,7 +35,7 @@ const currentusers = data.slice(indexOfFirstuser, indexOfLastuser);
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/users",
+        "https://api-bekkah.onrender.com/api/admin/users",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -86,7 +86,7 @@ const currentusers = data.slice(indexOfFirstuser, indexOfLastuser);
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/user/delete/${id}`,
+        `https://api-bekkah.onrender.com/api/user/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

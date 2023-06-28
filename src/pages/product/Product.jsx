@@ -149,7 +149,7 @@ useEffect(()=>{
             <div className="sm:col-span-1">
               <dt className="text-sm font-medium text-gray-500">Seller</dt>
               <dd className="mt-1 text-sm text-gray-900">
-                {product.seller.shopName}
+                Bekkah artificail intelligence
               </dd>
             </div>
           </dl>

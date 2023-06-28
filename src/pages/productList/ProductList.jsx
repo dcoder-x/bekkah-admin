@@ -39,7 +39,7 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/products",
+        "https://api-bekkah.onrender.com/api/admin/products",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -89,7 +89,7 @@ const currentProducts = data?.slice(indexOfFirstProduct, indexOfLastProduct);
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/product/delete/${id}`,
+        `https://api-bekkah.onrender.com/api/product/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

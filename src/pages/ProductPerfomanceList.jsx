@@ -37,7 +37,7 @@ const ProductPerfomance = () => {
       setLoading(true);
       
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/product/my_products_performance",
+        "https://api-bekkah.onrender.com/api/product/my_products_performance",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -77,7 +77,7 @@ const ProductPerfomance = () => {
       setLoading(true);
       
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/order/delete/${id}`,
+        `https://api-bekkah.onrender.com/api/order/delete/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),

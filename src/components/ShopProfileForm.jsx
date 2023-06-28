@@ -53,7 +53,7 @@
 //     try {
 //       setProcessing(true);
 //       const response = await axios.post(
-//         "https://mazamaza.onrender.com/api/seller/shop/update",
+//         "https://api-bekkah.onrender.com/api/seller/shop/update",
 //         {
 //           gapBetweenOrder,
 //           fulfillmentMethod,
@@ -121,11 +121,11 @@
 //             name="seoFriendlyUrl"
 //             id="seoFriendlyUrl"
 //             disabled
-//             value={`https://mazamaza.com/shop/${shopName}`}
+//             value={`https://bekkah.com/shop/${shopName}`}
 //             onChange={(e) => setSeoFriendlyUrl(e.target.value)}
 //             className="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2 sm:text-sm border rounded-md"
 //           />
-//           {`https://mazamaza.com/shop/${shopName}`}
+//           {`https://bekkah.com/shop/${shopName}`}
 //         </div>
 
 //         <div className="space-y-1">

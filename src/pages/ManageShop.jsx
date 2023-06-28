@@ -25,7 +25,7 @@ function Tab({ activeTab, label, onClick }) {
   const tabClassNames = classNames(
     "inline-block px-4 py-2 font-bold",
     {
-      "border-b-4 border-[#03750D]": activeTab === label,
+      "border-b-4 border-[#1874BD]": activeTab === label,
     },
     {
       "border-b-4 border-gray-300": activeTab !== label,
@@ -47,7 +47,7 @@ function TabContent({ activeTab }) {
 
   const getShopProfile = async () =>{
     try {
-      const response = await axios.get('https://mazamaza.onrender.com/api/seller/shop',{
+      const response = await axios.get('https://api-bekkah.onrender.com/api/seller/shop',{
         headers:{
           'x-auth-token':localStorage.getItem('AdminAuthToken')
         }

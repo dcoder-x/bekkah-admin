@@ -12,7 +12,7 @@ const Transactions = () => {
                             <tr>
                                 <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <div className="flex items-center gap-x-3">
-                                        <input type="checkbox" className="text-[#03750D] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
+                                        <input type="checkbox" className="text-[#1874BD] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
                                         <button className="flex items-center gap-x-2">
                                             <span>Invoice</span>
 
@@ -50,7 +50,7 @@ const Transactions = () => {
                             <tr>
                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                     <div className="inline-flex items-center gap-x-3">
-                                        <input type="checkbox" className="text-[#03750D] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
+                                        <input type="checkbox" className="text-[#1874BD] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
 
                                         <span>#3066</span>
                                     </div>
@@ -81,7 +81,7 @@ const Transactions = () => {
                                             Archive
                                         </button>
 
-                                        <button className="text-[#03750D] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                        <button className="text-[#1874BD] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                             Download
                                         </button>
                                     </div>
@@ -91,7 +91,7 @@ const Transactions = () => {
                             <tr>
                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                     <div className="inline-flex items-center gap-x-3">
-                                        <input type="checkbox" className="text-[#03750D] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
+                                        <input type="checkbox" className="text-[#1874BD] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
 
                                         <span>#3065</span>
                                     </div>
@@ -122,7 +122,7 @@ const Transactions = () => {
                                             Archive
                                         </button>
 
-                                        <button className="text-[#03750D] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                        <button className="text-[#1874BD] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                             Download
                                         </button>
                                     </div>
@@ -132,7 +132,7 @@ const Transactions = () => {
                             <tr>
                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                     <div className="inline-flex items-center gap-x-3">
-                                        <input type="checkbox" className="text-[#03750D] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
+                                        <input type="checkbox" className="text-[#1874BD] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
 
                                         <span>#3064</span>
                                     </div>
@@ -163,7 +163,7 @@ const Transactions = () => {
                                             Archive
                                         </button>
 
-                                        <button className="text-[#03750D] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                        <button className="text-[#1874BD] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                             Download
                                         </button>
                                     </div>
@@ -173,7 +173,7 @@ const Transactions = () => {
                             <tr>
                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                     <div className="inline-flex items-center gap-x-3">
-                                        <input type="checkbox" className="text-[#03750D] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
+                                        <input type="checkbox" className="text-[#1874BD] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
 
                                         <span>#3063</span>
                                     </div>
@@ -204,7 +204,7 @@ const Transactions = () => {
                                             Archive
                                         </button>
 
-                                        <button className="text-[#03750D] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                        <button className="text-[#1874BD] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                             Download
                                         </button>
                                     </div>
@@ -214,7 +214,7 @@ const Transactions = () => {
                             <tr>
                                 <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                     <div className="inline-flex items-center gap-x-3">
-                                        <input type="checkbox" className="text-[#03750D] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
+                                        <input type="checkbox" className="text-[#1874BD] border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"/>
 
                                         <span>#3062</span>
                                     </div>
@@ -245,7 +245,7 @@ const Transactions = () => {
                                             Archive
                                         </button>
 
-                                        <button className="text-[#03750D] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
+                                        <button className="text-[#1874BD] transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
                                             Download
                                         </button>
                                     </div>
@@ -270,7 +270,7 @@ const Transactions = () => {
         </a>
 
         <div className="items-center hidden md:flex gap-x-3">
-            <a href="#" className="px-2 py-1 text-sm text-[#03750D] rounded-md dark:bg-gray-800 bg-blue-100/60">1</a>
+            <a href="#" className="px-2 py-1 text-sm text-[#1874BD] rounded-md dark:bg-gray-800 bg-blue-100/60">1</a>
             <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">2</a>
             <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">3</a>
             <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">...</a>

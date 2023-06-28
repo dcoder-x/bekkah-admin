@@ -123,7 +123,7 @@ const AddShippingAddress = () => {
 
     // send login request using axios
     axios
-      .post("https://mazamaza.onrender.com/api/seller/address?action=add", formObject, {
+      .post("https://api-bekkah.onrender.com/api/seller/address?action=add", formObject, {
         headers: { "x-auth-token": localStorage.getItem("sellerAuthToken") },
       })
       .then((response) => {
@@ -147,7 +147,7 @@ const AddShippingAddress = () => {
   const getAddresses = async () => {
     try {
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/seller/address",
+        "https://api-bekkah.onrender.com/api/seller/address",
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -169,7 +169,7 @@ const AddShippingAddress = () => {
   const setPrimaryAddresses = async (id) => {
     try {
       const response = await axios.get(
-        `https://mazamaza.onrender.com/api/seller/address/primary?address=${id}`,
+        `https://api-bekkah.onrender.com/api/seller/address/primary?address=${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -192,7 +192,7 @@ const AddShippingAddress = () => {
   const deleteAddress = async (id) => {
     try {
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/seller/address?action=delete&address=${id}`,
+        `https://api-bekkah.onrender.com/api/seller/address?action=delete&address=${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("sellerAuthToken"),
@@ -451,7 +451,7 @@ const AddShippingAddress = () => {
             type="submit"
             disabled={loading}
             className={`py-2 px-4  ${
-              loading ? "bg-gray" : "bg-[#03750D]"
+              loading ? "bg-gray" : "bg-[#1874BD]"
             } text-white font-semibold rounded-md hover:bg-green-600 transition duration-300`}
           >
             Save

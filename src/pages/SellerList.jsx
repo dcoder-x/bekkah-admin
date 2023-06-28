@@ -35,7 +35,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mazamaza.onrender.com/api/admin/sellers",
+        "https://api-bekkah.onrender.com/api/admin/sellers",
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
@@ -86,7 +86,7 @@ const currentsellers = data.slice(indexOfFirstseller, indexOfLastseller);
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://mazamaza.onrender.com/api/admin/delete-seller/${id}`,
+        `https://api-bekkah.onrender.com/api/admin/delete-seller/${id}`,
         {
           headers: {
             "x-auth-token": localStorage.getItem("AdminAuthToken"),
